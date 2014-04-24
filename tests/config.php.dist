@@ -1,0 +1,3 @@
+<?php
+
+define('TESTS_KOMPAKT_GODISKORELEASEBATCH_TEMP_DIR', __DIR__ . '/_temp');
