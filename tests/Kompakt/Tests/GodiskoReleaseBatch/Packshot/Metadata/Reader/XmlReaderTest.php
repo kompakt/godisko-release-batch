@@ -9,10 +9,6 @@
 
 namespace Kompakt\Tests\GodiskoReleaseBatch\Packshot\Metadata\Reader;
 
-use Kompakt\ReleaseBatch\Entity\Artwork;
-use Kompakt\ReleaseBatch\Entity\Audio;
-use Kompakt\ReleaseBatch\Entity\Release;
-use Kompakt\ReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 
 class XmlReaderTest extends \PHPUnit_Framework_TestCase
@@ -22,20 +18,7 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
         $file = sprintf('%s/_files/XmlReaderTest/release.xml', __DIR__);
         $reader = $this->getXmlReaderFactory()->getInstance($file);
         $release = $reader->load();
-        $this->assertInstanceOf('Kompakt\ReleaseBatch\Entity\Release', $release);
-        $tracks = array();
-
-        $this->assertEquals('Young Turks', $release->getLabel());
-
-        foreach ($release->getTracks() as $track)
-        {
-            $tracks[$track->getTitle()] = 1;
-        }
-
-        $this->assertCount(3, $tracks);
-        $this->assertArrayHasKey('Sun', $tracks);
-        $this->assertArrayHasKey('On The Way', $tracks);
-        $this->assertArrayHasKey('IMO', $tracks);
+        $this->assertInstanceOf('Kompakt\ReleaseBatchModel\ReleaseInterface', $release);
     }
 
     /**
@@ -70,6 +53,18 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
     
     protected function getXmlReaderFactory()
     {
-        return new XmlReaderFactory(new Release(new Artwork()), new Track(new Audio()));
+        $release = $this
+            ->getMockBuilder('Kompakt\ReleaseBatchModel\ReleaseInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        
+        $track = $this
+            ->getMockBuilder('Kompakt\ReleaseBatchModel\TrackInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        return new XmlReaderFactory($release, $track);
     }
 }

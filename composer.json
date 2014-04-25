@@ -1,25 +1,30 @@
 {
     "name": "kompakt/godisko-release-batch",
     "type": "library",
-    "description": "Godisko release batch implementation",
+    "description": "Concrete Godisko release batch representation",
     "keywords": ["website", "commands"],
     "homepage": "http://www.kompakt.fm",
     "authors": [
         {"name": "Christian Hoegl", "email": "chrigu@kompakt.fm"}
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github-kompakt:kompakt/release-batch.git"
-        }
-    ],
     "require": {
         "php": ">=5.3.2",
-        "kompakt/release-batch": "dev-master"
+        "kompakt/release-batch-model": "dev-master",
+        "kompakt/generic-release-batch": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github-kompakt:kompakt/release-batch-model.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github-kompakt:kompakt/generic-release-batch.git"
+        }
+    ],
     "autoload": {
         "psr-0": { "Kompakt\\GodiskoReleaseBatch": "lib/" }
     }

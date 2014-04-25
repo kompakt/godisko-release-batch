@@ -9,14 +9,14 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Factory;
 
-use Kompakt\ReleaseBatch\Entity\Release;
-use Kompakt\ReleaseBatch\Packshot\Artwork\Loader\Factory\LoaderFactoryInterface;
-use Kompakt\ReleaseBatch\Packshot\Layout\LayoutInterface;
+use Kompakt\ReleaseBatchModel\ReleaseInterface;
+use Kompakt\GenericReleaseBatch\Packshot\Artwork\Loader\Factory\LoaderFactoryInterface;
+use Kompakt\GenericReleaseBatch\Packshot\Layout\LayoutInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Loader;
 
 class LoaderFactory implements LoaderFactoryInterface
 {
-    public function getInstance(LayoutInterface $layout, Release $release)
+    public function getInstance(LayoutInterface $layout, ReleaseInterface $release)
     {
         return new Loader($layout, $release);
     }

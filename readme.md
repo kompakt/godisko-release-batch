@@ -1,6 +1,6 @@
 # Kompakt Godisko Release Batch
 
-Godisko release batch implementation
+Concrete Godisko release batch representation
 
 ## Install
 
@@ -14,11 +14,7 @@ Godisko release batch implementation
 + `cp tests/config.php.dist config.php`
 + Adjust `config.php` as needed
 + `vendor/bin/phpunit`
-
-## Unit Tests
-
-+ `vendor/bin/phpunit tests/Kompakt/GodiskoReleaseBatch`
-+ `vendor/bin/phpunit tests/Kompakt/GodiskoReleaseBatch/Packshot/Artwork/Loader/LoaderTest`
-+ `vendor/bin/phpunit tests/Kompakt/GodiskoReleaseBatch/Packshot/Audio/Loader/LoaderTest`
-+ `vendor/bin/phpunit tests/Kompakt/GodiskoReleaseBatch/Packshot/Layout/LayoutTest`
-+ `vendor/bin/phpunit tests/Kompakt/GodiskoReleaseBatch/Packshot/Metadata/Reader/XmlReaderTest`
++ `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Artwork/Loader/LoaderTest`
++ `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Audio/Loader/LoaderTest`
++ `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Layout/LayoutTest`
++ `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Metadata/Reader/XmlReaderTest`

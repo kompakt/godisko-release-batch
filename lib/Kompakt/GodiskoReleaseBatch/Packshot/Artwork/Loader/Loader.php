@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader;
 
-use Kompakt\ReleaseBatch\Entity\Release;
+use Kompakt\ReleaseBatchModel\ReleaseInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\LoaderInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface;
 
@@ -19,7 +19,7 @@ class Loader implements LoaderInterface
     protected $frontArtworkFile = null;
     protected $loaded = false;
 
-    public function __construct(LayoutInterface $layout, Release $release)
+    public function __construct(LayoutInterface $layout, ReleaseInterface $release)
     {
         $this->layout = $layout;
     }

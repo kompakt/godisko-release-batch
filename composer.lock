@@ -3,17 +3,18 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "143942e8e4d843e65635cbfbe27bd2af",
+    "hash": "2060b057a7edc2c76893dbba6bda13cb",
     "packages": [
         {
-            "name": "kompakt/release-batch",
+            "name": "kompakt/generic-release-batch",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github-kompakt:kompakt/release-batch.git",
-                "reference": "a63ad80792716e5142dcf81f07771853bbc5e506"
+                "url": "git@github-kompakt:kompakt/generic-release-batch.git",
+                "reference": "effbe6a0bcf6c83420235c40b0e1e400eff90050"
             },
             "require": {
+                "kompakt/release-batch-model": "dev-master",
                 "php": ">=5.3.2",
                 "symfony/event-dispatcher": "2.3.*"
             },
@@ -23,7 +24,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Kompakt\\ReleaseBatch": "lib/"
+                    "Kompakt\\GenericReleaseBatch": "lib/"
                 }
             },
             "authors": [
@@ -32,13 +33,44 @@
                     "email": "chrigu@kompakt.fm"
                 }
             ],
-            "description": "Release batch abstraction library",
+            "description": "Generic release batch definition",
             "homepage": "http://www.kompakt.fm",
             "keywords": [
                 "commands",
                 "website"
             ],
-            "time": "2014-04-24 19:54:56"
+            "time": "2014-04-25 09:06:11"
+        },
+        {
+            "name": "kompakt/release-batch-model",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github-kompakt:kompakt/release-batch-model.git",
+                "reference": "9b82bb53da455586587abfa2e64539ee44460346"
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kompakt\\ReleaseBatchModel": "lib/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Christian Hoegl",
+                    "email": "chrigu@kompakt.fm"
+                }
+            ],
+            "description": "Release batch model",
+            "homepage": "http://www.kompakt.fm",
+            "keywords": [
+                "commands",
+                "website"
+            ],
+            "time": "2014-04-25 08:57:54"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -520,7 +552,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kompakt/release-batch": 20
+        "kompakt/release-batch-model": 20,
+        "kompakt/generic-release-batch": 20
     },
     "platform": {
         "php": ">=5.3.2"

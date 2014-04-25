@@ -9,9 +9,9 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader;
 
-use Kompakt\ReleaseBatch\Entity\Release;
-use Kompakt\ReleaseBatch\Entity\Track;
-use Kompakt\ReleaseBatch\Packshot\Metadata\Reader\ReaderInterface;
+use Kompakt\ReleaseBatchModel\ReleaseInterface;
+use Kompakt\ReleaseBatchModel\TrackInterface;
+use Kompakt\GenericReleaseBatch\Packshot\Metadata\Reader\ReaderInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\DomainException;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException;
 
@@ -21,7 +21,7 @@ class XmlReader implements ReaderInterface
     protected $trackPrototype = null;
     protected $file = null;
 
-    public function __construct(Release $releasePrototype, Track $trackPrototype, $file)
+    public function __construct(ReleaseInterface $releasePrototype, TrackInterface $trackPrototype, $file)
     {
         $info = new \SplFileInfo($file);
 
@@ -149,43 +149,37 @@ class XmlReader implements ReaderInterface
         };
 
         $release = clone $this->releasePrototype;
-
-        $release
-            ->setLabel($fixField($this->getDomVal($dom, 'labelname')))
-            ->setName($fixField($this->getDomVal($dom, 'release_name')))
-            ->setEan($fixField($this->getDomVal($dom, 'release_ean')))
-            ->setCatalogNumber($fixField($this->getDomVal($dom, 'release_catno')))
-            ->setPhysicalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_physical_releasedate')))
-            ->setDigitalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_digital_releasedate')))
-            ->setOriginalFormat($fixField($this->getDomVal($dom, 'release_originalformat')))
-            ->setShortInfoEn($fixField($this->getDomVal($dom, 'release_short_info_e')))
-            ->setShortInfoDe($fixField($this->getDomVal($dom, 'release_short_info_d')))
-            ->setInfoEn($fixField($this->getDomVal($dom, 'release_info_e')))
-            ->setInfoDe($fixField($this->getDomVal($dom, 'release_info_d')))
-            ->setSaleTerritories($fixField($this->getDomVal($dom, 'release_saleterritories')))
-            ->setBundleRestriction($fixBundleRestriction($this->getDomVal($dom, 'release_bundlerestriction')))
-        ;
+        $release->setLabel($fixField($this->getDomVal($dom, 'labelname')));
+        $release->setName($fixField($this->getDomVal($dom, 'release_name')));
+        $release->setEan($fixField($this->getDomVal($dom, 'release_ean')));
+        $release->setCatalogNumber($fixField($this->getDomVal($dom, 'release_catno')));
+        $release->setPhysicalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_physical_releasedate')));
+        $release->setDigitalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_digital_releasedate')));
+        $release->setOriginalFormat($fixField($this->getDomVal($dom, 'release_originalformat')));
+        $release->setShortInfoEn($fixField($this->getDomVal($dom, 'release_short_info_e')));
+        $release->setShortInfoDe($fixField($this->getDomVal($dom, 'release_short_info_d')));
+        $release->setInfoEn($fixField($this->getDomVal($dom, 'release_info_e')));
+        $release->setInfoDe($fixField($this->getDomVal($dom, 'release_info_d')));
+        $release->setSaleTerritories($fixField($this->getDomVal($dom, 'release_saleterritories')));
+        $release->setBundleRestriction($fixBundleRestriction($this->getDomVal($dom, 'release_bundlerestriction')));
 
         $tracks = $this->getDomElement($dom, 'tracks');
 
         foreach ($tracks->getElementsByTagName('track') as $t)
         {
             $track = clone $this->trackPrototype;
-
-            $track
-                ->setIsrc($fixField($this->getDomVal($t, 'track_isrc')))
-                ->setPosition($fixField($this->getDomVal($t, 'track_originalposition')))
-                ->setArtist($fixField($this->getDomVal($t, 'track_artist')))
-                ->setComposer($fixField($this->getDomVal($t, 'track_composer')))
-                ->setSongwriter($fixField($this->getDomVal($t, 'track_songwriter')))
-                ->setPublisher($fixField($fixTrackPublisher($this->getDomVal($t, 'track_publisher'))))
-                ->setTitle($fixField($this->getDomVal($t, 'track_title')))
-                ->setGenre($fixField($this->getDomVal($t, 'track_genre')))
-                ->setMedia($fixField($this->getDomVal($t, 'track_media')))
-                ->setDiscNr($fixField($this->getDomVal($t, 'track_num_disc_num')))
-                ->setAlbumNr($fixField($this->getDomVal($t, 'track_num_album_num')))
-                ->setDuration($fixField($this->getDomVal($t, 'track_duration')))
-            ;
+            $track->setIsrc($fixField($this->getDomVal($t, 'track_isrc')));
+            $track->setPosition($fixField($this->getDomVal($t, 'track_originalposition')));
+            $track->setArtist($fixField($this->getDomVal($t, 'track_artist')));
+            $track->setComposer($fixField($this->getDomVal($t, 'track_composer')));
+            $track->setSongwriter($fixField($this->getDomVal($t, 'track_songwriter')));
+            $track->setPublisher($fixField($fixTrackPublisher($this->getDomVal($t, 'track_publisher'))));
+            $track->setTitle($fixField($this->getDomVal($t, 'track_title')));
+            $track->setGenre($fixField($this->getDomVal($t, 'track_genre')));
+            $track->setMedia($fixField($this->getDomVal($t, 'track_media')));
+            $track->setDiscNr($fixField($this->getDomVal($t, 'track_num_disc_num')));
+            $track->setAlbumNr($fixField($this->getDomVal($t, 'track_num_album_num')));
+            $track->setDuration($fixField($this->getDomVal($t, 'track_duration')));
 
             $release->addTrack($track);
         }

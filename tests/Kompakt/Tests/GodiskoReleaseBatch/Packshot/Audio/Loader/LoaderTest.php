@@ -54,7 +54,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     protected function getRelease()
     {
         $track = $this
-            ->getMockBuilder('Kompakt\ReleaseBatch\Entity\Track')
+            ->getMockBuilder('Kompakt\ReleaseBatchModel\TrackInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -66,7 +66,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         ;
 
         $release = $this
-            ->getMockBuilder('Kompakt\ReleaseBatch\Entity\Release')
+            ->getMockBuilder('Kompakt\ReleaseBatchModel\ReleaseInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;
