@@ -18,3 +18,7 @@ Concrete Godisko release batch representation
 + `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Audio/Loader/LoaderTest`
 + `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Layout/LayoutTest`
 + `vendor/bin/phpunit tests/Kompakt/Tests/GodiskoReleaseBatch/Packshot/Metadata/Reader/XmlReaderTest`
+
+## License
+
+See LICENSE.
