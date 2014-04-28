@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory;
 
-use Kompakt\ReleaseBatchModel\ReleaseInterface;
-use Kompakt\ReleaseBatchModel\TrackInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
 use Kompakt\GenericReleaseBatch\Packshot\Metadata\Reader\Factory\ReaderFactoryInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlReader;
 

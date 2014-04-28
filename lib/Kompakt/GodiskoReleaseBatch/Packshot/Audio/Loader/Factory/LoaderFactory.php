@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Factory;
 
-use Kompakt\ReleaseBatchModel\ReleaseInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
 use Kompakt\GenericReleaseBatch\Packshot\Audio\Loader\Factory\LoaderFactoryInterface;
 use Kompakt\GenericReleaseBatch\Packshot\Layout\LayoutInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Loader;

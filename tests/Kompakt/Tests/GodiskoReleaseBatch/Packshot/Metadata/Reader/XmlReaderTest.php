@@ -18,7 +18,7 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
         $file = sprintf('%s/_files/XmlReaderTest/release.xml', __DIR__);
         $reader = $this->getXmlReaderFactory()->getInstance($file);
         $release = $reader->load();
-        $this->assertInstanceOf('Kompakt\ReleaseBatchModel\ReleaseInterface', $release);
+        $this->assertInstanceOf('Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface', $release);
     }
 
     /**
@@ -54,13 +54,13 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
     protected function getXmlReaderFactory()
     {
         $release = $this
-            ->getMockBuilder('Kompakt\ReleaseBatchModel\ReleaseInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;
         
         $track = $this
-            ->getMockBuilder('Kompakt\ReleaseBatchModel\TrackInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\TrackInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;

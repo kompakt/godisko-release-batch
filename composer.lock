@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2060b057a7edc2c76893dbba6bda13cb",
+    "hash": "c7564efd84ca533c52d553ad992a3df2",
     "packages": [
         {
             "name": "kompakt/generic-release-batch",
@@ -11,10 +11,9 @@
             "source": {
                 "type": "git",
                 "url": "git@github-kompakt:kompakt/generic-release-batch.git",
-                "reference": "effbe6a0bcf6c83420235c40b0e1e400eff90050"
+                "reference": "ffa58a4929927c4b73b8e78583a03710ebb436eb"
             },
             "require": {
-                "kompakt/release-batch-model": "dev-master",
                 "php": ">=5.3.2",
                 "symfony/event-dispatcher": "2.3.*"
             },
@@ -39,52 +38,21 @@
                 "commands",
                 "website"
             ],
-            "time": "2014-04-25 09:06:11"
-        },
-        {
-            "name": "kompakt/release-batch-model",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github-kompakt:kompakt/release-batch-model.git",
-                "reference": "9b82bb53da455586587abfa2e64539ee44460346"
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Kompakt\\ReleaseBatchModel": "lib/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Christian Hoegl",
-                    "email": "chrigu@kompakt.fm"
-                }
-            ],
-            "description": "Release batch model",
-            "homepage": "http://www.kompakt.fm",
-            "keywords": [
-                "commands",
-                "website"
-            ],
-            "time": "2014-04-25 08:57:54"
+            "time": "2014-04-28 09:00:16"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.3.12",
+            "version": "v2.3.13",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "15645237c6ff70e74a28e8836362d82492765055"
+                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/15645237c6ff70e74a28e8836362d82492765055",
-                "reference": "15645237c6ff70e74a28e8836362d82492765055",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/cb7cd38c081507d10997553c4c522956a4d2afab",
+                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab",
                 "shasum": ""
             },
             "require": {
@@ -126,7 +94,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 10:29:24"
+            "time": "2014-04-16 10:30:19"
         }
     ],
     "packages-dev": [
@@ -499,17 +467,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd"
+                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
-                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
+                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
                 "shasum": ""
             },
             "require": {
@@ -544,7 +512,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-12 18:29:58"
+            "time": "2014-04-18 20:37:09"
         }
     ],
     "aliases": [
@@ -552,7 +520,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kompakt/release-batch-model": 20,
         "kompakt/generic-release-batch": 20
     },
     "platform": {

@@ -39,7 +39,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     protected function getRelease()
     {
         return $this
-            ->getMockBuilder('Kompakt\ReleaseBatchModel\ReleaseInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;
