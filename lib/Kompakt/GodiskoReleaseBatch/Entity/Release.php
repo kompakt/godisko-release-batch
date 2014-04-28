@@ -27,6 +27,7 @@ class Release implements ReleaseInterface
     protected $infoDe = null;
     protected $saleTerritories = null;
     protected $bundleRestriction = null;
+    protected $tracks = array();
 
     public function setLabel($label)
     {
