@@ -11,7 +11,7 @@ namespace Kompakt\GodiskoReleaseBatch\Entity;
 
 use Kompakt\GenericReleaseBatch\Entity\TrackInterface as GenericTrackInterface;
 
-interface TrackInterface
+interface TrackInterface extends GenericTrackInterface
 {
     public function setIsrc($isrc);
     public function getIsrc();
