@@ -9,10 +9,9 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader;
 
-#use Kompakt\GenericReleaseBatch\Packshot\Artwork\Loader\LoaderInterface as GenericLoaderInterface;
+use Kompakt\GenericReleaseBatch\Packshot\Artwork\Loader\LoaderInterface as GenericLoaderInterface;
 
-#interface LoaderInterface extends GenericLoaderInterface
-interface LoaderInterface
+interface LoaderInterface extends GenericLoaderInterface
 {
     public function getFrontArtworkFile();
 }

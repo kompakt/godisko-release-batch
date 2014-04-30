@@ -9,10 +9,9 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader;
 
-#use Kompakt\GenericReleaseBatch\Packshot\Audio\Loader\LoaderInterface as GenericLoaderInterface;
+use Kompakt\GenericReleaseBatch\Packshot\Audio\Loader\LoaderInterface as GenericLoaderInterface;
 
-#interface LoaderInterface extends GenericLoaderInterface
-interface LoaderInterface
+interface LoaderInterface extends GenericLoaderInterface
 {
     public function getAudioFile($isrc);
 }
