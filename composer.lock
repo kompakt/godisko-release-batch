@@ -11,7 +11,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github-kompakt:kompakt/generic-release-batch.git",
-                "reference": "0d81c2ef32658065832977638eab09896c39cd94"
+                "reference": "6001070d77c6d4136217e5034034e01d2c34b190"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -38,7 +38,7 @@
                 "commands",
                 "website"
             ],
-            "time": "2014-04-30 08:21:14"
+            "time": "2014-04-30 09:47:36"
         },
         {
             "name": "symfony/event-dispatcher",
