@@ -4,7 +4,7 @@ Concrete Godisko release batch representation
 
 ## Description
 
-This package implements a batch structure as exported by Godisko. This structure is specific to Kompakt but might serve as an example to implement your own batch definition on top the [Kompakt Media Delivery Framework](http://github.com/kompakt/media-delivery-framework]. This package implements the following structure:
+This package implements a batch structure as exported by Godisko. This structure is specific to Kompakt but might serve as an example to implement your own batch definition on top the [Kompakt Media Delivery Framework](http://github.com/kompakt/media-delivery-framework). This package implements the following structure:
 
     + packshot-dir
         + meta.XML
@@ -12,7 +12,7 @@ This package implements a batch structure as exported by Godisko. This structure
         + GB6HK1200063.wav
         + GB6HK1200067.wav
 
-Audio file are named by ISRC code and referenced in meta.XML
+Audio files are named by ISRC code and referenced in meta.XML
 
 ## Install
 
