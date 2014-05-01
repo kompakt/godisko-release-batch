@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\GenericReleaseBatch\Entity\ReleaseInterface as GenericReleaseInterface;
+use Kompakt\MediaDeliveryFramework\Entity\ReleaseInterface as GenericReleaseInterface;
 use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
 
 interface ReleaseInterface extends GenericReleaseInterface

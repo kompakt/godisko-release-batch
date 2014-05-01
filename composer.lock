@@ -3,15 +3,15 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c7564efd84ca533c52d553ad992a3df2",
+    "hash": "1e0a818101ac403c066fbaaf10ca398d",
     "packages": [
         {
-            "name": "kompakt/generic-release-batch",
+            "name": "kompakt/media-delivery-framework",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github-kompakt:kompakt/generic-release-batch.git",
-                "reference": "2224329aa3f48df4579a6a7aaffb8d5d6e85ab06"
+                "url": "git@github-kompakt:kompakt/media-delivery-framework.git",
+                "reference": "3226d9776acc8124a7750e85d2914fd144daf02a"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -23,7 +23,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Kompakt\\GenericReleaseBatch": "lib/"
+                    "Kompakt\\MediaDeliveryFramework": "lib/"
                 }
             },
             "authors": [
@@ -32,13 +32,13 @@
                     "email": "chrigu@kompakt.fm"
                 }
             ],
-            "description": "Generic release batch definition",
+            "description": "Framework for media handling and delivery applications",
             "homepage": "http://www.kompakt.fm",
             "keywords": [
                 "commands",
                 "website"
             ],
-            "time": "2014-04-30 13:50:16"
+            "time": "2014-05-01 09:10:35"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -344,16 +344,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.36",
+            "version": "3.7.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1735d588c9f35bd8686cae0208d8adde77b45365"
+                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1735d588c9f35bd8686cae0208d8adde77b45365",
-                "reference": "1735d588c9f35bd8686cae0208d8adde77b45365",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
+                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +413,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-29 07:24:10"
+            "time": "2014-04-30 12:24:19"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -519,7 +519,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kompakt/generic-release-batch": 20
+        "kompakt/media-delivery-framework": 20
     },
     "platform": {
         "php": ">=5.3.2"

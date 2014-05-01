@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Layout;
 
-use Kompakt\GenericReleaseBatch\Packshot\Layout\LayoutInterface as GenericLayoutInterface;
+use Kompakt\MediaDeliveryFramework\Packshot\Layout\LayoutInterface as GenericLayoutInterface;
 
 interface LayoutInterface extends GenericLayoutInterface
 {

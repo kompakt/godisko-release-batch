@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory;
 
-use Kompakt\GenericReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GenericReleaseBatch\Packshot\Metadata\Writer\Factory\WriterFactoryInterface;
+use Kompakt\MediaDeliveryFramework\Entity\ReleaseInterface;
+use Kompakt\MediaDeliveryFramework\Packshot\Metadata\Writer\Factory\WriterFactoryInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\XmlWriter;
 
 class XmlWriterFactory implements WriterFactoryInterface

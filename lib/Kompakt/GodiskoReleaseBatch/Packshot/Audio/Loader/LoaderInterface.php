@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader;
 
-use Kompakt\GenericReleaseBatch\Packshot\Audio\Loader\LoaderInterface as GenericLoaderInterface;
+use Kompakt\MediaDeliveryFramework\Packshot\Audio\Loader\LoaderInterface as GenericLoaderInterface;
 
 interface LoaderInterface extends GenericLoaderInterface
 {

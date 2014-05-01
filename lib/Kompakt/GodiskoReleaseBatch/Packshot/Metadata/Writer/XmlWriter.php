@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer;
 
-use Kompakt\GenericReleaseBatch\Packshot\Metadata\Writer\WriterInterface;
+use Kompakt\MediaDeliveryFramework\Packshot\Metadata\Writer\WriterInterface;
 
 class XmlWriter implements WriterInterface
 {

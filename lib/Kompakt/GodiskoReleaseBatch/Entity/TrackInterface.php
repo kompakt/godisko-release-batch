@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\GenericReleaseBatch\Entity\TrackInterface as GenericTrackInterface;
+use Kompakt\MediaDeliveryFramework\Entity\TrackInterface as GenericTrackInterface;
 
 interface TrackInterface extends GenericTrackInterface
 {
