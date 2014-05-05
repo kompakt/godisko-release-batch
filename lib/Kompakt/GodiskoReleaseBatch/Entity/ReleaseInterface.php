@@ -9,10 +9,10 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\MediaDeliveryFramework\Entity\ReleaseInterface as GenericReleaseInterface;
 use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
+use Kompakt\Mediameister\Entity\ReleaseInterface as MeisterReleaseInterface;
 
-interface ReleaseInterface extends GenericReleaseInterface
+interface ReleaseInterface extends MeisterReleaseInterface
 {
     public function setLabel($label);
     public function getLabel();

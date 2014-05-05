@@ -11,9 +11,9 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader;
 
 use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
 use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
-use Kompakt\MediaDeliveryFramework\Packshot\Metadata\Reader\ReaderInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\DomainException;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException;
+use Kompakt\Mediameister\Packshot\Metadata\Reader\ReaderInterface;
 
 class XmlReader implements ReaderInterface
 {

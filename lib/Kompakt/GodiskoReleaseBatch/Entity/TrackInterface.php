@@ -9,9 +9,9 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\MediaDeliveryFramework\Entity\TrackInterface as GenericTrackInterface;
+use Kompakt\Mediameister\Entity\TrackInterface as MeisterTrackInterface;
 
-interface TrackInterface extends GenericTrackInterface
+interface TrackInterface extends MeisterTrackInterface
 {
     public function setIsrc($isrc);
     public function getIsrc();

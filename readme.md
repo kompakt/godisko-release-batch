@@ -1,10 +1,10 @@
-# Kompakt Godisko Release Batch
+# Godisko Release Batch
 
 Concrete Godisko release batch representation
 
 ## Description
 
-This package represents a batch structure as exported by Godisko. Godisko is a legacy system for metadata and media management. This structure is specific to Kompakt but might serve as an example to implement your own packshot definition on top of the [Kompakt Media Delivery Framework](http://github.com/kompakt/media-delivery-framework). This package implements the following structure:
+This package represents a batch structure as exported by Godisko. Godisko is a legacy system for metadata and media management. This structure is specific to Kompakt but might serve as an example to implement your own packshot definition on top of [Mediameister](http://github.com/kompakt/mediameister). This package implements the following structure:
 
     + packshot-dir
         + meta.XML

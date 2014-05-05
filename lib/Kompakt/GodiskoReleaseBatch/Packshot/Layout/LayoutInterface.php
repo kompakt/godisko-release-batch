@@ -9,9 +9,9 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Layout;
 
-use Kompakt\MediaDeliveryFramework\Packshot\Layout\LayoutInterface as GenericLayoutInterface;
+use Kompakt\Mediameister\Packshot\Layout\LayoutInterface as MeisterLayoutInterface;
 
-interface LayoutInterface extends GenericLayoutInterface
+interface LayoutInterface extends MeisterLayoutInterface
 {
     public function getFrontArtworkFile();
     public function getOtherFrontArtworkFileNames();

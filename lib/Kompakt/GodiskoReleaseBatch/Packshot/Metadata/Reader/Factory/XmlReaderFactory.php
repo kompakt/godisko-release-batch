@@ -11,8 +11,8 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
 use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
-use Kompakt\MediaDeliveryFramework\Packshot\Metadata\Reader\Factory\ReaderFactoryInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlReader;
+use Kompakt\Mediameister\Packshot\Metadata\Reader\Factory\ReaderFactoryInterface;
 
 class XmlReaderFactory implements ReaderFactoryInterface
 {

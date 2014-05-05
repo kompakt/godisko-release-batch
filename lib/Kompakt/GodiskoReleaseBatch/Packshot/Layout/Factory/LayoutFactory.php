@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Layout\Factory;
 
-use Kompakt\MediaDeliveryFramework\Packshot\Layout\Factory\LayoutFactoryInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
+use Kompakt\Mediameister\Packshot\Layout\Factory\LayoutFactoryInterface;
 
 class LayoutFactory implements LayoutFactoryInterface
 {

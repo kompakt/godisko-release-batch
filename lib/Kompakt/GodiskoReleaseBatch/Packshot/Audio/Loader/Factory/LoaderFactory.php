@@ -9,10 +9,10 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Factory;
 
-use Kompakt\MediaDeliveryFramework\Entity\ReleaseInterface;
-use Kompakt\MediaDeliveryFramework\Packshot\Audio\Loader\Factory\LoaderFactoryInterface;
-use Kompakt\MediaDeliveryFramework\Packshot\Layout\LayoutInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Loader;
+use Kompakt\Mediameister\Entity\ReleaseInterface;
+use Kompakt\Mediameister\Packshot\Audio\Loader\Factory\LoaderFactoryInterface;
+use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
 
 class LoaderFactory implements LoaderFactoryInterface
 {

@@ -3,19 +3,18 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1e0a818101ac403c066fbaaf10ca398d",
+    "hash": "d21640212f337b26040594724d1a262f",
     "packages": [
         {
-            "name": "kompakt/media-delivery-framework",
+            "name": "kompakt/mediameister",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github-kompakt:kompakt/media-delivery-framework.git",
-                "reference": "3226d9776acc8124a7750e85d2914fd144daf02a"
+                "url": "git@github-kompakt:kompakt/mediameister.git",
+                "reference": "3f9ac9eddf776d3d0bc4498a5081941416522ecb"
             },
             "require": {
-                "php": ">=5.3.2",
-                "symfony/event-dispatcher": "2.3.*"
+                "php": ">=5.3.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
@@ -23,7 +22,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Kompakt\\MediaDeliveryFramework": "lib/"
+                    "Kompakt\\Mediameister": "lib/"
                 }
             },
             "authors": [
@@ -32,69 +31,13 @@
                     "email": "chrigu@kompakt.fm"
                 }
             ],
-            "description": "Framework for media handling and delivery applications",
+            "description": "Media batch processing framework",
             "homepage": "http://www.kompakt.fm",
             "keywords": [
                 "commands",
                 "website"
             ],
-            "time": "2014-05-01 09:10:35"
-        },
-        {
-            "name": "symfony/event-dispatcher",
-            "version": "v2.3.13",
-            "target-dir": "Symfony/Component/EventDispatcher",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/cb7cd38c081507d10997553c4c522956a4d2afab",
-                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/dependency-injection": "~2.0"
-            },
-            "suggest": {
-                "symfony/dependency-injection": "",
-                "symfony/http-kernel": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\EventDispatcher\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony EventDispatcher Component",
-            "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:30:19"
+            "time": "2014-05-05 08:32:30"
         }
     ],
     "packages-dev": [
@@ -519,7 +462,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kompakt/media-delivery-framework": 20
+        "kompakt/mediameister": 20
     },
     "platform": {
         "php": ">=5.3.2"
