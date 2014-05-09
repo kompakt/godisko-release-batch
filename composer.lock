@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d21640212f337b26040594724d1a262f",
+    "hash": "d2134c48b1c8f7eaea3e1da8950d0b33",
     "packages": [
         {
             "name": "kompakt/mediameister",
@@ -11,7 +11,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github-kompakt:kompakt/mediameister.git",
-                "reference": "3f9ac9eddf776d3d0bc4498a5081941416522ecb"
+                "reference": "31e6cfafa18467fd68a807b6b324ecc345a6d13d"
             },
             "require": {
                 "php": ">=5.3.2"
@@ -37,7 +37,7 @@
                 "commands",
                 "website"
             ],
-            "time": "2014-05-05 08:32:30"
+            "time": "2014-05-09 13:14:48"
         }
     ],
     "packages-dev": [
@@ -406,6 +406,62 @@
                 "xunit"
             ],
             "time": "2013-01-13 10:24:48"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v2.3.13",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/cb7cd38c081507d10997553c4c522956a4d2afab",
+                "reference": "cb7cd38c081507d10997553c4c522956a4d2afab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "~2.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-04-16 10:30:19"
         },
         {
             "name": "symfony/yaml",

@@ -21,6 +21,16 @@ Audio files are named by ISRC code and referenced in meta.XML
 + `curl -sS https://getcomposer.org/installer | php`
 + `php composer.phar install`
 
+## Example
+
+Example of a full task composition to list the packshot contents of a batch
+
++ `php example/reporter.php`
+
+Example of a full task composition with all supported events
+
++ `php example/debugger.php`
+
 ## Tests
 
 + `cp tests/config.php.dist config.php`
