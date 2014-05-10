@@ -12,10 +12,13 @@ namespace Kompakt\GodiskoReleaseBatch\Task\Tracer\Subscriber;
 use Kompakt\Mediameister\Batch\Tracer\EventNamesInterface as BatchEventNamesInterface;
 use Kompakt\Mediameister\Batch\Tracer\Event\PackshotLoadErrorEvent;
 use Kompakt\Mediameister\Batch\Tracer\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\EventDispatcher\EventSubscriberInterface;
+use Kompakt\Mediameister\Component\Native\Console\Output\ConsoleOutputInterface;
+use Kompakt\Mediameister\Component\Native\EventDispatcher\EventSubscriberInterface;
 use Kompakt\Mediameister\Packshot\Tracer\EventNamesInterface as PackshotEventNamesInterface;
 use Kompakt\Mediameister\Packshot\Tracer\Event\ArtworkEvent;
+use Kompakt\Mediameister\Packshot\Tracer\Event\ArtworkErrorEvent;
 use Kompakt\Mediameister\Packshot\Tracer\Event\TrackEvent;
+use Kompakt\Mediameister\Packshot\Tracer\Event\TrackErrorEvent;
 use Kompakt\Mediameister\Task\Tracer\EventNamesInterface as TaskEventNamesInterface;
 use Kompakt\Mediameister\Task\Tracer\Event\InputErrorEvent;
 use Kompakt\Mediameister\Task\Tracer\Event\TaskFinalEvent;
@@ -27,6 +30,7 @@ class Reporter implements EventSubscriberInterface
     protected $taskEventNames = null;
     protected $batchEventNames = null;
     protected $packshotEventNames = null;
+    protected $output = null;
     protected $packshotCounter = null;
     protected $frontArtworkCounter = null;
     protected $audioCounter = null;
@@ -36,12 +40,14 @@ class Reporter implements EventSubscriberInterface
     public function __construct(
         TaskEventNamesInterface $taskEventNames,
         BatchEventNamesInterface $batchEventNames,
-        PackshotEventNamesInterface $packshotEventNames
+        PackshotEventNamesInterface $packshotEventNames,
+        ConsoleOutputInterface $output
     )
     {
         $this->taskEventNames = $taskEventNames;
         $this->batchEventNames = $batchEventNames;
         $this->packshotEventNames = $packshotEventNames;
+        $this->output = $output;
         $this->packshotCounter = new Counter();
         $this->frontArtworkCounter = new Counter();
         $this->audioCounter = new Counter();
@@ -71,60 +77,115 @@ class Reporter implements EventSubscriberInterface
             $this->packshotEventNames->artwork() => array(
                 array('onArtwork', 0)
             ),
+            $this->packshotEventNames->artworkError() => array(
+                array('onArtworkError', 0)
+            ),
             $this->packshotEventNames->track() => array(
                 array('onTrack', 0)
+            ),
+            $this->packshotEventNames->trackError() => array(
+                array('onTrackError', 0)
             )
         );
     }
 
     public function onInputError(InputErrorEvent $event)
     {
-        echo sprintf("! Task input error: '%s'\n", $event->getException()->getMessage());
+        $this->output->writeln(
+            sprintf(
+                '<error>! Task input error: %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
     }
 
     public function onTaskRun(TaskRunEvent $event)
     {
         $this->sourceBatch = $event->getSourceBatch();
 
-        echo sprintf(
-            "\n%sProcessing batch '%s'\n%s\n",
-            $this->getSeparator(true),
-            $this->sourceBatch->getName(),
-            $this->getSeparator(true)
+        $this->output->writeln('');
+
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator(true)
+            )
         );
+
+        $this->output->writeln(
+            sprintf(
+                '<info>Processing batch: %s</info>',
+                $this->sourceBatch->getName()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator(true)
+            )
+        );
+
+        $this->output->writeln('');
     }
 
     public function onTaskFinal(TaskFinalEvent $event)
     {
-        echo sprintf("\n%s", $this->getSeparator(true));
+        $this->output->writeln('');
 
-        echo sprintf(
-            "Packshots: %d (%d ok, %d errors)\n",
-            $this->packshotCounter->getCount(),
-            $this->packshotCounter->getOks(),
-            $this->packshotCounter->getErrors()
+        $this->output->writeln(
+            sprintf('<comment>%s</comment>', $this->getSeparator(true))
         );
 
-        echo sprintf(
-            "Artwork: %d (%d ok, %d missing)\n",
-            $this->frontArtworkCounter->getCount(),
-            $this->frontArtworkCounter->getOks(),
-            $this->frontArtworkCounter->getErrors()
+        $this->output->writeln(
+            sprintf(
+                '<info>Packshots: %d (%d ok, %d errors)</info>',
+                $this->packshotCounter->getCount(),
+                $this->packshotCounter->getOks(),
+                $this->packshotCounter->getErrors()
+            )
         );
 
-        echo sprintf(
-            "Audio: %d (%d ok, %d missing)\n",
-            $this->audioCounter->getCount(),
-            $this->audioCounter->getOks(),
-            $this->audioCounter->getErrors()
+        $this->output->writeln(
+            sprintf(
+                '<info>Artwork: %d (%d ok, %d missing)</info>',
+                $this->frontArtworkCounter->getCount(),
+                $this->frontArtworkCounter->getOks(),
+                $this->frontArtworkCounter->getErrors()
+            )
         );
 
-        echo sprintf(
-            "%sBatch processed in %s seconds\n%s\n",
-            $this->getSeparator(),
-            $event->getTimer()->getSeconds(),
-            $this->getSeparator(true)
+        $this->output->writeln(
+            sprintf(
+                '<info>Audio: %d (%d ok, %d missing)</info>',
+                $this->audioCounter->getCount(),
+                $this->audioCounter->getOks(),
+                $this->audioCounter->getErrors()
+            )
         );
+
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '<info>Batch processed in %s seconds</info>',
+                $event->getTimer()->getSeconds()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator(true)
+            )
+        );
+
+        $this->output->writeln('');
     }
 
     public function onPackshotLoad(PackshotLoadEvent $event)
@@ -132,10 +193,46 @@ class Reporter implements EventSubscriberInterface
         $this->currentPackshot = $event->getPackshot();
         $this->packshotCounter->addOks(1);
 
-        echo sprintf(
-            "%s> Packshot load '%s'\n",
-            $this->getSeparator(),
-            $event->getPackshot()->getName()
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '<info>+ Packshot: %s</info>',
+                $this->currentPackshot->getName()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '  <info>Name: %s</info>',
+                $this->currentPackshot->getRelease()->getName()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '  <info>Label: %s</info>',
+                $this->currentPackshot->getRelease()->getLabel()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '  <info>Ean: %s</info>',
+                $this->currentPackshot->getRelease()->getEan()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '  <info>Release date: %s</info>',
+                $this->currentPackshot->getRelease()->getPhysicalReleaseDate()->format('Y-m-d')
+            )
         );
     }
 
@@ -143,11 +240,25 @@ class Reporter implements EventSubscriberInterface
     {
         $this->packshotCounter->addErrors(1);
 
-        echo sprintf(
-            "%s! Packshot load error '%s': %s\n",
-            $this->getSeparator(),
-            $event->getPackshot()->getName(),
-            $event->getException()->getMessage()
+        $this->output->writeln(
+            sprintf(
+                '<comment>%s</comment>',
+                $this->getSeparator()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '<info>! Packshot: %s</info>',
+                $this->currentPackshot->getName()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
+                '  <error>! %s</error>',
+                $event->getException()->getMessage()
+            )
         );
     }
 
@@ -155,15 +266,25 @@ class Reporter implements EventSubscriberInterface
     {
         $frontArtworkFile = $this->currentPackshot->getArtworkLoader()->getFrontArtworkFile();
 
-        if ($frontArtworkFile)
+        if (!$frontArtworkFile)
         {
-            $this->frontArtworkCounter->addOks(1);
-            echo sprintf("  > Artwork ok\n");
+            throw new \Exception('Front artwork missing');
         }
-        else {
-            $this->frontArtworkCounter->addErrors(1);
-            echo sprintf("  ! Artwork missing\n");
-        }
+        
+        $this->frontArtworkCounter->addOks(1);
+
+        $this->output->writeln(
+            sprintf('  <info>+ Front artwork: ok</info>')
+        );
+    }
+
+    public function onArtworkError(ArtworkErrorEvent $event)
+    {
+        $this->frontArtworkCounter->addErrors(1);
+
+        $this->output->writeln(
+            sprintf('  <error>! Front artwork: missing</error>')
+        );
     }
 
     public function onTrack(TrackEvent $event)
@@ -171,22 +292,41 @@ class Reporter implements EventSubscriberInterface
         $isrc = $event->getTrack()->getIsrc();
         $audioFile = $this->currentPackshot->getAudioLoader()->getAudioFile($isrc);
 
-        if ($audioFile)
+        if (!$audioFile)
         {
-            $this->audioCounter->addOks(1);
-            echo sprintf("  > Track '%s' (Audio ok)\n", $event->getTrack()->gettitle());
+            throw new \Exception('Audio missing');
         }
-        else {
-            $this->audioCounter->addErrors(1);
-            echo sprintf("  ! Track '%s' (Audio missing)\n", $event->getTrack()->gettitle());
-        }
+        
+        $this->audioCounter->addOks(1);
+
+        $this->output->writeln(
+            sprintf(
+                '    <info>+ Track (%s): %s (Audio ok)</info>',
+                $event->getTrack()->getIsrc(),
+                $event->getTrack()->getTitle()
+            )
+        );
+    }
+
+    public function onTrackError(TrackErrorEvent $event)
+    {
+        $this->audioCounter->addErrors(1);
+
+        $this->output->writeln(
+            sprintf(
+                '    <error>! Track (%s): %s (%s)</error>',
+                $event->getTrack()->getIsrc(),
+                $event->getTrack()->getTitle(),
+                $event->getException()->getMessage()
+            )
+        );
     }
 
     protected function getSeparator($emphasize = false)
     {
         return ($emphasize)
-            ? "///////////////////////////////////////\n"
-            : "---------------------------------------\n"
+            ? '///////////////////////////////////////'
+            : '---------------------------------------'
         ;
     }
 }

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d2134c48b1c8f7eaea3e1da8950d0b33",
+    "hash": "ac60525fc1d28049e80916909049826b",
     "packages": [
         {
             "name": "kompakt/mediameister",
@@ -11,7 +11,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github-kompakt:kompakt/mediameister.git",
-                "reference": "31e6cfafa18467fd68a807b6b324ecc345a6d13d"
+                "reference": "873b46d9d2d5fa906861de3b6336772d5c001339"
             },
             "require": {
                 "php": ">=5.3.2"
@@ -37,7 +37,7 @@
                 "commands",
                 "website"
             ],
-            "time": "2014-05-09 13:14:48"
+            "time": "2014-05-10 11:37:06"
         }
     ],
     "packages-dev": [
@@ -406,6 +406,61 @@
                 "xunit"
             ],
             "time": "2013-01-13 10:24:48"
+        },
+        {
+            "name": "symfony/console",
+            "version": "v2.3.13",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "255ee393592c0b5fdd4e8af5d6bf78710b280577"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/255ee393592c0b5fdd4e8af5d6bf78710b280577",
+                "reference": "255ee393592c0b5fdd4e8af5d6bf78710b280577",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-04-26 11:09:19"
         },
         {
             "name": "symfony/event-dispatcher",

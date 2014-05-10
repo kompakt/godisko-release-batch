@@ -19,9 +19,10 @@ require $autoload;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\Batch\Tracer\BatchTracer;
 use Kompakt\Mediameister\Batch\Tracer\EventNames as BatchEventNames;
+use Kompakt\Mediameister\Component\Adapter\Console\Symfony\Output\ConsoleOutput;
+use Kompakt\Mediameister\Component\Adapter\EventDispatcher\Symfony\EventDispatcher;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\DropDir\Registry\Registry;
-use Kompakt\Mediameister\EventDispatcher\Adapter\Symfony\SymfonyEventDispatcherAdapter;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
 use Kompakt\Mediameister\Packshot\Metadata\Loader\Factory\LoaderFactory as MetadataLoaderFactory;
 use Kompakt\Mediameister\Packshot\Tracer\EventNames as PackshotEventNames;
@@ -37,6 +38,7 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Factory\LayoutFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
 use Kompakt\GodiskoReleaseBatch\Task\Tracer\Subscriber\Reporter;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 $dropDirPathname = sprintf('%s/_files/godisko-drop-dir', __DIR__);
@@ -55,7 +57,7 @@ $dropDir = new DropDir($batchFactory, $dropDirPathname);
 $dropDirRegistry = new Registry();
 $dropDirRegistry->add('my-godisko-drop-dir-name', $dropDir);
 
-$dispatcher = new SymfonyEventDispatcherAdapter(new SymfonyEventDispatcher());
+$dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
 $taskEventNames = new TaskEventNames('my_task_tracer');
 $batchEventNames = new BatchEventNames('my_batch_tracer');
 $packshotEventNames = new PackshotEventNames('my_packshot_tracer');
@@ -73,7 +75,8 @@ $tracerStarter = new TracerStarter(
 $reporter = new Reporter(
     $taskEventNames,
     $batchEventNames,
-    $packshotEventNames
+    $packshotEventNames,
+    new ConsoleOutput(new SymfonyConsoleOutput())
 );
 
 $task = new Task(
@@ -86,7 +89,5 @@ $task = new Task(
 $dispatcher->addSubscriber($reporter);
 $dispatcher->addSubscriber($tracerStarter); // must be the last one
 $task->run('my-godisko-drop-dir-name', 'example-batch');
-
-
 
 
