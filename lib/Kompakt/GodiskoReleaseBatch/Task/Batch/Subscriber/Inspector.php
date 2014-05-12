@@ -7,29 +7,26 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchTracker\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Subscriber;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
-use Kompakt\Mediameister\Task\BatchTracker\EventNamesInterface;
-use Kompakt\Mediameister\Task\BatchTracker\Event\ArtworkEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\ArtworkErrorEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\InputErrorEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\PackshotLoadErrorEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\TaskFinalEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\TaskRunEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\TrackErrorEvent;
-use Kompakt\Mediameister\Task\BatchTracker\Event\TrackEvent;
-use Kompakt\Mediameister\Util\Counter;
+use Kompakt\Mediameister\Task\Batch\EventNamesInterface;
+use Kompakt\Mediameister\Task\Batch\Event\ArtworkEvent;
+use Kompakt\Mediameister\Task\Batch\Event\ArtworkErrorEvent;
+use Kompakt\Mediameister\Task\Batch\Event\InputErrorEvent;
+use Kompakt\Mediameister\Task\Batch\Event\PackshotLoadErrorEvent;
+use Kompakt\Mediameister\Task\Batch\Event\PackshotLoadEvent;
+use Kompakt\Mediameister\Task\Batch\Event\TaskEndErrorEvent;
+use Kompakt\Mediameister\Task\Batch\Event\TaskEndEvent;
+use Kompakt\Mediameister\Task\Batch\Event\TaskRunEvent;
+use Kompakt\Mediameister\Task\Batch\Event\TrackErrorEvent;
+use Kompakt\Mediameister\Task\Batch\Event\TrackEvent;
 
-class Reporter implements EventSubscriberInterface
+class Inspector implements EventSubscriberInterface
 {
     protected $eventNames = null;
     protected $output = null;
-    protected $packshotCounter = null;
-    protected $frontArtworkCounter = null;
-    protected $audioCounter = null;
     protected $sourceBatch = null;
     protected $currentPackshot = null;
 
@@ -40,9 +37,6 @@ class Reporter implements EventSubscriberInterface
     {
         $this->eventNames = $eventNames;
         $this->output = $output;
-        $this->packshotCounter = new Counter();
-        $this->frontArtworkCounter = new Counter();
-        $this->audioCounter = new Counter();
     }
 
     public function getSubscriptions()
@@ -55,8 +49,11 @@ class Reporter implements EventSubscriberInterface
             $this->eventNames->taskRun() => array(
                 array('onTaskRun', 0)
             ),
-            $this->eventNames->taskFinal() => array(
-                array('onTaskFinal', 0)
+            $this->eventNames->taskEnd() => array(
+                array('onTaskEnd', 0)
+            ),
+            $this->eventNames->taskEndError() => array(
+                array('onTaskEndError', 0)
             ),
             // batch events
             $this->eventNames->packshotLoad() => array(
@@ -94,15 +91,7 @@ class Reporter implements EventSubscriberInterface
     public function onTaskRun(TaskRunEvent $event)
     {
         $this->sourceBatch = $event->getSourceBatch();
-
         $this->output->writeln('');
-
-        $this->output->writeln(
-            sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator(true)
-            )
-        );
 
         $this->output->writeln(
             sprintf(
@@ -110,80 +99,23 @@ class Reporter implements EventSubscriberInterface
                 $this->sourceBatch->getName()
             )
         );
+    }
 
-        $this->output->writeln(
-            sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator(true)
-            )
-        );
-
+    public function onTaskEnd(TaskEndEvent $event)
+    {
+        $this->output->writeln('');
         $this->output->writeln('');
     }
 
-    public function onTaskFinal(TaskFinalEvent $event)
+    public function onTaskEndError(TaskEndErrorEvent $event)
     {
         $this->output->writeln('');
-
-        $this->output->writeln(
-            sprintf('<comment>%s</comment>', $this->getSeparator(true))
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>Packshots: %d (%d ok, %d errors)</info>',
-                $this->packshotCounter->getCount(),
-                $this->packshotCounter->getOks(),
-                $this->packshotCounter->getErrors()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>Artwork: %d (%d ok, %d missing)</info>',
-                $this->frontArtworkCounter->getCount(),
-                $this->frontArtworkCounter->getOks(),
-                $this->frontArtworkCounter->getErrors()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>Audio: %d (%d ok, %d missing)</info>',
-                $this->audioCounter->getCount(),
-                $this->audioCounter->getOks(),
-                $this->audioCounter->getErrors()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>Batch processed in %s seconds</info>',
-                $event->getTimer()->getSeconds()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator(true)
-            )
-        );
-
         $this->output->writeln('');
     }
 
     public function onPackshotLoad(PackshotLoadEvent $event)
     {
         $this->currentPackshot = $event->getPackshot();
-        $this->packshotCounter->addOks(1);
 
         $this->output->writeln(
             sprintf(
@@ -230,8 +162,6 @@ class Reporter implements EventSubscriberInterface
 
     public function onPackshotLoadError(PackshotLoadErrorEvent $event)
     {
-        $this->packshotCounter->addErrors(1);
-
         $this->output->writeln(
             sprintf(
                 '<comment>%s</comment>',
@@ -262,8 +192,6 @@ class Reporter implements EventSubscriberInterface
         {
             throw new \Exception('Front artwork missing');
         }
-        
-        $this->frontArtworkCounter->addOks(1);
 
         $this->output->writeln(
             sprintf('  <info>+ Front artwork: ok</info>')
@@ -272,8 +200,6 @@ class Reporter implements EventSubscriberInterface
 
     public function onArtworkError(ArtworkErrorEvent $event)
     {
-        $this->frontArtworkCounter->addErrors(1);
-
         $this->output->writeln(
             sprintf('  <error>! Front artwork: missing</error>')
         );
@@ -288,8 +214,6 @@ class Reporter implements EventSubscriberInterface
         {
             throw new \Exception('Audio missing');
         }
-        
-        $this->audioCounter->addOks(1);
 
         $this->output->writeln(
             sprintf(
@@ -302,8 +226,6 @@ class Reporter implements EventSubscriberInterface
 
     public function onTrackError(TrackErrorEvent $event)
     {
-        $this->audioCounter->addErrors(1);
-
         $this->output->writeln(
             sprintf(
                 '    <error>! Track (%s): %s (%s)</error>',
@@ -314,11 +236,8 @@ class Reporter implements EventSubscriberInterface
         );
     }
 
-    protected function getSeparator($emphasize = false)
+    protected function getSeparator()
     {
-        return ($emphasize)
-            ? '///////////////////////////////////////'
-            : '---------------------------------------'
-        ;
+        return '---------------------------------------';
     }
 }

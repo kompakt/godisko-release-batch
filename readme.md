@@ -25,14 +25,12 @@ Audio files are named by ISRC code and referenced in meta.XML
 
 Example of a full task composition to list the packshot contents of a batch
 
-+ `php example/reporter.php`
++ `php example/inspector.php`
 
 This will output something like this:
 
-    ///////////////////////////////////////
     Processing batch: 2014-05-05
-    ///////////////////////////////////////
-
+    
     ---------------------------------------
     + Packshot: 880319658433
       Name: ----
@@ -59,14 +57,11 @@ This will output something like this:
         + Track (DEU671401338): Parenthesis (Audio ok)
         + Track (DEU671401339): Kiloton (Hardway Bros Remix) (Audio ok)
         + Track (DEU671401340): Parenthesis (Raudive Remix) (Audio ok)
-
-    ///////////////////////////////////////
-    Packshots: 2 (2 ok, 0 errors)
-    Artwork: 2 (1 ok, 1 missing)
-    Audio: 12 (10 ok, 2 missing)
-    ---------------------------------------
-    Batch processed in 0.1425 seconds
-    ///////////////////////////////////////
+        
+    = Packshots: 2 total, 2 ok
+    = Artwork: 2 total, 1 ok (1 errors)
+    = Audio: 12 total, 10 ok (2 errors)
+    = Time: 0.1425 seconds
 
 Example of a full task composition with all supported events
 

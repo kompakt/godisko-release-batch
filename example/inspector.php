@@ -7,14 +7,7 @@
  *
  */
 
-$autoload = sprintf('%s/vendor/autoload.php', dirname(__DIR__));
-
-if (!is_file($autoload))
-{
-    die(sprintf("Autoload file not found: '%s'\n", $autoload));
-}
-
-require $autoload;
+require sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 
 use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
 use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
@@ -23,8 +16,11 @@ use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\DropDir\Registry\Registry;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
 use Kompakt\Mediameister\Packshot\Metadata\Loader\Factory\LoaderFactory as MetadataLoaderFactory;
-use Kompakt\Mediameister\Task\BatchTracker\BatchTrackerTask;
-use Kompakt\Mediameister\Task\BatchTracker\EventNames;
+use Kompakt\Mediameister\Task\Batch\BatchTask;
+use Kompakt\Mediameister\Task\Batch\EventNames;
+use Kompakt\Mediameister\Task\Batch\Subscriber\Bridge\Summary;
+use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
+use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Factory\LoaderFactory as ArtworkLoaderFactory;
@@ -32,7 +28,7 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Factory\LoaderFactory as A
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Factory\LayoutFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\BatchTracker\Subscriber\Reporter;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Subscriber\Inspector;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -53,21 +49,35 @@ $dropDirRegistry = new Registry();
 $dropDirRegistry->add('my-godisko-drop-dir-name', $dropDir);
 
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
-$eventNames = new EventNames('my_batch_tracker_task');
+$eventNames = new EventNames('my_batch_inspector_task');
+$summary = new Summary();
 
-$reporter = new Reporter(
+$summaryMaker = new SummaryMaker(
+    $eventNames,
+    $summary
+);
+
+$summaryPrinter = new SummaryPrinter(
+    $eventNames,
+    $summary,
+    new ConsoleOutput(new SymfonyConsoleOutput())
+);
+
+$inspector = new Inspector(
     $eventNames,
     new ConsoleOutput(new SymfonyConsoleOutput())
 );
 
-$task = new BatchTrackerTask(
+$task = new BatchTask(
     $dispatcher,
     $eventNames,
     $dropDirRegistry,
     false
 );
 
-$dispatcher->addSubscriber($reporter);
+$dispatcher->addSubscriber($inspector);
+$dispatcher->addSubscriber($summaryMaker);
+$dispatcher->addSubscriber($summaryPrinter);
 $task->run('my-godisko-drop-dir-name', 'example-batch');
 
 
