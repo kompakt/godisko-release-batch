@@ -43,7 +43,7 @@ class Layout implements LayoutInterface
         return sprintf('%s/meta.xml', $this->dir);
     }
 
-    public function getOtherMetadataFileNames()
+    public function getOtherMetadataFilenames()
     {
         return array('meta.XML');
     }
@@ -53,7 +53,7 @@ class Layout implements LayoutInterface
         return sprintf('%s/cover.jpg', $this->dir);
     }
 
-    public function getOtherFrontArtworkFileNames()
+    public function getOtherFrontArtworkFilenames()
     {
         return array('cover.gif', 'cover.psd');
     }

@@ -12,7 +12,7 @@
          bootstrap="./tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Kompakt Godisko Release Batch Test Suite">
+        <testsuite name="Godisko Release Batch Test Suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

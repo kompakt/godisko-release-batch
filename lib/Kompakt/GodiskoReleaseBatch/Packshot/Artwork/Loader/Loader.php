@@ -16,8 +16,6 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface;
 class Loader implements LoaderInterface
 {
     protected $layout = null;
-    protected $frontArtworkFile = null;
-    protected $loaded = false;
 
     public function __construct(LayoutInterface $layout, ReleaseInterface $release)
     {
@@ -25,24 +23,6 @@ class Loader implements LoaderInterface
     }
 
     public function getFrontArtworkFile()
-    {
-        $this->load();
-        return $this->frontArtworkFile;
-    }
-
-    protected function load()
-    {
-        if ($this->loaded)
-        {
-            return $this;
-        }
-
-        $this->loaded = true;
-        $this->frontArtworkFile = $this->loadFrontArtworkFile();
-        return $this;
-    }
-
-    protected function loadFrontArtworkFile()
     {
         $pathname = $this->layout->getFrontArtworkFile();
         $fileInfo = new \SplFileInfo($pathname);
@@ -52,7 +32,7 @@ class Loader implements LoaderInterface
             return $pathname;
         }
 
-        foreach ($this->layout->getOtherFrontArtworkFileNames() as $name)
+        foreach ($this->layout->getOtherFrontArtworkFilenames() as $name)
         {
             $pathname = sprintf('%s/%s', dirname($pathname), $name);
             $fileInfo = new \SplFileInfo($pathname);

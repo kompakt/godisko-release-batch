@@ -17,8 +17,6 @@ class Loader implements LoaderInterface
 {
     protected $layout = null;
     protected $release = null;
-    protected $audioFiles = array();
-    protected $loaded = false;
 
     public function __construct(LayoutInterface $layout, ReleaseInterface $release)
     {
@@ -27,24 +25,6 @@ class Loader implements LoaderInterface
     }
 
     public function getAudioFile($isrc)
-    {
-        $this->load();
-        return (array_key_exists($isrc, $this->audioFiles)) ? $this->audioFiles[$isrc] : null;
-    }
-
-    protected function load()
-    {
-        if ($this->loaded)
-        {
-            return $this;
-        }
-
-        $this->loaded = true;
-        $this->audioFiles = $this->loadAudioFiles();
-        return $this;
-    }
-
-    protected function loadAudioFiles()
     {
         $findAudioFile = function($dir, $isrc)
         {
@@ -64,20 +44,16 @@ class Loader implements LoaderInterface
             return null;
         };
 
-        $files = array();
-
         foreach ($this->release->getTracks() as $track)
         {
-            $file = $findAudioFile($this->layout->getAudioDir(), $track->getIsrc());
-
-            if (!$file)
+            if ($isrc !== $track->getIsrc())
             {
                 continue;
             }
 
-            $files[$track->getIsrc()] = $file;
+            return $findAudioFile($this->layout->getAudioDir(), $isrc);
         }
 
-        return $files;
+        return null;
     }
 }

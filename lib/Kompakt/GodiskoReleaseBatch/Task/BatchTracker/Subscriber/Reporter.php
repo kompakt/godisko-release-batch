@@ -7,29 +7,25 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Tracer\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchTracker\Subscriber;
 
-use Kompakt\Mediameister\Batch\Tracer\EventNamesInterface as BatchEventNamesInterface;
-use Kompakt\Mediameister\Batch\Tracer\Event\PackshotLoadErrorEvent;
-use Kompakt\Mediameister\Batch\Tracer\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\Component\Native\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Component\Native\EventDispatcher\EventSubscriberInterface;
-use Kompakt\Mediameister\Packshot\Tracer\EventNamesInterface as PackshotEventNamesInterface;
-use Kompakt\Mediameister\Packshot\Tracer\Event\ArtworkEvent;
-use Kompakt\Mediameister\Packshot\Tracer\Event\ArtworkErrorEvent;
-use Kompakt\Mediameister\Packshot\Tracer\Event\TrackEvent;
-use Kompakt\Mediameister\Packshot\Tracer\Event\TrackErrorEvent;
-use Kompakt\Mediameister\Task\Tracer\EventNamesInterface as TaskEventNamesInterface;
-use Kompakt\Mediameister\Task\Tracer\Event\InputErrorEvent;
-use Kompakt\Mediameister\Task\Tracer\Event\TaskFinalEvent;
-use Kompakt\Mediameister\Task\Tracer\Event\TaskRunEvent;
+use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
+use Kompakt\Mediameister\Task\BatchTracker\EventNamesInterface;
+use Kompakt\Mediameister\Task\BatchTracker\Event\ArtworkEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\ArtworkErrorEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\InputErrorEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\PackshotLoadErrorEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\PackshotLoadEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\TaskFinalEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\TaskRunEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\TrackErrorEvent;
+use Kompakt\Mediameister\Task\BatchTracker\Event\TrackEvent;
 use Kompakt\Mediameister\Util\Counter;
 
 class Reporter implements EventSubscriberInterface
 {
-    protected $taskEventNames = null;
-    protected $batchEventNames = null;
-    protected $packshotEventNames = null;
+    protected $eventNames = null;
     protected $output = null;
     protected $packshotCounter = null;
     protected $frontArtworkCounter = null;
@@ -38,15 +34,11 @@ class Reporter implements EventSubscriberInterface
     protected $currentPackshot = null;
 
     public function __construct(
-        TaskEventNamesInterface $taskEventNames,
-        BatchEventNamesInterface $batchEventNames,
-        PackshotEventNamesInterface $packshotEventNames,
+        EventNamesInterface $eventNames,
         ConsoleOutputInterface $output
     )
     {
-        $this->taskEventNames = $taskEventNames;
-        $this->batchEventNames = $batchEventNames;
-        $this->packshotEventNames = $packshotEventNames;
+        $this->eventNames = $eventNames;
         $this->output = $output;
         $this->packshotCounter = new Counter();
         $this->frontArtworkCounter = new Counter();
@@ -56,34 +48,34 @@ class Reporter implements EventSubscriberInterface
     public function getSubscriptions()
     {
         return array(
-            // task event handlers
-            $this->taskEventNames->inputError() => array(
+            // task events
+            $this->eventNames->inputError() => array(
                 array('onInputError', 0)
             ),
-            $this->taskEventNames->taskRun() => array(
+            $this->eventNames->taskRun() => array(
                 array('onTaskRun', 0)
             ),
-            $this->taskEventNames->taskFinal() => array(
+            $this->eventNames->taskFinal() => array(
                 array('onTaskFinal', 0)
             ),
-            // batch event handlers
-            $this->batchEventNames->packshotLoad() => array(
+            // batch events
+            $this->eventNames->packshotLoad() => array(
                 array('onPackshotLoad', 0)
             ),
-            $this->batchEventNames->packshotLoadError() => array(
+            $this->eventNames->packshotLoadError() => array(
                 array('onPackshotLoadError', 0)
             ),
-            // packshot event handlers
-            $this->packshotEventNames->artwork() => array(
+            // packshot events
+            $this->eventNames->artwork() => array(
                 array('onArtwork', 0)
             ),
-            $this->packshotEventNames->artworkError() => array(
+            $this->eventNames->artworkError() => array(
                 array('onArtworkError', 0)
             ),
-            $this->packshotEventNames->track() => array(
+            $this->eventNames->track() => array(
                 array('onTrack', 0)
             ),
-            $this->packshotEventNames->trackError() => array(
+            $this->eventNames->trackError() => array(
                 array('onTrackError', 0)
             )
         );

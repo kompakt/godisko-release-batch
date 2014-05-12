@@ -14,6 +14,6 @@ use Kompakt\Mediameister\Packshot\Layout\LayoutInterface as MeisterLayoutInterfa
 interface LayoutInterface extends MeisterLayoutInterface
 {
     public function getFrontArtworkFile();
-    public function getOtherFrontArtworkFileNames();
+    public function getOtherFrontArtworkFilenames();
     public function getAudioDir();
 }
