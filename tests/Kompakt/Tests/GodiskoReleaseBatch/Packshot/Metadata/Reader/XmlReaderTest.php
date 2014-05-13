@@ -30,26 +30,6 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
         $reader = $this->getXmlReaderFactory()->getInstance($file);
         $reader->load();
     }
-
-    /**
-     * @expectedException Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\DomainException
-     */
-    public function testIncompleteXml()
-    {
-        $file = sprintf('%s/_files/XmlReaderTest/release-incomplete.xml', __DIR__);
-        $reader = $this->getXmlReaderFactory()->getInstance($file);
-        $reader->load();
-    }
-
-    /**
-     * @expectedException Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException
-     */
-    public function testInvalidXml()
-    {
-        $file = sprintf('%s/_files/XmlReaderTest/release-invalid.xml', __DIR__);
-        $reader = $this->getXmlReaderFactory()->getInstance($file);
-        $reader->load();
-    }
     
     protected function getXmlReaderFactory()
     {
@@ -58,13 +38,19 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        
-        $track = $this
-            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\TrackInterface')
+
+        $parser = $this
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        return new XmlReaderFactory($release, $track);
+        $parser
+            ->expects($this->any())
+            ->method('parse')
+            ->will($this->returnValue($release))
+        ;
+
+        return new XmlReaderFactory($parser);
     }
 }

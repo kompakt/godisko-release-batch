@@ -11,7 +11,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github-kompakt:kompakt/mediameister.git",
-                "reference": "230efac9bfc4f82f317a6220879a8b25f676d124"
+                "reference": "5c69c48bf589dbb800428fb500e201a439538d7a"
             },
             "require": {
                 "php": ">=5.3.2"
@@ -37,7 +37,7 @@
                 "commands",
                 "website"
             ],
-            "time": "2014-05-12 15:29:17"
+            "time": "2014-05-13 12:15:41"
         }
     ],
     "packages-dev": [

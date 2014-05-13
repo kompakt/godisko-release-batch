@@ -14,7 +14,6 @@ use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 use Kompakt\Mediameister\Task\Batch\EventNamesInterface;
 use Kompakt\Mediameister\Task\Batch\Event\ArtworkEvent;
 use Kompakt\Mediameister\Task\Batch\Event\ArtworkErrorEvent;
-use Kompakt\Mediameister\Task\Batch\Event\InputErrorEvent;
 use Kompakt\Mediameister\Task\Batch\Event\PackshotLoadErrorEvent;
 use Kompakt\Mediameister\Task\Batch\Event\PackshotLoadEvent;
 use Kompakt\Mediameister\Task\Batch\Event\TaskEndErrorEvent;
@@ -27,7 +26,7 @@ class Inspector implements EventSubscriberInterface
 {
     protected $eventNames = null;
     protected $output = null;
-    protected $sourceBatch = null;
+    protected $batch = null;
     protected $currentPackshot = null;
 
     public function __construct(
@@ -43,9 +42,6 @@ class Inspector implements EventSubscriberInterface
     {
         return array(
             // task events
-            $this->eventNames->inputError() => array(
-                array('onInputError', 0)
-            ),
             $this->eventNames->taskRun() => array(
                 array('onTaskRun', 0)
             ),
@@ -78,25 +74,15 @@ class Inspector implements EventSubscriberInterface
         );
     }
 
-    public function onInputError(InputErrorEvent $event)
-    {
-        $this->output->writeln(
-            sprintf(
-                '<error>! Task input error: %s</error>',
-                $event->getException()->getMessage()
-            )
-        );
-    }
-
     public function onTaskRun(TaskRunEvent $event)
     {
-        $this->sourceBatch = $event->getSourceBatch();
+        $this->batch = $event->getBatch();
         $this->output->writeln('');
 
         $this->output->writeln(
             sprintf(
                 '<info>Processing batch: %s</info>',
-                $this->sourceBatch->getName()
+                $this->batch->getName()
             )
         );
     }

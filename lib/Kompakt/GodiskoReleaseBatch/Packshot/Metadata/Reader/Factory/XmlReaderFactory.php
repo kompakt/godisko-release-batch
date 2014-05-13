@@ -9,24 +9,21 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory;
 
-use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlReader;
 use Kompakt\Mediameister\Packshot\Metadata\Reader\Factory\ReaderFactoryInterface;
 
 class XmlReaderFactory implements ReaderFactoryInterface
 {
-    protected $releasePrototype = null;
-    protected $trackPrototype = null;
+    protected $xmlParser = null;
 
-    public function __construct(ReleaseInterface $releasePrototype, TrackInterface $trackPrototype)
+    public function __construct(XmlParser $xmlParser)
     {
-        $this->releasePrototype = $releasePrototype;
-        $this->trackPrototype = $trackPrototype;
+        $this->xmlParser = $xmlParser;
     }
 
     public function getInstance($file)
     {
-        return new XmlReader($this->releasePrototype, $this->trackPrototype, $file);
+        return new XmlReader($this->xmlParser, $file);
     }
 }

@@ -9,11 +9,12 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer;
 
+use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
 use Kompakt\Mediameister\Packshot\Metadata\Writer\WriterInterface;
 
 class XmlWriter implements WriterInterface
 {
-    public function save($file)
+    public function save(ReleaseInterface $release, $file)
     {
         // TODO
     }
