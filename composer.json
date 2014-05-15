@@ -2,26 +2,20 @@
     "name": "kompakt/godisko-release-batch",
     "type": "library",
     "description": "Concrete Godisko release batch representation",
-    "keywords": ["website", "commands"],
-    "homepage": "http://www.kompakt.fm",
+    "keywords": ["batch-processing", "encoding", "media"],
+    "license": "MIT",
     "authors": [
-        {"name": "Christian Hoegl", "email": "chrigu@kompakt.fm"}
+        { "name": "Christian Hoegl", "email": "chrigu@sirprize.me" }
     ],
     "require": {
         "php": ">=5.3.2",
-        "kompakt/mediameister": "dev-master"
+        "kompakt/mediameister": "0.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "symfony/console": "2.3.*",
-        "symfony/event-dispatcher": "2.3.*"
+        "phpunit/phpunit": "4.1.*",
+        "symfony/console": "2.4.*",
+        "symfony/event-dispatcher": "2.4.*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github-kompakt:kompakt/mediameister.git"
-        }
-    ],
     "autoload": {
         "psr-0": { "Kompakt\\GodiskoReleaseBatch": "lib/" }
     }
