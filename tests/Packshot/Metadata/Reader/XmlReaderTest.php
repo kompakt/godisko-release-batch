@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\Tests\GodiskoReleaseBatch\Packshot\Metadata\Reader;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Metadata\Reader;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 

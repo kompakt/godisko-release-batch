@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\Tests\GodiskoReleaseBatch\Packshot\Artwork\Loader;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Loader;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Loader;
 

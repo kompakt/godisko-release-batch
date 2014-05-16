@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\Tests\GodiskoReleaseBatch\Packshot\Layout;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Layout;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
 

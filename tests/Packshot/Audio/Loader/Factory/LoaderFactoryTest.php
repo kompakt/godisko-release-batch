@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\Tests\GodiskoReleaseBatch\Packshot\Audio\Loader\Factory;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Loader\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Factory\LoaderFactory;
 
