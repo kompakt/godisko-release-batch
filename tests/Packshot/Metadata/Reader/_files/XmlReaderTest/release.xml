@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <feed partner="kompakt.fm" version="2008">
 <release>
-<labelname>Young Turks</labelname>
-<release_name>Young Turks 2013</release_name>
-<release_ean>880319651120</release_ean>
-<release_catno>YT 2013 CD</release_catno>
+<labelname>Fm X</labelname>
+<release_name>Wanted</release_name>
+<release_ean>880319089817</release_ean>
+<release_catno>FM X / Search 001</release_catno>
 <release_physical_releasedate>20131209</release_physical_releasedate>
 <release_digital_releasedate>20131209</release_digital_releasedate>
-<release_originalformat>CD</release_originalformat>
-<release_coverfilename>880319651120.jpg</release_coverfilename>
+<release_originalformat>12" ART</release_originalformat>
+<release_coverfilename>880319089817.jpg</release_coverfilename>
 <release_short_info_e></release_short_info_e>
 <release_short_info_d></release_short_info_d>
 <release_info_e></release_info_e>
 <release_info_d></release_info_d>
 <artist_info_e></artist_info_e>
 <artist_info_d></artist_info_d>
-<release_saleterritories>AD,AE,AF,AG,AI,AL,AM,AN,AO,AQ,AR,AS,AT,AU,AW,AZ,BA,BB,BD,BE,BF,BG,BH,BI,BJ,BM,BN,BO,BR,BS,BT,BV,BW,BY,BZ,CA,CC,CD,CF,CG,CH,CI,CK,CL,CM,CN,CO,CR,CU,CV,CX,CY,CZ,DE,DJ,DK,DM,DO,DZ,EC,EE,EG,EH,ER,ES,ET,FI,FJ,FK,FM,FO,FR,FX,GA,GB,GD,GE,GF,GH,GI,GL,GM,GN,GP,GQ,GR,GS,GT,GU,GW,GY,HK,HM,HN,HR,HT,HU,ID,IE,IL,IN,IO,IQ,IR,IS,IT,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LI,LK,LR,LS,LT,LU,LV,LY,MA,MC,MD,ME,MG,MH,MK,ML,MM,MN,MO,MP,MQ,MR,MS,MT,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NF,NG,NI,NL,NO,NP,NR,NU,NZ,OM,PA,PE,PF,PG,PH,PK,PL,PM,PN,PR,PS,PT,PW,PY,QA,RE,RO,RS,RU,RW,SA,SB,SC,SD,SE,SG,SH,SI,SJ,SK,SL,SM,SN,SO,SR,ST,SV,SY,SZ,TC,TD,TF,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UA,UG,UM,US,UY,UZ,VA,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,YU,ZA,ZM,ZW</release_saleterritories>
+<release_saleterritories></release_saleterritories>
 <release_bundlerestriction></release_bundlerestriction>
 <tracks>
 <track>
-<track_ean>880319651120</track_ean>
-<track_isrc>GB6HK1200067</track_isrc>
-<track_originalposition>2</track_originalposition>
-<track_artist>Koreless</track_artist>
-<track_composer>Koreless</track_composer>
+<track_ean>880319089817</track_ean>
+<track_isrc>Deu671400017</track_isrc>
+<track_originalposition>1</track_originalposition>
+<track_artist>Wanted</track_artist>
+<track_composer>Wanted</track_composer>
 <track_songwriter></track_songwriter>
-<track_publisher>Copyright Control</track_publisher>
-<track_title>Sun</track_title>
+<track_publisher></track_publisher>
+<track_title>Wanted</track_title>
 <track_genre>Electronic</track_genre>
 <track_media>1</track_media>
 <track_num_disc_num>1</track_num_disc_num>
 <track_num_album_num>1</track_num_album_num>
-<track_mp3filename>880319651120_1_02.mp3</track_mp3filename>
-<track_duration>00:06:37</track_duration>
+<track_mp3filename>880319089817_1_02.mp3</track_mp3filename>
+<track_duration>00:06:17</track_duration>
+</track>
+<track>
+<track_ean>880319089817</track_ean>
+<track_isrc>Deu671400018</track_isrc>
+<track_originalposition>2</track_originalposition>
+<track_artist>Wanted</track_artist>
+<track_composer>Wanted</track_composer>
+<track_songwriter></track_songwriter>
+<track_publisher></track_publisher>
+<track_title>Wanted (Voigt &amp; Voigt Mix)</track_title>
+<track_genre>Electronic</track_genre>
+<track_media>1</track_media>
+<track_num_disc_num>1</track_num_disc_num>
+<track_num_album_num>1</track_num_album_num>
+<track_mp3filename>880319089817_1_02.mp3</track_mp3filename>
+<track_duration>00:03:51</track_duration>
 </track>
 </tracks>
 </release>
