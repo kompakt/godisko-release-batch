@@ -157,4 +157,7 @@ class Track implements TrackInterface
     {
         return $this->duration;
     }
+    
+    public function __clone()
+    {}
 }

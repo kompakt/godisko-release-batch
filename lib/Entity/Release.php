@@ -182,4 +182,7 @@ class Release implements ReleaseInterface
     {
         return $this->tracks;
     }
+    
+    public function __clone()
+    {}
 }
