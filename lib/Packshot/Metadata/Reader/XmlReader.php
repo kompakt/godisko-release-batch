@@ -36,7 +36,7 @@ class XmlReader implements ReaderInterface
         $this->file = $file;
     }
 
-    public function load()
+    public function read()
     {
         $handle = fopen($this->file, 'r');
         $xml = fread($handle, filesize($this->file));

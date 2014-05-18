@@ -7,16 +7,16 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Loader;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Finder;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Loader;
+use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\ArtworkFinder;
 
-class LoaderTest extends \PHPUnit_Framework_TestCase
+class ArtworkFinderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetFrontArtworkFile()
     {
-        $loader = new Loader($this->getLayout(), $this->getRelease());
-        $this->assertNotNull($loader->getFrontArtworkFile());
+        $finder = new ArtworkFinder($this->getLayout(), $this->getRelease());
+        $this->assertNotNull($finder->getFrontArtworkFile());
     }
 
     protected function getLayout()
@@ -30,7 +30,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $layout
             ->expects($this->any())
             ->method('getFrontArtworkFile')
-            ->will($this->returnValue(sprintf('%s/_files/LoaderTest/cover.jpg', __DIR__)))
+            ->will($this->returnValue(sprintf('%s/_files/ArtworkFinderTest/cover.jpg', __DIR__)))
         ;
 
         return $layout;

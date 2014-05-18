@@ -13,7 +13,7 @@ use Kompakt\Mediameister\Packshot\Metadata\Writer\WriterInterface;
 
 class XmlWriter implements WriterInterface
 {
-    public function save()
+    public function write()
     {
         // TODO
     }

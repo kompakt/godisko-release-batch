@@ -7,14 +7,14 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Factory;
 
 use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
-use Kompakt\Mediameister\Packshot\Metadata\Loader\Factory\LoaderFactoryInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Loader;
+use Kompakt\Mediameister\Packshot\Metadata\Finder\Factory\MetadataFinderFactoryInterface;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\MetadataFinder;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 
-class LoaderFactory implements LoaderFactoryInterface
+class MetadataFinderFactory implements MetadataFinderFactoryInterface
 {
     protected $metadataReaderFactory = null;
 
@@ -25,6 +25,6 @@ class LoaderFactory implements LoaderFactoryInterface
 
     public function getInstance(LayoutInterface $layout)
     {
-        return new Loader($this->metadataReaderFactory, $layout);
+        return new MetadataFinder($this->metadataReaderFactory, $layout);
     }
 }

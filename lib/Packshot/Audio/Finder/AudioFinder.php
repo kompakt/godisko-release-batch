@@ -7,13 +7,13 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder;
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
-use Kompakt\Mediameister\Packshot\Audio\Loader\LoaderInterface;
+use Kompakt\Mediameister\Packshot\Audio\Finder\AudioFinderInterface;
 
-class Loader implements LoaderInterface
+class AudioFinder implements AudioFinderInterface
 {
     protected $layout = null;
     protected $release = null;

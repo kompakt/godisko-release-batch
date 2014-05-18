@@ -17,7 +17,7 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
     {
         $file = sprintf('%s/_files/XmlReaderTest/release.xml', __DIR__);
         $reader = $this->getXmlReaderFactory()->getInstance($file);
-        $release = $reader->load();
+        $release = $reader->read();
         $this->assertInstanceOf('Kompakt\GodiskoReleaseBatch\Entity\Release', $release);
     }
 
@@ -28,7 +28,7 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
     {
         $file = 'asdfasdfasdfasdf.xml';
         $reader = $this->getXmlReaderFactory()->getInstance($file);
-        $reader->load();
+        $reader->read();
     }
     
     protected function getXmlReaderFactory()

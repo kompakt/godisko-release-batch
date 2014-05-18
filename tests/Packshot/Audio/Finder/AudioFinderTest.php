@@ -7,31 +7,31 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Loader;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Finder;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\Loader;
+use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\AudioFinder;
 
-class LoaderTest extends \PHPUnit_Framework_TestCase
+class AudioFinderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAudioFile()
     {
-        $loader = new Loader($this->getLayout('mp3-1'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('mp3-1'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
 
-        $loader = new Loader($this->getLayout('mp3-2'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('mp3-2'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
 
-        $loader = new Loader($this->getLayout('wav-1'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('wav-1'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
 
-        $loader = new Loader($this->getLayout('wav-2'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('wav-2'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
 
-        $loader = new Loader($this->getLayout('aiff-1'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('aiff-1'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
 
-        $loader = new Loader($this->getLayout('aiff-2'), $this->getRelease());
-        $this->assertNotNull($loader->getAudioFile('GBBKS1300183'));
+        $finder = new AudioFinder($this->getLayout('aiff-2'), $this->getRelease());
+        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
     }
 
     protected function getLayout($subDir)
@@ -45,7 +45,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $layout
             ->expects($this->any())
             ->method('getAudioDir')
-            ->will($this->returnValue(sprintf('%s/_files/LoaderTest/%s', __DIR__, $subDir)))
+            ->will($this->returnValue(sprintf('%s/_files/AudioFinderTest/%s', __DIR__, $subDir)))
         ;
 
         return $layout;

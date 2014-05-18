@@ -7,14 +7,14 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\InvalidArgumentException;
-use Kompakt\Mediameister\Packshot\Metadata\Loader\LoaderInterface;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Exception\InvalidArgumentException;
+use Kompakt\Mediameister\Packshot\Metadata\Finder\MetadataFinderInterface;
 
-class Loader implements LoaderInterface
+class MetadataFinder implements MetadataFinderInterface
 {
     protected $metadataReaderFactory = null;
     protected $layout = null;
@@ -28,14 +28,14 @@ class Loader implements LoaderInterface
         $this->layout = $layout;
     }
 
-    public function load()
+    public function find()
     {
         $pathname = $this->layout->getMetadataFile();
         $fileInfo = new \SplFileInfo($pathname);
 
         if ($fileInfo->isFile())
         {
-            return $this->metadataReaderFactory->getInstance($pathname)->load();
+            return $this->metadataReaderFactory->getInstance($pathname)->read();
         }
 
         $otherNames = array('meta.XML');
@@ -47,7 +47,7 @@ class Loader implements LoaderInterface
 
             if ($fileInfo->isFile())
             {
-                return $this->metadataReaderFactory->getInstance($pathname)->load();
+                return $this->metadataReaderFactory->getInstance($pathname)->read();
             }
         }
 

@@ -7,17 +7,17 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Factory;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\Factory;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Loader;
+use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\AudioFinder;
 use Kompakt\Mediameister\Entity\ReleaseInterface;
-use Kompakt\Mediameister\Packshot\Artwork\Loader\Factory\LoaderFactoryInterface;
+use Kompakt\Mediameister\Packshot\Audio\Finder\Factory\AudioFinderFactoryInterface;
 use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
 
-class LoaderFactory implements LoaderFactoryInterface
+class AudioFinderFactory implements AudioFinderFactoryInterface
 {
     public function getInstance(LayoutInterface $layout, ReleaseInterface $release)
     {
-        return new Loader($layout, $release);
+        return new AudioFinder($layout, $release);
     }
 }

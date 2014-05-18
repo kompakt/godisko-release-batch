@@ -172,7 +172,7 @@ class Inspector implements EventSubscriberInterface
 
     public function onArtwork(ArtworkEvent $event)
     {
-        $frontArtworkFile = $this->currentPackshot->getArtworkLoader()->getFrontArtworkFile();
+        $frontArtworkFile = $this->currentPackshot->getArtworkFinder()->getFrontArtworkFile();
 
         if (!$frontArtworkFile)
         {
@@ -194,7 +194,7 @@ class Inspector implements EventSubscriberInterface
     public function onTrack(TrackEvent $event)
     {
         $isrc = $event->getTrack()->getIsrc();
-        $audioFile = $this->currentPackshot->getAudioLoader()->getAudioFile($isrc);
+        $audioFile = $this->currentPackshot->getAudioFinder()->getAudioFile($isrc);
 
         if (!$audioFile)
         {

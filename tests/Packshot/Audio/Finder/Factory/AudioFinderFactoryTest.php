@@ -7,15 +7,15 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Loader\Factory;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Finder\Factory;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\Factory\LoaderFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\Factory\AudioFinderFactory;
 
-class LoaderFactoryTest extends \PHPUnit_Framework_TestCase
+class AudioFinderFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testAll()
     {
-        $factory = new LoaderFactory($this->getLayout(), $this->getRelease());
+        $factory = new AudioFinderFactory($this->getLayout(), $this->getRelease());
     }
 
     protected function getLayout()
