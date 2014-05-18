@@ -37,7 +37,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     protected function getLayout($subDir)
     {
         $layout = $this
-            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -54,7 +54,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     protected function getRelease()
     {
         $track = $this
-            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\TrackInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\Track')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -66,7 +66,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         ;
 
         $release = $this
-            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface')
+            ->getMockBuilder('Kompakt\GodiskoReleaseBatch\Entity\Release')
             ->disableOriginalConstructor()
             ->getMock()
         ;

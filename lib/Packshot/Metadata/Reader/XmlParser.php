@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader;
 
-use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\Release;
+use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\DomainException;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException;
 
@@ -19,7 +19,7 @@ class XmlParser
     protected $releasePrototype = null;
     protected $trackPrototype = null;
 
-    public function __construct(ReleaseInterface $releasePrototype, TrackInterface $trackPrototype)
+    public function __construct(Release $releasePrototype, Track $trackPrototype)
     {
         $this->releasePrototype = $releasePrototype;
         $this->trackPrototype = $trackPrototype;
@@ -27,13 +27,13 @@ class XmlParser
 
     public function parse($xml)
     {
-        return $this->doParse($this->fix($xml));
+        return $this->doParse($this->fixRawXml($xml));
     }
 
-    protected function fix($xml)
+    protected function fixRawXml($xml)
     {
         $patterns = array(
-            '/\\x00/' => '', // use bin2hex to find hexadecimal representation: echo bin2hex('Ê');
+            '/\\x00/' => '', // echo bin2hex('Ê');
             '/\\x01/' => '',
             '/\\x02/' => '',
             '/\\x03/' => '',
@@ -86,43 +86,23 @@ class XmlParser
 
         $fixField = function($s)
         {
-            $s = preg_replace('/\s+/', " ", trim($s));
-            #$s = mb_convert_case(trim($s), MB_CASE_TITLE);
-            #$s = preg_replace('/(\'|\xB4)S/', '\'s', $s);
-            return $s;
+            return preg_replace('/\s+/', " ", trim($s));
         };
 
         $fixReleaseDate = function($releaseDate)
         {
-            preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches);
-
-            if(isset($matches[1]) && isset($matches[2]) && isset($matches[3]))
+            if (preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches))
             {
-                $date = $matches[1].'-'.$matches[2].'-'.$matches[3];
+                $date = sprintf('%d-%d-%d', $matches[1], $matches[2], $matches[3]);
                 return \DateTime::createFromFormat('Y-m-d', $date);
             }
-            
+
             return '0000-00-00';
         };
 
         $fixBundleRestriction = function($bundleRestriction)
         {
             return (preg_match('/^True$/i', $bundleRestriction)) ? 1 : 0;
-        };
-
-        $fixTrackPublisher = function($publisher)
-        {
-            if (preg_match('/copyright control/i', $publisher))
-            {
-                return 'Copyright Control';
-            }
-
-            if (preg_match('/^none$/i', $publisher))
-            {
-                return '';
-            }
-
-            return $publisher;
         };
 
         $release = clone $this->releasePrototype;
@@ -150,7 +130,7 @@ class XmlParser
             $track->setArtist($fixField($this->getDomVal($t, 'track_artist')));
             $track->setComposer($fixField($this->getDomVal($t, 'track_composer')));
             $track->setSongwriter($fixField($this->getDomVal($t, 'track_songwriter')));
-            $track->setPublisher($fixField($fixTrackPublisher($this->getDomVal($t, 'track_publisher'))));
+            $track->setPublisher($fixField($this->getDomVal($t, 'track_publisher')));
             $track->setTitle($fixField($this->getDomVal($t, 'track_title')));
             $track->setGenre($fixField($this->getDomVal($t, 'track_genre')));
             $track->setMedia($fixField($this->getDomVal($t, 'track_media')));

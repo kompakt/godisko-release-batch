@@ -11,25 +11,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "a97b52ff50875213b7a9c7c9fd3b142b8bd0c0df"
+                "reference": "317af081e7db208b4c85ae8e60910358fecef241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/a97b52ff50875213b7a9c7c9fd3b142b8bd0c0df",
-                "reference": "a97b52ff50875213b7a9c7c9fd3b142b8bd0c0df",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/317af081e7db208b4c85ae8e60910358fecef241",
+                "reference": "317af081e7db208b4c85ae8e60910358fecef241",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "kompakt/test-helper": "0.0.*",
+                "kompakt/test-helper": "dev-master",
                 "phpunit/phpunit": "4.1.*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Kompakt\\Mediameister": "lib/"
+                "psr-4": {
+                    "Kompakt\\Mediameister\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -48,7 +48,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2014-05-15 17:17:43"
+            "time": "2014-05-18 16:51:22"
         }
     ],
     "packages-dev": [

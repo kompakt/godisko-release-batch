@@ -9,7 +9,7 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
+use Kompakt\Mediameister\Entity\TrackInterface;
 
 class Track implements TrackInterface
 {

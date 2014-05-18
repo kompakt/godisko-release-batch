@@ -9,15 +9,15 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader;
 
-use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Loader\LoaderInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\Release;
+use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
+use Kompakt\Mediameister\Packshot\Artwork\Loader\LoaderInterface;
 
 class Loader implements LoaderInterface
 {
     protected $layout = null;
 
-    public function __construct(LayoutInterface $layout, ReleaseInterface $release)
+    public function __construct(Layout $layout, Release $release)
     {
         $this->layout = $layout;
     }
@@ -32,7 +32,12 @@ class Loader implements LoaderInterface
             return $pathname;
         }
 
-        foreach ($this->layout->getOtherFrontArtworkFilenames() as $name)
+        $otherNames = array(
+            'cover.gif',
+            'cover.psd'
+        );
+
+        foreach ($otherNames as $name)
         {
             $pathname = sprintf('%s/%s', dirname($pathname), $name);
             $fileInfo = new \SplFileInfo($pathname);

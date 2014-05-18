@@ -9,16 +9,16 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader;
 
-use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Loader\LoaderInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\Release;
+use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
+use Kompakt\Mediameister\Packshot\Audio\Loader\LoaderInterface;
 
 class Loader implements LoaderInterface
 {
     protected $layout = null;
     protected $release = null;
 
-    public function __construct(LayoutInterface $layout, ReleaseInterface $release)
+    public function __construct(Layout $layout, Release $release)
     {
         $this->layout = $layout;
         $this->release = $release;

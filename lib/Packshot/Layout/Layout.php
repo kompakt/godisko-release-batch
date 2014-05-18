@@ -10,7 +10,7 @@
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Layout;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Exception\InvalidArgumentException;
-use Kompakt\GodiskoReleaseBatch\Packshot\Layout\LayoutInterface;
+use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
 
 class Layout implements LayoutInterface
 {
@@ -43,19 +43,9 @@ class Layout implements LayoutInterface
         return sprintf('%s/meta.xml', $this->dir);
     }
 
-    public function getOtherMetadataFilenames()
-    {
-        return array('meta.XML');
-    }
-
     public function getFrontArtworkFile()
     {
         return sprintf('%s/cover.jpg', $this->dir);
-    }
-
-    public function getOtherFrontArtworkFilenames()
-    {
-        return array('cover.gif', 'cover.psd');
     }
 
     public function getAudioDir()

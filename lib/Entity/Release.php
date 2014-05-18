@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Entity;
 
-use Kompakt\GodiskoReleaseBatch\Entity\ReleaseInterface;
-use Kompakt\GodiskoReleaseBatch\Entity\TrackInterface;
+use Kompakt\GodiskoReleaseBatch\Entity\Track;
+use Kompakt\Mediameister\Entity\ReleaseInterface;
 
 class Release implements ReleaseInterface
 {
@@ -172,7 +172,7 @@ class Release implements ReleaseInterface
         return $this->bundleRestriction;
     }
 
-    public function addTrack(TrackInterface $track)
+    public function addTrack(Track $track)
     {
         $this->tracks[] = $track;
         return $this;

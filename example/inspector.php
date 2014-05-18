@@ -36,8 +36,8 @@ $dropDirPathname = sprintf('%s/_files/drop-dir', __DIR__);
 
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
-    new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
     new XmlWriterFactory(),
+    new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
     new ArtworkLoaderFactory(),
     new AudioLoaderFactory()
 );
