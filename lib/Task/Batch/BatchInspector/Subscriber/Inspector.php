@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Subscriber;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;

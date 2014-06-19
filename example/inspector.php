@@ -28,7 +28,9 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Factory\MetadataFinderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner\ConsoleTaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Subscriber\Inspector;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -45,6 +47,7 @@ $packshotFactory = new PackshotFactory(
 $batchFactory = new BatchFactory($packshotFactory);
 $dropDir = new DropDir($batchFactory, $dropDirPathname);
 
+$output = new ConsoleOutput(new SymfonyConsoleOutput());
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
 $eventNames = new EventNames('my_batch_inspector_task');
 $summary = new Summary();
@@ -57,12 +60,12 @@ $summaryMaker = new SummaryMaker(
 $summaryPrinter = new SummaryPrinter(
     $eventNames,
     $summary,
-    new ConsoleOutput(new SymfonyConsoleOutput())
+    $output
 );
 
 $inspector = new Inspector(
     $eventNames,
-    new ConsoleOutput(new SymfonyConsoleOutput())
+    $output
 );
 
 $task = new BatchTask(
@@ -70,11 +73,18 @@ $task = new BatchTask(
     $eventNames
 );
 
-$dispatcher->addSubscriber($inspector);
-$dispatcher->addSubscriber($summaryMaker);
-$dispatcher->addSubscriber($summaryPrinter);
+$subscriberManager = new SubscriberManager(
+    $dispatcher,
+    $inspector,
+    $summaryMaker,
+    $summaryPrinter
+);
 
-$batch = $dropDir->getBatch('example-batch');
-$task->run($batch);
+$taskRunner = new ConsoleTaskRunner(
+    $subscriberManager,
+    $output,
+    $dropDir,
+    $task
+);
 
-
+$taskRunner->run('example-batch');
