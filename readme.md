@@ -80,6 +80,10 @@ This simply outputs the events along the way:
     + Task end
     + Task final
 
++ `php example/selection-tester/run.php`
+
+"Select" some packshots by saving their name into a file. Selections can be used to perform actions in multiple steps (eg select some packshots and then segregate them into a separate batch etc)
+
 ## Tests
 
 + `cp tests/config.php.dist config.php`

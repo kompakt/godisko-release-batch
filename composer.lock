@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "575725d816341dbe93094dbeb3802f42",
     "packages": [
@@ -11,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "741fbc329d6788a8b1cef9115a6d7ec690c7ffd9"
+                "reference": "b1d338a044621774ce7fc372fcc5276c8c2cee97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/741fbc329d6788a8b1cef9115a6d7ec690c7ffd9",
-                "reference": "741fbc329d6788a8b1cef9115a6d7ec690c7ffd9",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/b1d338a044621774ce7fc372fcc5276c8c2cee97",
+                "reference": "b1d338a044621774ce7fc372fcc5276c8c2cee97",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +49,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2014-06-19 10:57:24"
+            "time": "2014-06-20 17:47:17"
         }
     ],
     "packages-dev": [
