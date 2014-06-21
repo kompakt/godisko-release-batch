@@ -7,14 +7,14 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Task\Batch\BatchTask;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner\SubscriberManager;
 
-class ConsoleTaskRunner
+class TaskRunner
 {
     protected $subscriberManager = null;
     protected $output = null;

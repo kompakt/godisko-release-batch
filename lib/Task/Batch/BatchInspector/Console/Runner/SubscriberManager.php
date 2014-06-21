@@ -7,12 +7,12 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner;
 
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Subscriber\Inspector;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
+use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
 use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
-use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryPrinter;
 
 class SubscriberManager
 {

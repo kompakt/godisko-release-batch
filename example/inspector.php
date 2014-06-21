@@ -18,7 +18,7 @@ use Kompakt\Mediameister\Task\Batch\BatchTask;
 use Kompakt\Mediameister\Task\Batch\EventNames;
 use Kompakt\Mediameister\Task\Batch\Subscriber\Share\Summary;
 use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
-use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
@@ -28,9 +28,9 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Factory\MetadataFinderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Runner\ConsoleTaskRunner;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Subscriber\Inspector;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -80,7 +80,7 @@ $subscriberManager = new SubscriberManager(
     $summaryPrinter
 );
 
-$taskRunner = new ConsoleTaskRunner(
+$taskRunner = new TaskRunner(
     $subscriberManager,
     $output,
     $dropDir,
