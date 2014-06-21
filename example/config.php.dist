@@ -1,0 +1,3 @@
+<?php
+
+define('EXAMPLE_KOMPAKT_GODISKORELEASEBATCH_TEMP_DIR', dirname(__DIR__) . '/temp');

@@ -1,4 +1,5 @@
 vendor
 composer.phar
+example/config.php
 temp
 tests/config.php

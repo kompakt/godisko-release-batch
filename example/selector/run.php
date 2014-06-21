@@ -7,7 +7,7 @@
  *
  */
 
-require sprintf('%s/vendor/autoload.php', dirname(dirname(__DIR__)));
+require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
