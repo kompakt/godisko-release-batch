@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Exception;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception;
 
 use Kompakt\GodiskoReleaseBatch\Exception as BaseException;
 

@@ -56,4 +56,21 @@ class AudioFinder implements AudioFinderInterface
 
         return null;
     }
+
+    public function getAudioFiles()
+    {
+        $pathnames = array();
+
+        foreach ($this->release->getTracks() as $track)
+        {
+            $pathname = $this->getAudioFile($track->getIsrc());
+
+            if ($pathname)
+            {
+                $pathnames[] = $pathname;
+            }
+        }
+
+        return $pathnames;
+    }
 }

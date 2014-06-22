@@ -7,14 +7,14 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Exception\InvalidArgumentException;
-use Kompakt\Mediameister\Packshot\Metadata\Finder\MetadataFinderInterface;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\InvalidArgumentException;
+use Kompakt\Mediameister\Packshot\Metadata\Loader\MetadataLoaderInterface;
 
-class MetadataFinder implements MetadataFinderInterface
+class MetadataLoader implements MetadataLoaderInterface
 {
     protected $metadataReaderFactory = null;
     protected $layout = null;
@@ -28,14 +28,14 @@ class MetadataFinder implements MetadataFinderInterface
         $this->layout = $layout;
     }
 
-    public function find()
+    public function getFile()
     {
         $pathname = $this->layout->getMetadataFile();
         $fileInfo = new \SplFileInfo($pathname);
 
         if ($fileInfo->isFile())
         {
-            return $this->metadataReaderFactory->getInstance($pathname)->read();
+            return $pathname;
         }
 
         $otherNames = array('meta.XML');
@@ -47,8 +47,20 @@ class MetadataFinder implements MetadataFinderInterface
 
             if ($fileInfo->isFile())
             {
-                return $this->metadataReaderFactory->getInstance($pathname)->read();
+                return $pathname;
             }
+        }
+
+        return null;
+    }
+
+    public function load()
+    {
+        $pathname = $this->getFile();
+
+        if ($pathname)
+        {
+            return $this->metadataReaderFactory->getInstance($pathname)->read();
         }
 
         throw new InvalidArgumentException('Metadata file not found');
