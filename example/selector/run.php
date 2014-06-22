@@ -14,6 +14,8 @@ use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
+use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
+use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
@@ -36,9 +38,10 @@ $packshotFactory = new PackshotFactory(
     new AudioFinderFactory()
 );
 
-$batchFactory = new BatchFactory($packshotFactory);
-$dropDir = new DropDir($batchFactory, $dropDirPathname);
-$selectionFactory = new SelectionFactory(new FileFactory());
+$directoryFactory = new DirectoryFactory();
+$batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
+$dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
+$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
 
 # run
 $batch = $dropDir->getBatch('example-batch');

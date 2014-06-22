@@ -19,6 +19,7 @@ use Kompakt\Mediameister\Task\Batch\EventNames;
 use Kompakt\Mediameister\Task\Batch\Subscriber\Share\Summary;
 use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
 use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
@@ -44,8 +45,9 @@ $packshotFactory = new PackshotFactory(
     new AudioFinderFactory()
 );
 
-$batchFactory = new BatchFactory($packshotFactory);
-$dropDir = new DropDir($batchFactory, $dropDirPathname);
+$directoryFactory = new DirectoryFactory();
+$batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
+$dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());

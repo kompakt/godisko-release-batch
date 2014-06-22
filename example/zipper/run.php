@@ -9,13 +9,9 @@
 
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Batch\Batch;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
-use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
-use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
@@ -26,13 +22,15 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Finder\Factory\MetadataFinderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-
-// target dir
-$tmpDir = getTmpDir();
-$targetDropDirPathname = $tmpDir->replaceSubDir('segregator/drop-dir');
+use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
+use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 
 // source dir
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
+
+// target dir
+$tmpDir = getTmpDir();
+$targetDropDirPathname = $tmpDir->replaceSubDir('zipper/drop-dir');
 
 // drop dir
 $packshotFactory = new PackshotFactory(
@@ -46,15 +44,19 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-$targetDropDir = new DropDir($batchFactory, $directoryFactory, $targetDropDirPathname);
-$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$childFileNamerFactory = new ChildFileNamerFactory();
+$fileAdderFactory = new FileAdderFactory();
 
-# run
+
+$childFileNamer = $childFileNamerFactory->getInstance($targetDropDirPathname);
 $batch = $dropDir->getBatch('example-batch');
-$selection = $selectionFactory->getInstance($batch);
-$selection->clear();
-$selection->addPackshot($batch->getPackshot('packshot-complete'));
-$selection->addPackshot($batch->getPackshot('packshot-no-artwork'));
-$selection->copy($targetDropDir);
-#$selection->move($targetDropDir);
-#$selection->delete($targetDropDir);
+
+$name = $childFileNamer->make($batch->getName(), '', '.zip');
+$zipPathname = sprintf('%s/%s', $targetDropDirPathname, $name);
+$zip = new \ZipArchive();
+$zip->open($zipPathname, ZIPARCHIVE::CREATE);
+
+$fileAdder = $fileAdderFactory->getInstance($zip);
+$fileAdder->addChildren($batch->getDir());
+
+$zip->close();

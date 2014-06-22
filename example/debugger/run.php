@@ -17,6 +17,7 @@ use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
 use Kompakt\Mediameister\Task\Batch\BatchTask;
 use Kompakt\Mediameister\Task\Batch\EventNames;
 use Kompakt\Mediameister\Task\Batch\Console\Subscriber\Debugger;
+use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
@@ -40,8 +41,9 @@ $packshotFactory = new PackshotFactory(
     new AudioFinderFactory()
 );
 
-$batchFactory = new BatchFactory($packshotFactory);
-$dropDir = new DropDir($batchFactory, $dropDirPathname);
+$directoryFactory = new DirectoryFactory();
+$batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
+$dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
 $eventNames = new EventNames('my_batch_debugger_task');
