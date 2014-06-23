@@ -11,7 +11,7 @@ namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\DropDir\DropDir;
-use Kompakt\Mediameister\Task\Batch\BatchTask;
+use Kompakt\Mediameister\Task\Batch\Core\BatchTask;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\SubscriberManager;
 
 class TaskRunner

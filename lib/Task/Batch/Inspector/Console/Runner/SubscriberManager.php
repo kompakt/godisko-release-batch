@@ -11,8 +11,8 @@ namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner;
 
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber\Inspector;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
-use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
-use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
+use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Task\Batch\Core\Subscriber\SummaryMaker;
 
 class SubscriberManager
 {
