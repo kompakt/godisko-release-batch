@@ -9,7 +9,7 @@
 
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Batch\Batch;
+use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
@@ -26,15 +26,18 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Manager\TaskManager;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 
-// target dir
-$tmpDir = getTmpDir();
-$targetDropDirPathname = $tmpDir->replaceSubDir('segregator/drop-dir');
-
-// source dir
+// config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
-// drop dir
+// prepare
+$tmpDir = getTmpDir();
+$targetDropDirPathname = $tmpDir->replaceSubDir('selector/copy');
+
+// compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
@@ -48,13 +51,18 @@ $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 $targetDropDir = new DropDir($batchFactory, $directoryFactory, $targetDropDirPathname);
 $selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$output = new ConsoleOutput(new SymfonyConsoleOutput());
 
-# run
-$batch = $dropDir->getBatch('example-batch');
-$selection = $selectionFactory->getInstance($batch);
-$selection->clear();
-$selection->addPackshot($batch->getPackshot('packshot-complete'));
-$selection->addPackshot($batch->getPackshot('packshot-no-artwork'));
-$selection->copy($targetDropDir);
-#$selection->move($targetDropDir);
-#$selection->delete($targetDropDir);
+$taskManager = new TaskManager(
+    $selectionFactory,
+    $dropDir,
+    $targetDropDir
+);
+
+$taskRunner = new TaskRunner(
+    $taskManager,
+    $output
+);
+
+// run
+$taskRunner->copyPackshots('example-batch');

@@ -30,9 +30,10 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactor
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
-$dropDirPathname = sprintf('%s/_files/drop-dir', __DIR__);
+// config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
+// compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
@@ -58,6 +59,7 @@ $task = new BatchTask(
     $eventNames
 );
 
+// run
 $dispatcher->addSubscriber($debugger);
 $batch = $dropDir->getBatch('example-batch');
 $task->run($batch);

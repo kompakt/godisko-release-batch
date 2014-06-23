@@ -9,6 +9,7 @@
 
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
+use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
@@ -25,11 +26,18 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Manager\TaskManager;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 
-// source dir
+// config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
-// drop dir
+// prepare
+$tmpDir = getTmpDir();
+$targetDropDirPathname = $tmpDir->replaceSubDir('selector/move');
+
+// compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
@@ -41,16 +49,20 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
+$targetDropDir = new DropDir($batchFactory, $directoryFactory, $targetDropDirPathname);
 $selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$output = new ConsoleOutput(new SymfonyConsoleOutput());
 
-# run
-$batch = $dropDir->getBatch('example-batch');
-$selection = $selectionFactory->getInstance($batch);
-$selection->addPackshot($batch->getPackshot('packshot-complete'));
-$selection->addPackshot($batch->getPackshot('packshot-no-artwork'));
-#$selection->removePackshot($batch->getPackshot('packshot-no-artwork'));
+$taskManager = new TaskManager(
+    $selectionFactory,
+    $dropDir,
+    $targetDropDir
+);
 
-foreach($selection->getPackshots() as $packshot)
-{
-    echo sprintf("%s > %s\n", $packshot->getName(), get_class($packshot));
-}
+$taskRunner = new TaskRunner(
+    $taskManager,
+    $output
+);
+
+// run
+#$taskRunner->movePackshots('example-batch', $targetDropDir);

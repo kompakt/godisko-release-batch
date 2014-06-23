@@ -37,14 +37,14 @@ use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber\Zipper;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
-// source dir
+// config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
-// target dir
+// prepare
 $tmpDir = getTmpDir();
 $zipDropDirPathname = $tmpDir->replaceSubDir('zipper/drop-dir');
 
-// drop dir
+// compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
@@ -101,6 +101,7 @@ $taskRunner = new TaskRunner(
     $task
 );
 
+// run
 $taskRunner->includeMetadata();
 $taskRunner->includeArtwork();
 $taskRunner->includeAudio();

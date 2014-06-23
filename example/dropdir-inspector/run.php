@@ -24,11 +24,14 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
+use Kompakt\GodiskoReleaseBatch\Task\DropDir\Inspector\Console\Runner\TaskRunner;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
+// config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
+// compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
@@ -40,15 +43,8 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
+$taskRunner = new TaskRunner($dropDir, $output);
 
-foreach ($dropDir->getBatches() as $batch)
-{
-    $output->writeln(
-        sprintf(
-            '<info>%s</info>',
-            $batch->getName()
-        )
-    );
-}
+// run
+$taskRunner->inspect();

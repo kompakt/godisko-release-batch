@@ -10,15 +10,12 @@
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
 use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
-use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
+use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
+use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Task\Batch\BatchTask;
-use Kompakt\Mediameister\Task\Batch\EventNames;
-use Kompakt\Mediameister\Task\Batch\Subscriber\Share\Summary;
-use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
-use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
@@ -29,11 +26,9 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\TaskRunner;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Selector\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Selection\Selector\Manager\TaskManager;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
-use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 // config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
@@ -50,46 +45,24 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-
+$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
-$dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
-$eventNames = new EventNames('batch_inspector_task');
-$summary = new Summary();
 
-$summaryMaker = new SummaryMaker(
-    $eventNames,
-    $summary
-);
-
-$summaryPrinter = new SummaryPrinter(
-    $eventNames,
-    $summary,
-    $output
-);
-
-$inspector = new Inspector(
-    $eventNames,
-    $output
-);
-
-$task = new BatchTask(
-    $dispatcher,
-    $eventNames
-);
-
-$subscriberManager = new SubscriberManager(
-    $dispatcher,
-    $inspector,
-    $summaryMaker,
-    $summaryPrinter
+$taskManager = new TaskManager(
+    $selectionFactory,
+    $dropDir
 );
 
 $taskRunner = new TaskRunner(
-    $subscriberManager,
-    $output,
-    $dropDir,
-    $task
+    $taskManager,
+    $output
 );
 
 // run
-$taskRunner->run('example-batch');
+$taskRunner->removePackshots(
+    'example-batch',
+    array(
+        'packshot-complete',
+        'packshot-no-artwork'
+    )
+);
