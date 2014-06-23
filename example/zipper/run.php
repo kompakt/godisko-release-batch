@@ -9,9 +9,18 @@
 
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 
+use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
+use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
+use Kompakt\Mediameister\Task\Batch\BatchTask;
+use Kompakt\Mediameister\Task\Batch\EventNames;
+use Kompakt\Mediameister\Task\Batch\Subscriber\Share\Summary;
+use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;
+use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
+use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
@@ -22,15 +31,18 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
-use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber\Zipper;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
+use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 // source dir
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
 // target dir
 $tmpDir = getTmpDir();
-$targetDropDirPathname = $tmpDir->replaceSubDir('zipper/drop-dir');
+$zipDropDirPathname = $tmpDir->replaceSubDir('zipper/drop-dir');
 
 // drop dir
 $packshotFactory = new PackshotFactory(
@@ -42,58 +54,54 @@ $packshotFactory = new PackshotFactory(
 );
 
 $directoryFactory = new DirectoryFactory();
+$fileAdderFactory = new FileAdderFactory();
+$childFileNamerFactory = new ChildFileNamerFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-$childFileNamerFactory = new ChildFileNamerFactory();
-$fileAdderFactory = new FileAdderFactory();
 
-$batch = $dropDir->getBatch('example-batch');
+$output = new ConsoleOutput(new SymfonyConsoleOutput());
+$dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
+$eventNames = new EventNames('batch_zipper_task');
+$summary = new Summary();
 
-$pathnames = array();
+$summaryMaker = new SummaryMaker(
+    $eventNames,
+    $summary
+);
 
-foreach ($batch->getPackshots() as $packshot)
-{
-    try {
-        echo sprintf("%s\n", $packshot->getName());
-        $packshot->load();
+$summaryPrinter = new SummaryPrinter(
+    $eventNames,
+    $summary,
+    $output
+);
 
-        $metadata = $packshot->getMetadataLoader()->getFile();
+$zipper = new Zipper(
+    $eventNames,
+    $childFileNamerFactory,
+    $fileAdderFactory,
+    $zipDropDirPathname
+);
 
-        if ($metadata)
-        {
-            $pathnames[] = $metadata;
-        }
-        
-        $frontArtwork = $packshot->getArtworkFinder()->getFrontArtworkFile();
+$task = new BatchTask(
+    $dispatcher,
+    $eventNames
+);
 
-        if ($frontArtwork)
-        {
-            $pathnames[] = $frontArtwork;
-        }
+$subscriberManager = new SubscriberManager(
+    $dispatcher,
+    $zipper,
+    $summaryMaker,
+    $summaryPrinter
+);
 
-        $pathnames = array_merge($pathnames, $packshot->getAudioFinder()->getAudioFiles());
-    }
-    catch (\Exception $e)
-    {
-        echo sprintf(">> %s\n", $e->getMessage());
-    }
-}
+$taskRunner = new TaskRunner(
+    $subscriberManager,
+    $output,
+    $dropDir,
+    $task
+);
 
-#var_dump($pathnames); die;
-
-$childFileNamer = $childFileNamerFactory->getInstance($targetDropDirPathname);
-$name = $childFileNamer->make($batch->getName(), '', '.zip');
-$zipPathname = sprintf('%s/%s', $targetDropDirPathname, $name);
-
-$zip = new \ZipArchive();
-$zip->open($zipPathname, ZIPARCHIVE::CREATE);
-
-$fileAdder = $fileAdderFactory->getInstance($zip);
-#$fileAdder->addChildren($batch->getDir());
-
-foreach ($pathnames as $pathname)
-{
-    $fileAdder->addFileFromBasedir($pathname, $batch->getDir());
-}
-
-$zip->close();
+$taskRunner->includeMetadata();
+$taskRunner->includeArtwork();
+$taskRunner->includeAudio();
+$taskRunner->run('example-batch');

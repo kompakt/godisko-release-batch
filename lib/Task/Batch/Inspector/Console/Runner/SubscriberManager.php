@@ -7,9 +7,9 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner;
 
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber\Inspector;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 use Kompakt\Mediameister\Task\Batch\Console\Subscriber\SummaryPrinter;
 use Kompakt\Mediameister\Task\Batch\Subscriber\SummaryMaker;

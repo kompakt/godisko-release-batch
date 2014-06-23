@@ -29,9 +29,9 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Runner\TaskRunner;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\BatchInspector\Console\Subscriber\Inspector;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber\Inspector;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -51,7 +51,7 @@ $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
-$eventNames = new EventNames('my_batch_inspector_task');
+$eventNames = new EventNames('batch_inspector_task');
 $summary = new Summary();
 
 $summaryMaker = new SummaryMaker(

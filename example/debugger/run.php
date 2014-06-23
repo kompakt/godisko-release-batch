@@ -46,7 +46,7 @@ $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 
 $dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
-$eventNames = new EventNames('my_batch_debugger_task');
+$eventNames = new EventNames('batch_debugger_task');
 
 $debugger = new Debugger(
     $eventNames,
