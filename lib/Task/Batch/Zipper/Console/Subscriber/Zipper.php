@@ -30,7 +30,7 @@ class Zipper implements EventSubscriberInterface
     protected $batch = null;
     protected $currentPackshot = null;
     protected $candidates = array();
-    protected $includeMetadata = false;
+    protected $includeMetadata = true;
     protected $includeArtwork = false;
     protected $includeAudio = false;
 
