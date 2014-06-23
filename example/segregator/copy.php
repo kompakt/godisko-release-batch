@@ -15,6 +15,8 @@ use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
+use Kompakt\Mediameister\Task\Selection\Segregator\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\Selection\Segregator\Manager\TaskManager;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
@@ -26,8 +28,6 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Console\Runner\TaskRunner;
-use Kompakt\GodiskoReleaseBatch\Task\Selection\Segregator\Manager\TaskManager;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 
 // config
@@ -35,7 +35,7 @@ $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
 // prepare
 $tmpDir = getTmpDir();
-$targetDropDirPathname = $tmpDir->replaceSubDir('selector/copy');
+$targetDropDirPathname = $tmpDir->replaceSubDir('segregator/copy');
 
 // compose
 $packshotFactory = new PackshotFactory(

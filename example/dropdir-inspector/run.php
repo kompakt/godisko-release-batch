@@ -14,6 +14,7 @@ use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
+use Kompakt\Mediameister\Task\DropDir\Inspector\Console\Runner\TaskRunner;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
@@ -24,7 +25,6 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
-use Kompakt\GodiskoReleaseBatch\Task\DropDir\Inspector\Console\Runner\TaskRunner;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
