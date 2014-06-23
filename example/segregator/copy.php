@@ -50,11 +50,12 @@ $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 $targetDropDir = new DropDir($batchFactory, $directoryFactory, $targetDropDirPathname);
-$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory);
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
 
 $taskManager = new TaskManager(
     $selectionFactory,
+    new ChildFileNamerFactory(),
     $dropDir,
     $targetDropDir
 );
