@@ -14,7 +14,7 @@ use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Task\DropDir\Inspector\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\DropDir\Lister\Console\Runner\TaskRunner;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
@@ -44,7 +44,8 @@ $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
+
 $taskRunner = new TaskRunner($dropDir, $output);
 
 // run
-$taskRunner->inspect();
+$taskRunner->run();

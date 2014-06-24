@@ -15,8 +15,8 @@ use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Task\Selection\Segregator\Console\Runner\TaskRunner;
-use Kompakt\Mediameister\Task\Selection\Segregator\Manager\TaskManager;
+use Kompakt\Mediameister\Task\Selection\Mover\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\Selection\Mover\Manager\TaskManager;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
@@ -35,7 +35,7 @@ $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
 // prepare
 $tmpDir = getTmpDir();
-$targetDropDirPathname = $tmpDir->replaceSubDir('segregator/move');
+$targetDropDirPathname = $tmpDir->replaceSubDir('selection/mover');
 
 // compose
 $packshotFactory = new PackshotFactory(
@@ -66,4 +66,4 @@ $taskRunner = new TaskRunner(
 );
 
 // run
-#$taskRunner->movePackshots('example-batch', $targetDropDir);
+$taskRunner->run('example-batch', $targetDropDir);

@@ -15,8 +15,8 @@ use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Task\Selection\Selector\Console\Runner\TaskRunner;
-use Kompakt\Mediameister\Task\Selection\Selector\Manager\TaskManager;
+use Kompakt\Mediameister\Task\Selection\Copier\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\Selection\Copier\Manager\TaskManager;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
@@ -33,6 +33,10 @@ use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
 // config
 $dropDirPathname = sprintf('%s/_files/drop-dir', dirname(__DIR__));
 
+// prepare
+$tmpDir = getTmpDir();
+$targetDropDirPathname = $tmpDir->replaceSubDir('selection/copier');
+
 // compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
@@ -45,12 +49,15 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$targetDropDir = new DropDir($batchFactory, $directoryFactory, $targetDropDirPathname);
+$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory);
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
 
 $taskManager = new TaskManager(
     $selectionFactory,
-    $dropDir
+    new ChildFileNamerFactory(),
+    $dropDir,
+    $targetDropDir
 );
 
 $taskRunner = new TaskRunner(
@@ -59,10 +66,4 @@ $taskRunner = new TaskRunner(
 );
 
 // run
-$taskRunner->removePackshots(
-    'example-batch',
-    array(
-        'packshot-complete',
-        'packshot-no-artwork'
-    )
-);
+$taskRunner->run('example-batch');

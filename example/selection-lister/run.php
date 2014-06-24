@@ -15,8 +15,7 @@ use Kompakt\Mediameister\Batch\Selection\Factory\FileFactory;
 use Kompakt\Mediameister\Batch\Selection\Factory\SelectionFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Task\Selection\Selector\Console\Runner\TaskRunner;
-use Kompakt\Mediameister\Task\Selection\Selector\Manager\TaskManager;
+use Kompakt\Mediameister\Task\Selection\Lister\Console\Runner\TaskRunner;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
@@ -45,24 +44,14 @@ $packshotFactory = new PackshotFactory(
 $directoryFactory = new DirectoryFactory();
 $batchFactory = new BatchFactory($packshotFactory, $directoryFactory);
 $dropDir = new DropDir($batchFactory, $directoryFactory, $dropDirPathname);
-$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory, new ChildFileNamerFactory());
+$selectionFactory = new SelectionFactory(new FileFactory(), $directoryFactory);
 $output = new ConsoleOutput(new SymfonyConsoleOutput());
 
-$taskManager = new TaskManager(
-    $selectionFactory,
-    $dropDir
-);
-
 $taskRunner = new TaskRunner(
-    $taskManager,
+    $selectionFactory,
+    $dropDir,
     $output
 );
 
 // run
-$taskRunner->addPackshots(
-    'example-batch',
-    array(
-        'packshot-complete',
-        'packshot-no-artwork'
-    )
-);
+$taskRunner->run('example-batch');
