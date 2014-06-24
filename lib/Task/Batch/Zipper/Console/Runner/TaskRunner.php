@@ -34,19 +34,19 @@ class TaskRunner
         $this->task = $task;
     }
 
-    public function includeMetadata($flag = true)
+    public function skipMetadata($flag)
     {
-        $this->subscriberManager->getZipper()->includeMetadata($flag);
+        $this->subscriberManager->getZipper()->skipMetadata($flag);
     }
 
-    public function includeArtwork($flag = true)
+    public function skipArtwork($flag)
     {
-        $this->subscriberManager->getZipper()->includeArtwork($flag);
+        $this->subscriberManager->getZipper()->skipArtwork($flag);
     }
 
-    public function includeAudio($flag = true)
+    public function skipAudio($flag)
     {
-        $this->subscriberManager->getZipper()->includeAudio($flag);
+        $this->subscriberManager->getZipper()->skipAudio($flag);
     }
 
     public function run($batchName)

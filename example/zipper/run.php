@@ -102,7 +102,7 @@ $taskRunner = new TaskRunner(
 );
 
 // run
-$taskRunner->includeMetadata();
-$taskRunner->includeArtwork();
-$taskRunner->includeAudio();
+$taskRunner->skipMetadata(false);
+$taskRunner->skipArtwork(true);
+$taskRunner->skipAudio(true);
 $taskRunner->run('example-batch');

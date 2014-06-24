@@ -30,9 +30,9 @@ class Zipper implements EventSubscriberInterface
     protected $batch = null;
     protected $currentPackshot = null;
     protected $candidates = array();
-    protected $includeMetadata = true;
-    protected $includeArtwork = false;
-    protected $includeAudio = false;
+    protected $skipMetadata = false;
+    protected $skipArtwork = false;
+    protected $skipAudio = false;
 
     public function __construct(
         EventNamesInterface $eventNames,
@@ -48,19 +48,19 @@ class Zipper implements EventSubscriberInterface
         $this->fileAdder = $fileAdderFactory->getInstance($this->zip);
     }
 
-    public function includeMetadata($flag)
+    public function skipMetadata($flag)
     {
-        $this->includeMetadata = (bool) $flag;
+        $this->skipMetadata = (bool) $flag;
     }
 
-    public function includeArtwork($flag)
+    public function skipArtwork($flag)
     {
-        $this->includeArtwork = (bool) $flag;
+        $this->skipArtwork = (bool) $flag;
     }
 
-    public function includeAudio($flag)
+    public function skipAudio($flag)
     {
-        $this->includeAudio = (bool) $flag;
+        $this->skipAudio = (bool) $flag;
     }
 
     public function getSubscriptions()
@@ -117,7 +117,7 @@ class Zipper implements EventSubscriberInterface
 
     public function onArtwork(ArtworkEvent $event)
     {
-        if (!$this->includeArtwork)
+        if ($this->skipArtwork)
         {
             return;
         }
@@ -132,7 +132,7 @@ class Zipper implements EventSubscriberInterface
 
     public function onTrack(TrackEvent $event)
     {
-        if (!$this->includeAudio)
+        if ($this->skipAudio)
         {
             return;
         }
@@ -148,7 +148,7 @@ class Zipper implements EventSubscriberInterface
 
     public function onMetadata(MetadataEvent $event)
     {
-        if (!$this->includeMetadata)
+        if ($this->skipMetadata)
         {
             return;
         }
