@@ -10,14 +10,13 @@
 require sprintf('%s/bootstrap.php', dirname(__DIR__));
 require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
-require sprintf('%s/_selection-factory.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Selection\Lister\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\Batch\Deleter\Console\Runner\TaskRunner;
 
 $taskRunner = new TaskRunner(
-    $selectionFactory,
     $dropDir,
     $output
 );
 
-$taskRunner->run('example-batch');
+// run
+$taskRunner->run('example-batch-2');

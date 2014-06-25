@@ -7,15 +7,8 @@
  *
  */
 
-use Kompakt\TestHelper\Filesystem\TmpDir;
-
-// load testing configuration
+// load configuration
 require_once (file_exists(__DIR__ . '/config.php')) ? 'config.php' : 'config.php.dist';
 
 // autoloader
 require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-function getTmpDir()
-{
-    return new TmpDir(EXAMPLE_KOMPAKT_GODISKORELEASEBATCH_TEMP_DIR);
-}
