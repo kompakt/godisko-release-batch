@@ -28,4 +28,4 @@ $taskRunner = new TaskRunner(
     $output
 );
 
-#$taskRunner->run('example-batch');
+$taskRunner->run('example-batch');

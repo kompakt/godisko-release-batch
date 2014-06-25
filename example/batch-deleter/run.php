@@ -19,4 +19,4 @@ $taskRunner = new TaskRunner(
 );
 
 // run
-$taskRunner->run('example-batch-2');
+$taskRunner->run('example-batch');

@@ -23,9 +23,13 @@ Audio files are named by ISRC code and referenced in meta.XML
 
 ## Example
 
+Start by making a copy of the example batch:
+
++ `cp -R example/_files/drop-dir/example-batch-dist example/_files/drop-dir/example-batch`
+
 Example of a full task composition to list the packshot contents of a batch
 
-+ `php example/inspector.php`
++ `php example/batch-inspector.php`
 
 This will output something like this:
 
@@ -80,9 +84,17 @@ This simply outputs the events along the way:
     + Task end
     + Task final
 
-+ `php example/selection-tester/run.php`
++ `php example/selection-adder/run.php`
 
-"Select" some packshots by saving their name into a file. Selections can be used to perform actions in multiple steps (eg select some packshots and then segregate them into a separate batch etc)
+"Select" some packshots by saving their name into a file. Selections are used to specify one or more packshots to be moved or copied to a new batch
+
++ `php example/selection-lister/run.php`
+
+List the currently "selected" packshots
+
++ `php example/selection-copier/run.php`
+
+Create a new batch directory in the same drop directory and copy the "selected" packshots into it
 
 ## Tests
 
