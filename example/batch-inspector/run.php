@@ -17,13 +17,14 @@ use Kompakt\Mediameister\Task\Batch\Core\EventNames;
 use Kompakt\Mediameister\Task\Batch\Core\Subscriber\Share\Summary;
 use Kompakt\Mediameister\Task\Batch\Core\Subscriber\SummaryMaker;
 use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Util\Counter;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\TaskRunner;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber\Inspector;
 
 // compose
 $eventNames = new EventNames('batch_inspector_task');
-$summary = new Summary();
+$summary = new Summary(new Counter());
 
 $summaryMaker = new SummaryMaker(
     $eventNames,

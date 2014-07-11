@@ -19,12 +19,13 @@ use Kompakt\Mediameister\Task\Batch\Core\Subscriber\SummaryMaker;
 use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\SummaryPrinter;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
+use Kompakt\Mediameister\Util\Counter;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\TaskRunner;
 use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber\Zipper;
 
 $eventNames = new EventNames('batch_zipper_task');
-$summary = new Summary();
+$summary = new Summary(new Counter());
 
 $summaryMaker = new SummaryMaker(
     $eventNames,
