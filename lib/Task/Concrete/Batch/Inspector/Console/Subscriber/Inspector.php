@@ -7,20 +7,20 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Subscriber;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
-use Kompakt\Mediameister\Task\Batch\Core\EventNamesInterface;
-use Kompakt\Mediameister\Task\Batch\Core\Event\ArtworkEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\ArtworkErrorEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\PackshotLoadErrorEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TaskEndErrorEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TaskEndEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TaskRunEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TrackErrorEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TrackEvent;
+use Kompakt\Mediameister\Task\Core\Batch\EventNamesInterface;
+use Kompakt\Mediameister\Task\Core\Batch\Event\ArtworkEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\ArtworkErrorEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\PackshotLoadErrorEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\PackshotLoadEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TaskEndErrorEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TaskEndEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TaskRunEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TrackErrorEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TrackEvent;
 
 class Inspector implements EventSubscriberInterface
 {

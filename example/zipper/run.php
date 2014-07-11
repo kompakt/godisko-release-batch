@@ -12,17 +12,17 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Batch\Core\BatchTask;
-use Kompakt\Mediameister\Task\Batch\Core\EventNames;
-use Kompakt\Mediameister\Task\Batch\Core\Subscriber\Share\Summary;
-use Kompakt\Mediameister\Task\Batch\Core\Subscriber\SummaryMaker;
-use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\SummaryPrinter;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Subscriber\Zipper;
+use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
+use Kompakt\Mediameister\Task\Core\Batch\EventNames;
+use Kompakt\Mediameister\Task\Core\Batch\Subscriber\Share\Summary;
+use Kompakt\Mediameister\Task\Core\Batch\Subscriber\SummaryMaker;
+use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Counter;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner\TaskRunner;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber\Zipper;
 
 $eventNames = new EventNames('batch_zipper_task');
 $summary = new Summary(new Counter());

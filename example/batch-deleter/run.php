@@ -11,7 +11,7 @@ require sprintf('%s/bootstrap.php', dirname(__DIR__));
 require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Batch\Deleter\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\Concrete\Batch\Deleter\Console\Runner\TaskRunner;
 
 $taskRunner = new TaskRunner(
     $dropDir,

@@ -12,9 +12,9 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Batch\Core\BatchTask;
-use Kompakt\Mediameister\Task\Batch\Core\EventNames;
-use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\Debugger;
+use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
+use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\Debugger;
+use Kompakt\Mediameister\Task\Core\Batch\EventNames;
 
 // compose
 $eventNames = new EventNames('batch_debugger_task');

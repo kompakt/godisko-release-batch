@@ -7,16 +7,16 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Subscriber;
 
 use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
-use Kompakt\Mediameister\Task\Batch\Core\EventNamesInterface;
-use Kompakt\Mediameister\Task\Batch\Core\Event\ArtworkEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\MetadataEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TaskEndEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TaskRunEvent;
-use Kompakt\Mediameister\Task\Batch\Core\Event\TrackEvent;
+use Kompakt\Mediameister\Task\Core\Batch\EventNamesInterface;
+use Kompakt\Mediameister\Task\Core\Batch\Event\ArtworkEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\MetadataEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\PackshotLoadEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TaskEndEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TaskRunEvent;
+use Kompakt\Mediameister\Task\Core\Batch\Event\TrackEvent;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 

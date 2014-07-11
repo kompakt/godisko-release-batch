@@ -7,10 +7,6 @@
  *
  */
 
-use Kompakt\Mediameister\Batch\Factory\BatchFactory;
-use Kompakt\Mediameister\DropDir\DropDir;
-use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
-use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
@@ -20,6 +16,10 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
+use Kompakt\Mediameister\Batch\Factory\BatchFactory;
+use Kompakt\Mediameister\DropDir\DropDir;
+use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
+use Kompakt\Mediameister\Util\Filesystem\Factory\DirectoryFactory;
 
 // config
 $dropDirPathname = sprintf('%s/_files/drop-dir', __DIR__);

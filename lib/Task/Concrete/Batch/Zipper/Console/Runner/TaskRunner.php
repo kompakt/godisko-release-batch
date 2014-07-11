@@ -7,12 +7,12 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner;
 
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\SubscriberManager;
 use Kompakt\Mediameister\DropDir\DropDir;
-use Kompakt\Mediameister\Task\Batch\Core\BatchTask;
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Inspector\Console\Runner\SubscriberManager;
+use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
 
 class TaskRunner
 {
@@ -32,6 +32,21 @@ class TaskRunner
         $this->output = $output;
         $this->godiskoDropDir = $godiskoDropDir;
         $this->task = $task;
+    }
+
+    public function skipMetadata($flag)
+    {
+        $this->subscriberManager->getZipper()->skipMetadata($flag);
+    }
+
+    public function skipArtwork($flag)
+    {
+        $this->subscriberManager->getZipper()->skipArtwork($flag);
+    }
+
+    public function skipAudio($flag)
+    {
+        $this->subscriberManager->getZipper()->skipAudio($flag);
     }
 
     public function run($batchName)

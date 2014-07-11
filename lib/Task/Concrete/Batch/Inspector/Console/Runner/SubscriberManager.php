@@ -7,48 +7,43 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Runner;
 
-use Kompakt\GodiskoReleaseBatch\Task\Batch\Zipper\Console\Subscriber\Zipper;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Subscriber\Inspector;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
-use Kompakt\Mediameister\Task\Batch\Core\Console\Subscriber\SummaryPrinter;
-use Kompakt\Mediameister\Task\Batch\Core\Subscriber\SummaryMaker;
+use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\Mediameister\Task\Core\Batch\Subscriber\SummaryMaker;
 
 class SubscriberManager
 {
     protected $dispatcher = null;
-    protected $zipper = null;
+    protected $inspector = null;
     protected $summaryMaker = null;
     protected $summaryPrinter = null;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        Zipper $zipper,
+        Inspector $inspector,
         SummaryMaker $summaryMaker,
         SummaryPrinter $summaryPrinter
     )
     {
         $this->dispatcher = $dispatcher;
-        $this->zipper = $zipper;
+        $this->inspector = $inspector;
         $this->summaryMaker = $summaryMaker;
         $this->summaryPrinter = $summaryPrinter;
     }
 
-    public function getZipper()
-    {
-        return $this->zipper;
-    }
-
     public function begin()
     {
-        $this->dispatcher->addSubscriber($this->zipper);
+        $this->dispatcher->addSubscriber($this->inspector);
         $this->dispatcher->addSubscriber($this->summaryMaker);
         $this->dispatcher->addSubscriber($this->summaryPrinter);
     }
 
     public function end()
     {
-        $this->dispatcher->removeSubscriber($this->zipper);
+        $this->dispatcher->removeSubscriber($this->inspector);
         $this->dispatcher->removeSubscriber($this->summaryMaker);
         $this->dispatcher->removeSubscriber($this->summaryPrinter);
     }

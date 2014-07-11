@@ -9,10 +9,10 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory;
 
-use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
-use Kompakt\Mediameister\Packshot\Metadata\Loader\Factory\MetadataLoaderFactoryInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\MetadataLoader;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
+use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
+use Kompakt\Mediameister\Packshot\Metadata\Loader\Factory\MetadataLoaderFactoryInterface;
 
 class MetadataLoaderFactory implements MetadataLoaderFactoryInterface
 {
