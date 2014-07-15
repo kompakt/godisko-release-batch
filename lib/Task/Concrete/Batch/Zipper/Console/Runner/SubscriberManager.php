@@ -10,9 +10,9 @@
 namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner;
 
 use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Subscriber\Zipper;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Subscriber\SummaryMaker;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
-use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
-use Kompakt\Mediameister\Task\Core\Batch\Subscriber\SummaryMaker;
 
 class SubscriberManager
 {

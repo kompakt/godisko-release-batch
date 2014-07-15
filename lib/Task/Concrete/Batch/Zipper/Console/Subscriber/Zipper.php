@@ -9,14 +9,13 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Subscriber;
 
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\EventNamesInterface;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\AudioEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\FrontArtworkEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\MetadataEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskEndEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskRunEvent;
 use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
-use Kompakt\Mediameister\Task\Core\Batch\EventNamesInterface;
-use Kompakt\Mediameister\Task\Core\Batch\Event\ArtworkEvent;
-use Kompakt\Mediameister\Task\Core\Batch\Event\MetadataEvent;
-use Kompakt\Mediameister\Task\Core\Batch\Event\PackshotLoadEvent;
-use Kompakt\Mediameister\Task\Core\Batch\Event\TaskEndEvent;
-use Kompakt\Mediameister\Task\Core\Batch\Event\TaskRunEvent;
-use Kompakt\Mediameister\Task\Core\Batch\Event\TrackEvent;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 
@@ -28,7 +27,6 @@ class Zipper implements EventSubscriberInterface
     protected $fileAdder = null;
     protected $zip = null;
     protected $batch = null;
-    protected $currentPackshot = null;
     protected $candidates = array();
     protected $skipMetadata = false;
     protected $skipArtwork = false;
@@ -73,16 +71,12 @@ class Zipper implements EventSubscriberInterface
             $this->eventNames->taskEnd() => array(
                 array('onTaskEnd', 0)
             ),
-            // batch events
-            $this->eventNames->packshotLoad() => array(
-                array('onPackshotLoad', 0)
-            ),
             // packshot events
-            $this->eventNames->artwork() => array(
-                array('onArtwork', 0)
+            $this->eventNames->frontArtwork() => array(
+                array('onFrontArtwork', 0)
             ),
-            $this->eventNames->track() => array(
-                array('onTrack', 0)
+            $this->eventNames->audio() => array(
+                array('onAudio', 0)
             ),
             $this->eventNames->metadata() => array(
                 array('onMetadata', 0)
@@ -110,39 +104,29 @@ class Zipper implements EventSubscriberInterface
         $this->zip->close();
     }
 
-    public function onPackshotLoad(PackshotLoadEvent $event)
-    {
-        $this->currentPackshot = $event->getPackshot();
-    }
-
-    public function onArtwork(ArtworkEvent $event)
+    public function onFrontArtwork(FrontArtworkEvent $event)
     {
         if ($this->skipArtwork)
         {
             return;
         }
 
-        $frontArtworkFile = $this->currentPackshot->getArtworkFinder()->getFrontArtworkFile();
-
-        if ($frontArtworkFile)
+        if ($event->getPathname())
         {
-            $this->candidates[] = $frontArtworkFile;
+            $this->candidates[] = $event->getPathname();
         }
     }
 
-    public function onTrack(TrackEvent $event)
+    public function onAudio(AudioEvent $event)
     {
         if ($this->skipAudio)
         {
             return;
         }
 
-        $isrc = $event->getTrack()->getIsrc();
-        $audioFile = $this->currentPackshot->getAudioFinder()->getAudioFile($isrc);
-
-        if ($audioFile)
+        if ($event->getPathname())
         {
-            $this->candidates[] = $audioFile;
+            $this->candidates[] = $event->getPathname();
         }
     }
 
@@ -153,11 +137,9 @@ class Zipper implements EventSubscriberInterface
             return;
         }
 
-        $metadataFile = $this->currentPackshot->getMetadataLoader()->getFile();
-
-        if ($metadataFile)
+        if ($event->getPathname())
         {
-            $this->candidates[] = $metadataFile;
+            $this->candidates[] = $event->getPathname();
         }
     }
 }

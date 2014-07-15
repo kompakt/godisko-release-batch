@@ -10,9 +10,9 @@
 namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Runner;
 
 use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\BatchTask;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
 
 class TaskRunner
 {

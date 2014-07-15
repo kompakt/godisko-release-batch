@@ -15,11 +15,11 @@ require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\TaskRunner;
 use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Subscriber\Zipper;
-use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
-use Kompakt\Mediameister\Task\Core\Batch\EventNames;
-use Kompakt\Mediameister\Task\Core\Batch\Subscriber\Share\Summary;
-use Kompakt\Mediameister\Task\Core\Batch\Subscriber\SummaryMaker;
-use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\BatchTask;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\EventNames;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Subscriber\Share\Summary;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Subscriber\SummaryMaker;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Console\Subscriber\SummaryPrinter;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 use Kompakt\Mediameister\Util\Counter;
@@ -66,6 +66,6 @@ $taskRunner = new TaskRunner(
 
 // run
 $taskRunner->skipMetadata(false);
-$taskRunner->skipArtwork(true);
-$taskRunner->skipAudio(true);
+$taskRunner->skipArtwork(false);
+$taskRunner->skipAudio(false);
 $taskRunner->run('example-batch');

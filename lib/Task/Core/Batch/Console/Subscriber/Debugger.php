@@ -7,31 +7,36 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Console\Subscriber;
 
+use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\EventNamesInterface;
-use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\ArtworkEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\ArtworkErrorEvent;
-use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\AudioEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\ArtworkEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\AudioErrorEvent;
-use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\FrontArtworkEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\AudioEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\BatchEndEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\BatchEndErrorEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\BatchStartEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\BatchStartErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\FrontArtworkErrorEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\FrontArtworkEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\MetadataErrorEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\MetadataEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\PackshotLoadErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\PackshotLoadEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskEndErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskEndEvent;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskRunErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TaskRunEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TrackErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Event\TrackEvent;
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 
-class Inspector implements EventSubscriberInterface
+class Debugger implements EventSubscriberInterface
 {
     protected $eventNames = null;
     protected $output = null;
-    protected $batch = null;
-    protected $currentPackshot = null;
 
     public function __construct(
         EventNamesInterface $eventNames,
@@ -49,6 +54,9 @@ class Inspector implements EventSubscriberInterface
             $this->eventNames->taskRun() => array(
                 array('onTaskRun', 0)
             ),
+            $this->eventNames->taskRunError() => array(
+                array('onTaskRunError', 0)
+            ),
             $this->eventNames->taskEnd() => array(
                 array('onTaskEnd', 0)
             ),
@@ -56,11 +64,23 @@ class Inspector implements EventSubscriberInterface
                 array('onTaskEndError', 0)
             ),
             // batch events
+            $this->eventNames->batchStart() => array(
+                array('onBatchStart', 0)
+            ),
+            $this->eventNames->batchStartError() => array(
+                array('onBatchStartError', 0)
+            ),
             $this->eventNames->packshotLoad() => array(
                 array('onPackshotLoad', 0)
             ),
             $this->eventNames->packshotLoadError() => array(
                 array('onPackshotLoadError', 0)
+            ),
+            $this->eventNames->batchEnd() => array(
+                array('onBatchEnd', 0)
+            ),
+            $this->eventNames->batchEndError() => array(
+                array('onBatchEndError', 0)
             ),
             // packshot events
             $this->eventNames->artwork() => array(
@@ -86,78 +106,98 @@ class Inspector implements EventSubscriberInterface
             ),
             $this->eventNames->audioError() => array(
                 array('onAudioError', 0)
+            ),
+            $this->eventNames->metadata() => array(
+                array('onMetadata', 0)
+            ),
+            $this->eventNames->metadataError() => array(
+                array('onMetadataError', 0)
             )
         );
     }
 
     public function onTaskRun(TaskRunEvent $event)
     {
-        $this->batch = $event->getBatch();
-        $this->output->writeln('');
-
         $this->output->writeln(
             sprintf(
-                '<info>Processing batch: %s</info>',
-                $this->batch->getName()
+                '<info>+ Task run</info>'
+            )
+        );
+    }
+
+    public function onTaskRunError(TaskRunErrorEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '<error>+ Task run error %s</error>',
+                $event->getException()->getMessage()
             )
         );
     }
 
     public function onTaskEnd(TaskEndEvent $event)
     {
-        $this->output->writeln('');
-        $this->output->writeln('');
+        $this->output->writeln(
+            sprintf(
+                '<info>+ Task end</info>'
+            )
+        );
     }
 
     public function onTaskEndError(TaskEndErrorEvent $event)
     {
-        $this->output->writeln('');
-        $this->output->writeln('');
+        $this->output->writeln(
+            sprintf(
+                '<error>+ Task end error %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
+    }
+
+    public function onBatchStart(BatchStartEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '  <info>+ Batch start</info>'
+            )
+        );
+    }
+
+    public function onBatchStartError(BatchStartErrorEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '  <error>! Batch start error: %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
+    }
+
+    public function onBatchEnd(BatchEndEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '  <info>+ Batch end</info>'
+            )
+        );
+    }
+
+    public function onBatchEndError(BatchEndErrorEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '  <error>! Batch end error: %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
     }
 
     public function onPackshotLoad(PackshotLoadEvent $event)
     {
-        $this->currentPackshot = $event->getPackshot();
-
         $this->output->writeln(
             sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>+ Packshot: %s</info>',
-                $this->currentPackshot->getName()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '  <info>Name: %s</info>',
-                $this->currentPackshot->getRelease()->getName()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '  <info>Label: %s</info>',
-                $this->currentPackshot->getRelease()->getLabel()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '  <info>Ean: %s</info>',
-                $this->currentPackshot->getRelease()->getEan()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '  <info>Release date: %s</info>',
-                $this->currentPackshot->getRelease()->getPhysicalReleaseDate()->format('Y-m-d')
+                '    <info>+ Packshot load (%s)</info>',
+                $event->getPackshot()->getName()
             )
         );
     }
@@ -166,21 +206,8 @@ class Inspector implements EventSubscriberInterface
     {
         $this->output->writeln(
             sprintf(
-                '<comment>%s</comment>',
-                $this->getSeparator()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '<info>! Packshot: %s</info>',
-                $this->currentPackshot->getName()
-            )
-        );
-
-        $this->output->writeln(
-            sprintf(
-                '  <error>! %s</error>',
+                '    <error>! Packshot load error (%s): %s</error>',
+                $event->getPackshot()->getName(),
                 $event->getException()->getMessage()
             )
         );
@@ -188,68 +215,56 @@ class Inspector implements EventSubscriberInterface
 
     public function onArtwork(ArtworkEvent $event)
     {
-        /*$frontArtworkFile = $this->currentPackshot->getArtworkFinder()->getFrontArtworkFile();
-
-        if (!$frontArtworkFile)
-        {
-            throw new \Exception('Front artwork missing');
-        }
-
-        $this->output->writeln(
-            sprintf('  <info>+ Front artwork: ok</info>')
+        /*$this->output->writeln(
+            sprintf(
+                '      <info>+ Artwork</info>'
+            )
         );*/
     }
 
     public function onArtworkError(ArtworkErrorEvent $event)
     {
         /*$this->output->writeln(
-            sprintf('  <error>! Front artwork: missing</error>')
+            sprintf(
+                '      <error>! Artwork error: %s</error>',
+                $event->getException()->getMessage()
+            )
         );*/
     }
 
     public function onFrontArtwork(FrontArtworkEvent $event)
     {
-        if (!$event->getPathname())
-        {
-            throw new \Exception('Front artwork missing');
-        }
-
         $this->output->writeln(
-            sprintf('  <info>+ Front artwork: ok</info>')
+            sprintf(
+                '      <info>+ Front Artwork</info>'
+            )
         );
     }
 
     public function onFrontArtworkError(FrontArtworkErrorEvent $event)
     {
         $this->output->writeln(
-            sprintf('  <error>! Front artwork: missing</error>')
+            sprintf(
+                '      <error>! Front Artwork error: %s</error>',
+                $event->getException()->getMessage()
+            )
         );
     }
 
-    protected $currentTrack = null;
-
     public function onTrack(TrackEvent $event)
     {
-        $this->currentTrack = $event->getTrack();
-
         $this->output->writeln(
             sprintf(
-                '  <info>+ Track (%s): %s</info>',
-                $event->getTrack()->getIsrc(),
-                $event->getTrack()->getTitle()
+                '      <info>+ Track</info>'
             )
         );
     }
 
     public function onTrackError(TrackErrorEvent $event)
     {
-        $this->currentTrack = $event->getTrack();
-        
         $this->output->writeln(
             sprintf(
-                '  <error>! Track (%s): %s (%s)</error>',
-                $event->getTrack()->getIsrc(),
-                $event->getTrack()->getTitle(),
+                '      <error>! Track error: %s</error>',
                 $event->getException()->getMessage()
             )
         );
@@ -257,14 +272,9 @@ class Inspector implements EventSubscriberInterface
 
     public function onAudio(AudioEvent $event)
     {
-        if (!$event->getPathname())
-        {
-            throw new \Exception('Audio missing');
-        }
-
         $this->output->writeln(
             sprintf(
-                '    <info>+ Audio Ok</info>'
+                '        <info>- Audio</info>'
             )
         );
     }
@@ -273,14 +283,28 @@ class Inspector implements EventSubscriberInterface
     {
         $this->output->writeln(
             sprintf(
-                '    <error>! %s</error>',
+                '        <error>! Audio error: %s</error>',
                 $event->getException()->getMessage()
             )
         );
     }
 
-    protected function getSeparator()
+    public function onMetadata(MetadataEvent $event)
     {
-        return '---------------------------------------';
+        $this->output->writeln(
+            sprintf(
+                '      <info>+ Metadata</info>'
+            )
+        );
+    }
+
+    public function onMetadataError(MetadataErrorEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '      <error>! Metadata error: %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
     }
 }

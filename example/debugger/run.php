@@ -12,9 +12,9 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Core\Batch\BatchTask;
-use Kompakt\Mediameister\Task\Core\Batch\Console\Subscriber\Debugger;
-use Kompakt\Mediameister\Task\Core\Batch\EventNames;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\BatchTask;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\Console\Subscriber\Debugger;
+use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\EventNames;
 
 // compose
 $eventNames = new EventNames('batch_debugger_task');
