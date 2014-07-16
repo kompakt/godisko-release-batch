@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "010fd0160c760e2c42f570c31650f5ffe59c2dec"
+                "reference": "0f13da69b115968266ca7a71e97411df4fd2930e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/010fd0160c760e2c42f570c31650f5ffe59c2dec",
-                "reference": "010fd0160c760e2c42f570c31650f5ffe59c2dec",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/0f13da69b115968266ca7a71e97411df4fd2930e",
+                "reference": "0f13da69b115968266ca7a71e97411df4fd2930e",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2014-07-11 21:31:34"
+            "time": "2014-07-15 12:56:19"
         }
     ],
     "packages-dev": [
@@ -744,17 +744,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.7",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "a14ed929c880e1c9d7bbaa5f77cdc07da3cc04a6"
+                "reference": "29ef7af8aa6e3c015445f34291ccab9b8019085b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a14ed929c880e1c9d7bbaa5f77cdc07da3cc04a6",
-                "reference": "a14ed929c880e1c9d7bbaa5f77cdc07da3cc04a6",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/29ef7af8aa6e3c015445f34291ccab9b8019085b",
+                "reference": "29ef7af8aa6e3c015445f34291ccab9b8019085b",
                 "shasum": ""
             },
             "require": {
@@ -795,21 +795,21 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-08 11:46:35"
+            "time": "2014-07-09 12:44:38"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.4.7",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "9ef3a5aaa44ff4effce9f1a4000e480c08b1a611"
+                "reference": "6008a029b6a3c0816d58be2ca8923e324cc89d93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/9ef3a5aaa44ff4effce9f1a4000e480c08b1a611",
-                "reference": "9ef3a5aaa44ff4effce9f1a4000e480c08b1a611",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/6008a029b6a3c0816d58be2ca8923e324cc89d93",
+                "reference": "6008a029b6a3c0816d58be2ca8923e324cc89d93",
                 "shasum": ""
             },
             "require": {
@@ -851,21 +851,21 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-08 11:46:35"
+            "time": "2014-07-09 09:04:55"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1057e87364c0b38b50f5695fc9df9dd189036bec"
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1057e87364c0b38b50f5695fc9df9dd189036bec",
-                "reference": "1057e87364c0b38b50f5695fc9df9dd189036bec",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
                 "shasum": ""
             },
             "require": {
@@ -900,7 +900,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-08 12:21:33"
+            "time": "2014-07-09 09:05:48"
         }
     ],
     "aliases": [

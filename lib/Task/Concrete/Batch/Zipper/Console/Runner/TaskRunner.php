@@ -9,29 +9,29 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner;
 
-use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Core\Batch\BatchTask;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Kompakt\Mediameister\Task\Core\Batch\Factory\BatchTaskEngineFactory;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Zipper\Console\Runner\SubscriberManager;
 
 class TaskRunner
 {
     protected $subscriberManager = null;
     protected $output = null;
-    protected $godiskoDropDir = null;
-    protected $task = null;
+    protected $dropDir = null;
+    protected $batchTaskEngineFactory = null;
 
     public function __construct(
         SubscriberManager $subscriberManager,
         ConsoleOutputInterface $output,
-        DropDir $godiskoDropDir,
-        BatchTask $task
+        DropDir $dropDir,
+        BatchTaskEngineFactory $batchTaskEngineFactory
     )
     {
         $this->subscriberManager = $subscriberManager;
         $this->output = $output;
-        $this->godiskoDropDir = $godiskoDropDir;
-        $this->task = $task;
+        $this->dropDir = $dropDir;
+        $this->batchTaskEngineFactory = $batchTaskEngineFactory;
     }
 
     public function skipMetadata($flag)
@@ -51,7 +51,7 @@ class TaskRunner
 
     public function run($batchName)
     {
-        $batch = $this->godiskoDropDir->getBatch($batchName);
+        $batch = $this->dropDir->getBatch($batchName);
 
         if (!$batch)
         {
@@ -66,7 +66,7 @@ class TaskRunner
         }
 
         $this->subscriberManager->begin();
-        $this->task->run($batch);
+        $this->batchTaskEngineFactory->getInstance($batch)->start();
         $this->subscriberManager->end();
     }
 }

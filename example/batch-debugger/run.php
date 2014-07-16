@@ -12,11 +12,10 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 
-use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Runner\SubscriberManager;
-use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Inspector\Console\Runner\TaskRunner;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Debugger\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\Concrete\Batch\Debugger\Console\Runner\TaskRunner;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\Console\Subscriber\Debugger as PackshotDebugger;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
-use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\Console\Subscriber\Inspector as PackshotInspector;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\EventNames as PackshotEventNames;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\Factory\PackshotTaskEngineFactory;
 use Kompakt\GodiskoReleaseBatch\Task\Core\Packshot\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
@@ -38,8 +37,6 @@ $batchDebugger = new BatchDebugger(
     $batchEventNames,
     $output
 );
-
-$dispatcher->addSubscriber($batchDebugger);
 
 $batchTaskEngineFactory = new BatchTaskEngineFactory(
     $dispatcher,
@@ -68,8 +65,6 @@ $packshotDebugger = new PackshotDebugger(
     $output
 );
 
-$dispatcher->addSubscriber($packshotDebugger);
-
 $packshotTaskEngineFactory = new PackshotTaskEngineFactory(
     $dispatcher,
     $packshotEventNames
@@ -93,18 +88,13 @@ $genericPackshotSummaryPrinter = new GenericPackshotSummaryPrinter(
     $output
 );
 
-$packshotInspector = new PackshotInspector(
-    $batchEventNames,
-    $packshotEventNames,
-    $output
-);
-
 $subscriberManager = new SubscriberManager(
     $dispatcher,
+    $batchDebugger,
     $genericBatchSummaryMaker,
     $genericBatchSummaryPrinter,
     $packshotTaskEngineStarter,
-    $packshotInspector,
+    $packshotDebugger,
     $genericPackshotSummaryMaker,
     $genericPackshotSummaryPrinter
 );
