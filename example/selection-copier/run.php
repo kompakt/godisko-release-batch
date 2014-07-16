@@ -12,8 +12,8 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_selection-factory.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\Concrete\Selection\Copier\Console\Runner\TaskRunner;
-use Kompakt\Mediameister\Task\Concrete\Selection\Copier\Manager\TaskManager;
+use Kompakt\Mediameister\Task\SelectionCopier\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\SelectionCopier\Manager\TaskManager;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 
 $taskManager = new TaskManager(

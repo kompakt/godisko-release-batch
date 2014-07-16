@@ -10,8 +10,8 @@
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\InvalidArgumentException;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\Mediameister\Packshot\Metadata\Loader\MetadataLoaderInterface;
 
 class MetadataLoader implements MetadataLoaderInterface
