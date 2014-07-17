@@ -7,31 +7,31 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Finder;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Locator;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\AudioFinder;
+use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator\AudioLocator;
 
-class AudioFinderTest extends \PHPUnit_Framework_TestCase
+class AudioLocatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAudioFile()
     {
-        $finder = new AudioFinder($this->getLayout('mp3-1'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('mp3-1'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
 
-        $finder = new AudioFinder($this->getLayout('mp3-2'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('mp3-2'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
 
-        $finder = new AudioFinder($this->getLayout('wav-1'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('wav-1'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
 
-        $finder = new AudioFinder($this->getLayout('wav-2'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('wav-2'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
 
-        $finder = new AudioFinder($this->getLayout('aiff-1'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('aiff-1'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
 
-        $finder = new AudioFinder($this->getLayout('aiff-2'), $this->getRelease());
-        $this->assertNotNull($finder->getAudioFile('GBBKS1300183'));
+        $locator = new AudioLocator($this->getLayout('aiff-2'), $this->getRelease());
+        $this->assertNotNull($locator->getAudioFile('GBBKS1300183'));
     }
 
     protected function getLayout($subDir)
@@ -45,7 +45,7 @@ class AudioFinderTest extends \PHPUnit_Framework_TestCase
         $layout
             ->expects($this->any())
             ->method('getAudioDir')
-            ->will($this->returnValue(sprintf('%s/_files/AudioFinderTest/%s', __DIR__, $subDir)))
+            ->will($this->returnValue(sprintf('%s/_files/AudioLocatorTest/%s', __DIR__, $subDir)))
         ;
 
         return $layout;

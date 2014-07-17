@@ -55,7 +55,7 @@ class PackshotTaskEngine
 
     protected function handleFrontArtwork()
     {
-        $pathname = $this->packshot->getArtworkFinder()->getFrontArtworkFile();
+        $pathname = $this->packshot->getArtworkLocator()->getFrontArtworkFile();
 
         try {
             $this->dispatcher->dispatch(
@@ -78,7 +78,7 @@ class PackshotTaskEngine
 
     protected function handleAudio(TrackInterface $track)
     {
-        $pathname = $this->packshot->getAudioFinder()->getAudioFile($track->getIsrc());
+        $pathname = $this->packshot->getAudioLocator()->getAudioFile($track->getIsrc());
 
         try {
             $this->dispatcher->dispatch(

@@ -9,8 +9,8 @@
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Finder\Factory\AudioFinderFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator\Factory\AudioLocatorFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Factory\LayoutFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
@@ -29,8 +29,8 @@ $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(),
     new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
-    new ArtworkFinderFactory(),
-    new AudioFinderFactory()
+    new ArtworkLocatorFactory(),
+    new AudioLocatorFactory()
 );
 
 $directoryFactory = new DirectoryFactory();

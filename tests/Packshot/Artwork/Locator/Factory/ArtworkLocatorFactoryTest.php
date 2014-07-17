@@ -7,15 +7,15 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Finder\Factory;
+namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Locator\Factory;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder\Factory\ArtworkFinderFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactory;
 
-class ArtworkFinderFactoryTest extends \PHPUnit_Framework_TestCase
+class ArtworkLocatorFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testAll()
     {
-        $factory = new ArtworkFinderFactory($this->getLayout(), $this->getRelease());
+        $factory = new ArtworkLocatorFactory($this->getLayout(), $this->getRelease());
     }
 
     protected function getLayout()

@@ -7,13 +7,13 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Finder;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator;
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
-use Kompakt\Mediameister\Packshot\Artwork\Finder\ArtworkFinderInterface;
+use Kompakt\Mediameister\Packshot\Artwork\Locator\ArtworkLocatorInterface;
 
-class ArtworkFinder implements ArtworkFinderInterface
+class ArtworkLocator implements ArtworkLocatorInterface
 {
     protected $layout = null;
 
