@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "2dce50ee16af507a1ed7e4d912d2db621ad507a4"
+                "reference": "a8ef0bd3a40dc00deeef5b2f48752a7879b98ab0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/2dce50ee16af507a1ed7e4d912d2db621ad507a4",
-                "reference": "2dce50ee16af507a1ed7e4d912d2db621ad507a4",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/a8ef0bd3a40dc00deeef5b2f48752a7879b98ab0",
+                "reference": "a8ef0bd3a40dc00deeef5b2f48752a7879b98ab0",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2014-07-16 15:21:34"
+            "time": "2014-07-17 06:52:20"
         }
     ],
     "packages-dev": [
