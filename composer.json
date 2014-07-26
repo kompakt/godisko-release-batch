@@ -19,5 +19,10 @@
     },
     "autoload": {
         "psr-4": { "Kompakt\\GodiskoReleaseBatch\\": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     }
 }
