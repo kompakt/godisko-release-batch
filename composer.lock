@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "169de4836e86c025627047502b1a3fd1",
+    "hash": "58f0913d793c0fbb8fd493503095949e",
     "packages": [
         {
             "name": "kompakt/mediameister",
@@ -12,22 +12,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "053eb8cdb49c0d3e8705ccef1cf0240a6481a1f8"
+                "reference": "b2bf0d0af0c93e548d0fcd5b7a81962ae53739f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/053eb8cdb49c0d3e8705ccef1cf0240a6481a1f8",
-                "reference": "053eb8cdb49c0d3e8705ccef1cf0240a6481a1f8",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/b2bf0d0af0c93e548d0fcd5b7a81962ae53739f2",
+                "reference": "b2bf0d0af0c93e548d0fcd5b7a81962ae53739f2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "kompakt/test-helper": "dev-master",
+                "kompakt/test-helper": "~0.1@dev",
                 "phpunit/phpunit": "4.1.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Kompakt\\Mediameister\\": "lib/"
@@ -49,7 +54,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2014-07-18 16:15:55"
+            "time": "2014-07-31 10:14:57"
         }
     ],
     "packages-dev": [
@@ -59,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/test-helper.git",
-                "reference": "a3a2327d3b4128ee6c18bd605f62b3ee932cc56a"
+                "reference": "afbcc6fd0e3b4067df02ccd938055373914c3900"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/test-helper/zipball/a3a2327d3b4128ee6c18bd605f62b3ee932cc56a",
-                "reference": "a3a2327d3b4128ee6c18bd605f62b3ee932cc56a",
+                "url": "https://api.github.com/repos/kompakt/test-helper/zipball/afbcc6fd0e3b4067df02ccd938055373914c3900",
+                "reference": "afbcc6fd0e3b4067df02ccd938055373914c3900",
                 "shasum": ""
             },
             "require": {
@@ -74,6 +79,11 @@
                 "phpunit/phpunit": "4.1.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Kompakt\\TestHelper\\": "lib/"
@@ -93,7 +103,7 @@
             "keywords": [
                 "testing"
             ],
-            "time": "2014-05-16 12:08:03"
+            "time": "2014-07-26 18:12:17"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -744,32 +754,34 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.8",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "29ef7af8aa6e3c015445f34291ccab9b8019085b"
+                "reference": "386fa63407805959bd2c5fe540294721ad4224c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/29ef7af8aa6e3c015445f34291ccab9b8019085b",
-                "reference": "29ef7af8aa6e3c015445f34291ccab9b8019085b",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/386fa63407805959bd2c5fe540294721ad4224c8",
+                "reference": "386fa63407805959bd2c5fe540294721ad4224c8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
+                "psr/log": "~1.0",
                 "symfony/event-dispatcher": "~2.1"
             },
             "suggest": {
+                "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -795,28 +807,31 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 12:44:38"
+            "time": "2014-07-15 14:15:12"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.4.8",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "6008a029b6a3c0816d58be2ca8923e324cc89d93"
+                "reference": "2215d2ef6fd7ab24d55576a3d924df575c741762"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/6008a029b6a3c0816d58be2ca8923e324cc89d93",
-                "reference": "6008a029b6a3c0816d58be2ca8923e324cc89d93",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/2215d2ef6fd7ab24d55576a3d924df575c741762",
+                "reference": "2215d2ef6fd7ab24d55576a3d924df575c741762",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/dependency-injection": "~2.0"
+                "psr/log": "~1.0",
+                "symfony/config": "~2.0",
+                "symfony/dependency-injection": "~2.0",
+                "symfony/stopwatch": "~2.2"
             },
             "suggest": {
                 "symfony/dependency-injection": "",
@@ -825,7 +840,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -851,7 +866,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 09:04:55"
+            "time": "2014-07-09 09:05:48"
         },
         {
             "name": "symfony/yaml",
@@ -911,6 +926,7 @@
         "kompakt/mediameister": 20,
         "kompakt/test-helper": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.2"
     },
