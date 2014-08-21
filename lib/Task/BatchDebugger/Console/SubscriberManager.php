@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Debugger as PackshotDebugger;

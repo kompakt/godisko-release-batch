@@ -12,7 +12,7 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_selection-factory.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\SelectionLister\Console\Runner\TaskRunner;
+use Kompakt\Mediameister\Task\SelectionLister\Console\TaskRunner;
 
 $taskRunner = new TaskRunner(
     $selectionFactory,

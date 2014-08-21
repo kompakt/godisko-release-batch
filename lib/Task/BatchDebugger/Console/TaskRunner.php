@@ -7,11 +7,11 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console;
 
-use Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console\Runner\SubscriberManager;
-use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
+use Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\SubscriberManager;
 use Kompakt\Mediameister\DropDir\DropDir;
+use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 
 class TaskRunner

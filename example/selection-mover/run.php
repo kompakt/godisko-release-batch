@@ -12,11 +12,11 @@ require sprintf('%s/_dropdir.php', dirname(__DIR__));
 require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_selection-factory.php', dirname(__DIR__));
 
-use Kompakt\Mediameister\Task\SelectionMover\Console\Runner\TaskRunner;
-use Kompakt\Mediameister\Task\SelectionMover\Manager\TaskManager;
+use Kompakt\Mediameister\Task\SelectionSegregateMover\Console\TaskRunner;
+use Kompakt\Mediameister\Task\SelectionSegregateMover\Task;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
 
-$taskManager = new TaskManager(
+$task = new Task(
     $selectionFactory,
     new ChildFileNamerFactory(),
     $dropDir,
@@ -24,7 +24,7 @@ $taskManager = new TaskManager(
 );
 
 $taskRunner = new TaskRunner(
-    $taskManager,
+    $task,
     $output
 );
 

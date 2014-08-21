@@ -7,9 +7,9 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console;
 
-use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Runner\SubscriberManager;
+use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\SubscriberManager;
 use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;

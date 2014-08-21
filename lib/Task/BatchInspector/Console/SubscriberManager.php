@@ -7,15 +7,15 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Runner;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console;
 
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Inspector as PackshotInspector;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
-use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Subscriber\Zipper;
+use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\GenericSummaryPrinter as GenericBatchSummaryPrinter;
 use Kompakt\Mediameister\Batch\Task\Subscriber\GenericSummaryMaker as GenericBatchSummaryMaker;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 
 class SubscriberManager
 {
@@ -23,7 +23,7 @@ class SubscriberManager
     protected $batchSummaryMaker = null;
     protected $batchSummaryPrinter = null;
     protected $packshotTaskEngineStarter = null;
-    protected $zipper = null;
+    protected $packshotInspector = null;
     protected $packshotSummaryMaker = null;
     protected $packshotSummaryPrinter = null;
 
@@ -32,7 +32,7 @@ class SubscriberManager
         GenericBatchSummaryMaker $batchSummaryMaker,
         GenericBatchSummaryPrinter $batchSummaryPrinter,
         PackshotTaskEngineStarter $packshotTaskEngineStarter,
-        Zipper $zipper,
+        PackshotInspector $packshotInspector,
         GenericPackshotSummaryMaker $packshotSummaryMaker,
         GenericPackshotSummaryPrinter $packshotSummaryPrinter
     )
@@ -41,21 +41,16 @@ class SubscriberManager
         $this->batchSummaryMaker = $batchSummaryMaker;
         $this->batchSummaryPrinter = $batchSummaryPrinter;
         $this->packshotTaskEngineStarter = $packshotTaskEngineStarter;
-        $this->zipper = $zipper;
+        $this->packshotInspector = $packshotInspector;
         $this->packshotSummaryMaker = $packshotSummaryMaker;
         $this->packshotSummaryPrinter = $packshotSummaryPrinter;
-    }
-
-    public function getZipper()
-    {
-        return $this->zipper;
     }
 
     public function begin()
     {
         $this->dispatcher->addSubscriber($this->batchSummaryMaker);
         $this->dispatcher->addSubscriber($this->batchSummaryPrinter);
-        $this->dispatcher->addSubscriber($this->zipper);
+        $this->dispatcher->addSubscriber($this->packshotInspector);
         $this->dispatcher->addSubscriber($this->packshotTaskEngineStarter);
         $this->dispatcher->addSubscriber($this->packshotSummaryMaker);
         $this->dispatcher->addSubscriber($this->packshotSummaryPrinter);
@@ -65,7 +60,7 @@ class SubscriberManager
     {
         $this->dispatcher->removeSubscriber($this->batchSummaryMaker);
         $this->dispatcher->removeSubscriber($this->batchSummaryPrinter);
-        $this->dispatcher->removeSubscriber($this->zipper);
+        $this->dispatcher->removeSubscriber($this->packshotInspector);
         $this->dispatcher->removeSubscriber($this->packshotTaskEngineStarter);
         $this->dispatcher->removeSubscriber($this->packshotSummaryMaker);
         $this->dispatcher->removeSubscriber($this->packshotSummaryPrinter);
