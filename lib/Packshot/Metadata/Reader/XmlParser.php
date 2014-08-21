@@ -45,6 +45,7 @@ class XmlParser
             '/\\x1e/' => '', // 
             '/\\x1e/' => '',
             '/Ê/' => ' ',
+            '/ /' => ' ',
             '/&#8233;/' => ' ', # 0x2029 - linefeed - '/ /' (cause of hotmail problem)
             '/†/' => '' // &#x2020; &dagger;
         );
