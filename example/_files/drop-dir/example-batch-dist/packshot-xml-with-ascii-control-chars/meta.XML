@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<feed partner="kompakt.fm" version="2008">
+<release>
+<labelname>Fm X</labelname>
+<release_name>Wanted --- , , ,   (non-breaking space), &apos;, &#8233; ---</release_name>
+<release_ean>880319089817</release_ean>
+<release_catno>FM X / Search 001</release_catno>
+<release_physical_releasedate>20131209</release_physical_releasedate>
+<release_digital_releasedate>20131209</release_digital_releasedate>
+<release_originalformat>12" ART</release_originalformat>
+<release_coverfilename>880319089817.jpg</release_coverfilename>
+<release_short_info_e></release_short_info_e>
+<release_short_info_d></release_short_info_d>
+<release_info_e></release_info_e>
+<release_info_d></release_info_d>
+<artist_info_e></artist_info_e>
+<artist_info_d></artist_info_d>
+<release_saleterritories></release_saleterritories>
+<release_bundlerestriction></release_bundlerestriction>
+<tracks>
+<track>
+<track_ean>880319089817</track_ean>
+<track_isrc>Deu671400017</track_isrc>
+<track_originalposition>1</track_originalposition>
+<track_artist>Wanted</track_artist>
+<track_composer>Wanted</track_composer>
+<track_songwriter></track_songwriter>
+<track_publisher></track_publisher>
+<track_title>Wanted</track_title>
+<track_genre>Electronic</track_genre>
+<track_media>1</track_media>
+<track_num_disc_num>1</track_num_disc_num>
+<track_num_album_num>1</track_num_album_num>
+<track_mp3filename>880319089817_1_02.mp3</track_mp3filename>
+<track_duration>00:06:17</track_duration>
+</track>
+<track>
+<track_ean>880319089817</track_ean>
+<track_isrc>Deu671400018</track_isrc>
+<track_originalposition>2</track_originalposition>
+<track_artist>Wanted</track_artist>
+<track_composer>Wanted</track_composer>
+<track_songwriter></track_songwriter>
+<track_publisher></track_publisher>
+<track_title>Wanted (Voigt &amp; Voigt Mix)</track_title>
+<track_genre>Electronic</track_genre>
+<track_media>1</track_media>
+<track_num_disc_num>1</track_num_disc_num>
+<track_num_album_num>1</track_num_album_num>
+<track_mp3filename>880319089817_1_02.mp3</track_mp3filename>
+<track_duration>00:03:51</track_duration>
+</track>
+</tracks>
+</release>
+</feed>

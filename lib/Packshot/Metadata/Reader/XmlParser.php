@@ -32,23 +32,30 @@ class XmlParser
 
     protected function fixRawXml($xml)
     {
-        $patterns = array(
-            '/\\x00/' => '', // echo bin2hex('Ê');
-            '/\\x01/' => '',
-            '/\\x02/' => '',
-            '/\\x03/' => '',
-            '/\\x13/' => '', // 
-            '/\\x18/' => '', // 
-            '/\\x19/' => '',
-            '/\\x1c/' => '',
-            '/\\x1d/' => '',
-            '/\\x1e/' => '', // 
-            '/\\x1e/' => '',
-            '/Ê/' => ' ',
-            '/ /' => ' ',
-            '/&#8233;/' => ' ', # 0x2029 - linefeed - '/ /' (cause of hotmail problem)
-            '/†/' => '' // &#x2020; &dagger;
+        // http://www.ascii-code.com/
+        // http://rishida.net/tools/conversion/
+
+        /*$xml = preg_replace_callback(
+            '/Chain Of Command(.+)</',
+            function($matches) {
+                die(sprintf("%s = \x%s\n", $matches[1], bin2hex($matches[1])));
+            },
+            $xml
+        );*/
+
+        $findReplace = array(
+            '/ISO-8859-1/i' => 'utf-8',
+            '/[\x00-\x1F]/' => '', // ascii control chars: , ,  etc
+            '/(\x86|\x2020)/' => '', // † dagger
+            '/\xa0/' => '', // non-breaking space
+            '/&#8233;/' => ' ', // 0x2029 - linefeed - '/ /' (cause of hotmail problem)
+            '/&apos;/i' => "'",
         );
+
+        foreach ($findReplace as $find => $replace)
+        {
+            $xml = preg_replace($find, $replace, $xml);
+        }
 
         $toUtf = function($matches)
         {
@@ -58,20 +65,13 @@ class XmlParser
                 $val = mb_convert_encoding($matches[2], 'UTF-8', $encoding);
                 $val = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
                 $val = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
-                return '<'.$matches[1].'>'.$val.'</'.$matches[1].'>';
+                return sprintf('<%s>%s</%s>', $matches[1], $val, $matches[1]);
             }
 
             return '';
         };
 
-        foreach ($patterns as $find => $replace)
-        {
-            $xml = preg_replace($find, $replace, $xml);
-        }
-
-        $xml = preg_replace('/\&apos;/i', "'", $xml);
-        $xml = preg_replace_callback('/<(\w*)>([^<>]*)<\/\w*>/', $toUtf, $xml);
-        return preg_replace('/ISO-8859-1/i', 'utf-8', $xml);
+        return preg_replace_callback('/<(\w*)>([^<>]*)<\/\w*>/', $toUtf, $xml);
     }
 
     protected function doParse($xml)
