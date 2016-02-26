@@ -14,6 +14,7 @@ use Kompakt\Mediameister\Entity\TrackInterface;
 class Track implements TrackInterface
 {
     protected $isrc = null;
+    protected $uuid = null;
     protected $position = null;
     protected $artist = null;
     protected $composer = null;
@@ -35,6 +36,17 @@ class Track implements TrackInterface
     public function getIsrc()
     {
         return $this->isrc;
+    }
+
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function setPosition($position)

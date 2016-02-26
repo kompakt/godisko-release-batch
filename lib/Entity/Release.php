@@ -18,6 +18,7 @@ class Release implements ReleaseInterface
     protected $name = null;
     protected $ean = null;
     protected $catalogNumber = null;
+    protected $uuid = null;
     protected $physicalReleaseDate = null;
     protected $digitalReleaseDate = null;
     protected $originalFormat = null;
@@ -71,6 +72,17 @@ class Release implements ReleaseInterface
     public function getCatalogNumber()
     {
         return $this->catalogNumber;
+    }
+
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     public function setPhysicalReleaseDate(\DateTime $physicalReleaseDate)

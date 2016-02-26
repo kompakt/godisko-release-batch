@@ -5,6 +5,7 @@
 <release_name>Wanted --- , , ,   (non-breaking space), &apos;, &#8233; ---</release_name>
 <release_ean>880319089817</release_ean>
 <release_catno>FM X / Search 001</release_catno>
+<release_uuid>3d7b9514-3e8a-417f-af7a-da73009b96e1</release_uuid>
 <release_physical_releasedate>20131209</release_physical_releasedate>
 <release_digital_releasedate>20131209</release_digital_releasedate>
 <release_originalformat>12" ART</release_originalformat>
@@ -21,6 +22,7 @@
 <track>
 <track_ean>880319089817</track_ean>
 <track_isrc>Deu671400017</track_isrc>
+<track_uuid>46d407bb-2e02-4622-a8e9-9eee758a6733</track_uuid>
 <track_originalposition>1</track_originalposition>
 <track_artist>Wanted</track_artist>
 <track_composer>Wanted</track_composer>
@@ -37,6 +39,7 @@
 <track>
 <track_ean>880319089817</track_ean>
 <track_isrc>Deu671400018</track_isrc>
+<track_uuid>46d407bb-2e02-4622-a8e9-9eee758a6734</track_uuid>
 <track_originalposition>2</track_originalposition>
 <track_artist>Wanted</track_artist>
 <track_composer>Wanted</track_composer>

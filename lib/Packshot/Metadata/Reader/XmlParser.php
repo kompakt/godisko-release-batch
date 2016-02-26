@@ -111,6 +111,7 @@ class XmlParser
         $release->setName($fixField($this->getDomVal($dom, 'release_name')));
         $release->setEan($fixField($this->getDomVal($dom, 'release_ean')));
         $release->setCatalogNumber($fixField($this->getDomVal($dom, 'release_catno')));
+        $release->setUuid($fixField($this->getDomVal($dom, 'release_uuid')));
         $release->setPhysicalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_physical_releasedate')));
         $release->setDigitalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_digital_releasedate')));
         $release->setOriginalFormat($fixField($this->getDomVal($dom, 'release_originalformat')));
@@ -127,6 +128,7 @@ class XmlParser
         {
             $track = clone $this->trackPrototype;
             $track->setIsrc($fixField($this->getDomVal($t, 'track_isrc')));
+            $track->setUuid($fixField($this->getDomVal($t, 'track_uuid')));
             $track->setPosition($fixField($this->getDomVal($t, 'track_originalposition')));
             $track->setArtist($fixField($this->getDomVal($t, 'track_artist')));
             $track->setComposer($fixField($this->getDomVal($t, 'track_composer')));

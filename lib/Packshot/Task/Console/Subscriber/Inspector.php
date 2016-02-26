@@ -118,6 +118,13 @@ class Inspector implements EventSubscriberInterface
 
         $this->output->writeln(
             sprintf(
+                '  <info>UUID: %s</info>',
+                $event->getPackshot()->getRelease()->getUuid()
+            )
+        );
+
+        $this->output->writeln(
+            sprintf(
                 '  <info>Release date: %s</info>',
                 $event->getPackshot()->getRelease()->getPhysicalReleaseDate()->format('Y-m-d')
             )
@@ -152,8 +159,9 @@ class Inspector implements EventSubscriberInterface
     {
         $this->output->writeln(
             sprintf(
-                '  <info>+ Track (%s): %s</info>',
+                '  <info>+ Track (%s) %s: %s</info>',
                 $event->getTrack()->getIsrc(),
+                $event->getTrack()->getUuid(),
                 $event->getTrack()->getTitle()
             )
         );
@@ -163,8 +171,9 @@ class Inspector implements EventSubscriberInterface
     {
         $this->output->writeln(
             sprintf(
-                '  <error>! Track (%s): %s (%s)</error>',
+                '  <error>! Track (%s) %s: %s (%s)</error>',
                 $event->getTrack()->getIsrc(),
+                $event->getTrack()->getUuid(),
                 $event->getTrack()->getTitle(),
                 $event->getException()->getMessage()
             )
