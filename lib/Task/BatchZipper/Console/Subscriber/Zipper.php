@@ -13,14 +13,15 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface as PackshotEve
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataEvent;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 use Kompakt\Mediameister\Batch\Task\EventNamesInterface as BatchEventNamesInterface;
 use Kompakt\Mediameister\Batch\Task\Event\TaskEndEvent;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Zipper implements EventSubscriberInterface
+class Zipper
 {
+    protected $dispatcher = null;
     protected $batchEventNames = null;
     protected $packshotEventNames = null;
     protected $childFileNamerFactory = null;
@@ -33,6 +34,7 @@ class Zipper implements EventSubscriberInterface
     protected $skipAudio = false;
 
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         BatchEventNamesInterface $batchEventNames,
         PackshotEventNamesInterface $packshotEventNames,
         ChildFileNamerFactory $childFileNamerFactory,
@@ -40,6 +42,7 @@ class Zipper implements EventSubscriberInterface
         $targetDirPathname
     )
     {
+        $this->dispatcher = $dispatcher;
         $this->batchEventNames = $batchEventNames;
         $this->packshotEventNames = $packshotEventNames;
         $this->childFileNamerFactory = $childFileNamerFactory;
@@ -63,23 +66,40 @@ class Zipper implements EventSubscriberInterface
         $this->skipAudio = (bool) $flag;
     }
 
-    public function getSubscriptions()
+    public function activate()
     {
-        return array(
-            // batch events
-            $this->batchEventNames->taskEnd() => array(
-                array('onTaskEnd', 0)
-            ),
-            // packshot events
-            $this->packshotEventNames->frontArtwork() => array(
-                array('onFrontArtwork', 0)
-            ),
-            $this->packshotEventNames->audio() => array(
-                array('onAudio', 0)
-            ),
-            $this->packshotEventNames->metadata() => array(
-                array('onMetadata', 0)
-            )
+        $this->handleListeners(true);
+    }
+
+    public function deactivate()
+    {
+        $this->handleListeners(false);
+    }
+
+    protected function handleListeners($add)
+    {
+        $method = ($add) ? 'addListener' : 'removeListener';
+
+        // batch events
+        $this->dispatcher->$method(
+            $this->batchEventNames->taskEnd(),
+            [$this, 'onTaskEnd']
+        );
+
+        // packshot events
+        $this->dispatcher->$method(
+            $this->packshotEventNames->frontArtwork(),
+            [$this, 'onFrontArtwork']
+        );
+
+        $this->dispatcher->$method(
+            $this->packshotEventNames->audio(),
+            [$this, 'onAudio']
+        );
+
+        $this->dispatcher->$method(
+            $this->packshotEventNames->metadata(),
+            [$this, 'onMetadata']
         );
     }
 

@@ -10,7 +10,6 @@
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber;
 
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkEvent;
@@ -18,42 +17,67 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Debugger implements EventSubscriberInterface
+class Debugger
 {
+    protected $dispatcher = null;
     protected $eventNames = null;
     protected $output = null;
 
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         EventNamesInterface $eventNames,
         ConsoleOutputInterface $output
     )
     {
+        $this->dispatcher = $dispatcher;
         $this->eventNames = $eventNames;
         $this->output = $output;
     }
 
-    public function getSubscriptions()
+    public function activate()
     {
-        return array(
-            $this->eventNames->frontArtwork() => array(
-                array('onFrontArtwork', 0)
-            ),
-            $this->eventNames->frontArtworkError() => array(
-                array('onFrontArtworkError', 0)
-            ),
-            $this->eventNames->audio() => array(
-                array('onAudio', 0)
-            ),
-            $this->eventNames->audioError() => array(
-                array('onAudioError', 0)
-            ),
-            $this->eventNames->metadata() => array(
-                array('onMetadata', 0)
-            ),
-            $this->eventNames->metadataError() => array(
-                array('onMetadataError', 0)
-            )
+        $this->handleListeners(true);
+    }
+
+    public function deactivate()
+    {
+        $this->handleListeners(false);
+    }
+
+    protected function handleListeners($add)
+    {
+        $method = ($add) ? 'addListener' : 'removeListener';
+
+        $this->dispatcher->$method(
+            $this->eventNames->frontArtwork(),
+            [$this, 'onFrontArtwork']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->frontArtworkError(),
+            [$this, 'onFrontArtworkError']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->audio(),
+            [$this, 'onAudio']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->audioError(),
+            [$this, 'onAudioError']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->metadata(),
+            [$this, 'onMetadata']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->metadataError(),
+            [$this, 'onMetadataError']
         );
     }
 

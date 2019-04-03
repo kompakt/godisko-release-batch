@@ -11,8 +11,8 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\PackshotTaskEngine;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 use Kompakt\Mediameister\Packshot\PackshotInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PackshotTaskEngineFactory
 {

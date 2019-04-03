@@ -34,6 +34,7 @@ use Kompakt\Mediameister\Util\Timer\Timer;
 $batchEventNames = new BatchEventNames('batch_task');
 
 $batchDebugger = new BatchDebugger(
+    $dispatcher,
     $batchEventNames,
     $output
 );
@@ -47,11 +48,13 @@ $batchTaskEngineFactory = new BatchTaskEngineFactory(
 $batchSummary = new BatchSummary(new Counter());
 
 $genericBatchSummaryMaker = new GenericBatchSummaryMaker(
+    $dispatcher,
     $batchEventNames,
     $batchSummary
 );
 
 $genericBatchSummaryPrinter = new GenericBatchSummaryPrinter(
+    $dispatcher,
     $batchEventNames,
     $batchSummary,
     $output
@@ -61,6 +64,7 @@ $genericBatchSummaryPrinter = new GenericBatchSummaryPrinter(
 $packshotEventNames = new PackshotEventNames('packshot_task');
 
 $packshotDebugger = new PackshotDebugger(
+    $dispatcher,
     $packshotEventNames,
     $output
 );
@@ -71,6 +75,7 @@ $packshotTaskEngineFactory = new PackshotTaskEngineFactory(
 );
 
 $packshotTaskEngineStarter = new PackshotTaskEngineStarter(
+    $dispatcher,
     $batchEventNames,
     $packshotTaskEngineFactory
 );
@@ -78,18 +83,19 @@ $packshotTaskEngineStarter = new PackshotTaskEngineStarter(
 $packshotSummary = new PackshotSummary(new Counter());
 
 $genericPackshotSummaryMaker = new GenericPackshotSummaryMaker(
+    $dispatcher,
     $packshotEventNames,
     $packshotSummary
 );
 
 $genericPackshotSummaryPrinter = new GenericPackshotSummaryPrinter(
+    $dispatcher,
     $batchEventNames,
     $packshotSummary,
     $output
 );
 
 $subscriberManager = new SubscriberManager(
-    $dispatcher,
     $batchDebugger,
     $genericBatchSummaryMaker,
     $genericBatchSummaryPrinter,

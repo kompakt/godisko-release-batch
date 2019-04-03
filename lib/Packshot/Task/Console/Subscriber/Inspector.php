@@ -21,54 +21,82 @@ use Kompakt\Mediameister\Batch\Task\Event\PackshotEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TrackErrorEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TrackEvent;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Inspector implements EventSubscriberInterface
+class Inspector
 {
+    protected $dispatcher = null;
     protected $batchEventNames = null;
     protected $packshotEventNames = null;
     protected $output = null;
 
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         BatchEventNamesInterface $batchEventNames,
         PackshotEventNamesInterface $packshotEventNames,
         ConsoleOutputInterface $output
     )
     {
+        $this->dispatcher = $dispatcher;
         $this->batchEventNames = $batchEventNames;
         $this->packshotEventNames = $packshotEventNames;
         $this->output = $output;
     }
 
-    public function getSubscriptions()
+    public function activate()
     {
-        return array(
-            // batch events
-            $this->batchEventNames->track() => array(
-                array('onTrack', 0)
-            ),
-            $this->batchEventNames->trackError() => array(
-                array('onTrackError', 0)
-            ),
-            $this->batchEventNames->packshotLoad() => array(
-                array('onPackshotLoad', 0)
-            ),
-            $this->batchEventNames->packshotLoadError() => array(
-                array('onPackshotLoadError', 0)
-            ),
-            // packshot events
-            $this->packshotEventNames->frontArtwork() => array(
-                array('onFrontArtwork', 0)
-            ),
-            $this->packshotEventNames->frontArtworkError() => array(
-                array('onFrontArtworkError', 0)
-            ),
-            $this->packshotEventNames->audio() => array(
-                array('onAudio', 0)
-            ),
-            $this->packshotEventNames->audioError() => array(
-                array('onAudioError', 0)
-            )
+        $this->handleListeners(true);
+    }
+
+    public function deactivate()
+    {
+        $this->handleListeners(false);
+    }
+
+    protected function handleListeners($add)
+    {
+        $method = ($add) ? 'addListener' : 'removeListener';
+
+        // batch events
+        $this->dispatcher->$method(
+            $this->batchEventNames->packshotLoad(),
+            [$this, 'onPackshotLoad']
+        );
+
+        $this->dispatcher->$method(
+            $this->batchEventNames->packshotLoadError(),
+            [$this, 'onPackshotLoadError']
+        );
+
+        $this->dispatcher->$method(
+            $this->batchEventNames->track(),
+            [$this, 'onTrack']
+        );
+
+        $this->dispatcher->$method(
+            $this->batchEventNames->trackError(),
+            [$this, 'onTrackError']
+        );
+
+        // packshot events
+        $this->dispatcher->$method(
+            $this->packshotEventNames->frontArtwork(),
+            [$this, 'onFrontArtwork']
+        );
+
+        $this->dispatcher->$method(
+            $this->packshotEventNames->frontArtworkError(),
+            [$this, 'onFrontArtworkError']
+        );
+
+        $this->dispatcher->$method(
+            $this->packshotEventNames->audio(),
+            [$this, 'onAudio']
+        );
+
+        $this->dispatcher->$method(
+            $this->packshotEventNames->audioError(),
+            [$this, 'onAudioError']
         );
     }
 

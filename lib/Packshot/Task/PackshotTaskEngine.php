@@ -18,8 +18,8 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataEvent;
 use Kompakt\Mediameister\Batch\BatchInterface;
 use Kompakt\Mediameister\Entity\TrackInterface;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 use Kompakt\Mediameister\Packshot\PackshotInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PackshotTaskEngine
 {

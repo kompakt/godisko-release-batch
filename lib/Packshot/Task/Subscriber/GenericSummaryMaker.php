@@ -17,46 +17,70 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Share\Summary;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class GenericSummaryMaker implements EventSubscriberInterface
+class GenericSummaryMaker
 {
     const OK = 'ok';
     const ERROR = 'error';
 
+    protected $dispatcher = null;
     protected $eventNames = null;
     protected $summary = null;
 
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         EventNamesInterface $eventNames,
         Summary $summary
     )
     {
+        $this->dispatcher = $dispatcher;
         $this->eventNames = $eventNames;
         $this->summary = $summary;
     }
 
-    public function getSubscriptions()
+    public function activate()
     {
-        return array(
-            $this->eventNames->frontArtwork() => array(
-                array('onFrontArtwork', 0)
-            ),
-            $this->eventNames->frontArtworkError() => array(
-                array('onFrontArtworkError', 0)
-            ),
-            $this->eventNames->audio() => array(
-                array('onAudio', 0)
-            ),
-            $this->eventNames->audioError() => array(
-                array('onAudioError', 0)
-            ),
-            $this->eventNames->metadata() => array(
-                array('onMetadata', 0)
-            ),
-            $this->eventNames->metadataError() => array(
-                array('onMetadataError', 0)
-            )
+        $this->handleListeners(true);
+    }
+
+    public function deactivate()
+    {
+        $this->handleListeners(false);
+    }
+
+    protected function handleListeners($add)
+    {
+        $method = ($add) ? 'addListener' : 'removeListener';
+
+        $this->dispatcher->$method(
+            $this->eventNames->frontArtwork(),
+            [$this, 'onFrontArtwork']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->frontArtworkError(),
+            [$this, 'onFrontArtworkError']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->audio(),
+            [$this, 'onAudio']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->audioError(),
+            [$this, 'onAudioError']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->metadata(),
+            [$this, 'onMetadata']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->metadataError(),
+            [$this, 'onMetadataError']
         );
     }
 

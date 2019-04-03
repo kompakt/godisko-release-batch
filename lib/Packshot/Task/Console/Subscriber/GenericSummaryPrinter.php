@@ -13,37 +13,53 @@ use Kompakt\Mediameister\Batch\Task\EventNamesInterface;
 use Kompakt\Mediameister\Batch\Task\Event\TaskEndErrorEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TaskEndEvent;
 use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventSubscriberInterface;
 use Kompakt\Mediameister\Util\Counter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Share\Summary;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class GenericSummaryPrinter implements EventSubscriberInterface
+class GenericSummaryPrinter
 {
+    protected $dispatcher = null;
     protected $eventNames = null;
     protected $summary = null;
     protected $output = null;
 
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         EventNamesInterface $eventNames,
         Summary $summary,
         ConsoleOutputInterface $output
     )
     {
+        $this->dispatcher = $dispatcher;
         $this->eventNames = $eventNames;
         $this->summary = $summary;
         $this->output = $output;
     }
 
-    public function getSubscriptions()
+    public function activate()
     {
-        return array(
-            $this->eventNames->taskEnd() => array(
-                array('onTaskEnd', 0)
-            ),
-            $this->eventNames->taskEndError() => array(
-                array('onTaskEndError', 0)
-            )
+        $this->handleListeners(true);
+    }
+
+    public function deactivate()
+    {
+        $this->handleListeners(false);
+    }
+
+    protected function handleListeners($add)
+    {
+        $method = ($add) ? 'addListener' : 'removeListener';
+
+        $this->dispatcher->$method(
+            $this->eventNames->taskEnd(),
+            [$this, 'onTaskEnd']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->taskEndError(),
+            [$this, 'onTaskEndError']
         );
     }
 

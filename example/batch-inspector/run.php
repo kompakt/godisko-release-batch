@@ -35,11 +35,12 @@ use Kompakt\Mediameister\Util\Timer\Timer;
 $batchEventNames = new BatchEventNames('batch_task');
 
 $batchDebugger = new BatchDebugger(
+    $dispatcher,
     $batchEventNames,
     $output
 );
 
-$dispatcher->addSubscriber($batchDebugger);
+$batchDebugger->activate();
 
 $batchTaskEngineFactory = new BatchTaskEngineFactory(
     $dispatcher,
@@ -50,11 +51,13 @@ $batchTaskEngineFactory = new BatchTaskEngineFactory(
 $batchSummary = new BatchSummary(new Counter());
 
 $genericBatchSummaryMaker = new GenericBatchSummaryMaker(
+    $dispatcher,
     $batchEventNames,
     $batchSummary
 );
 
 $genericBatchSummaryPrinter = new GenericBatchSummaryPrinter(
+    $dispatcher,
     $batchEventNames,
     $batchSummary,
     $output
@@ -64,11 +67,12 @@ $genericBatchSummaryPrinter = new GenericBatchSummaryPrinter(
 $packshotEventNames = new PackshotEventNames('packshot_task');
 
 $packshotDebugger = new PackshotDebugger(
+    $dispatcher,
     $packshotEventNames,
     $output
 );
 
-$dispatcher->addSubscriber($packshotDebugger);
+$packshotDebugger->activate();
 
 $packshotTaskEngineFactory = new PackshotTaskEngineFactory(
     $dispatcher,
@@ -76,6 +80,7 @@ $packshotTaskEngineFactory = new PackshotTaskEngineFactory(
 );
 
 $packshotTaskEngineStarter = new PackshotTaskEngineStarter(
+    $dispatcher,
     $batchEventNames,
     $packshotTaskEngineFactory
 );
@@ -83,24 +88,26 @@ $packshotTaskEngineStarter = new PackshotTaskEngineStarter(
 $packshotSummary = new PackshotSummary(new Counter());
 
 $genericPackshotSummaryMaker = new GenericPackshotSummaryMaker(
+    $dispatcher,
     $packshotEventNames,
     $packshotSummary
 );
 
 $genericPackshotSummaryPrinter = new GenericPackshotSummaryPrinter(
+    $dispatcher,
     $batchEventNames,
     $packshotSummary,
     $output
 );
 
 $packshotInspector = new PackshotInspector(
+    $dispatcher,
     $batchEventNames,
     $packshotEventNames,
     $output
 );
 
 $subscriberManager = new SubscriberManager(
-    $dispatcher,
     $genericBatchSummaryMaker,
     $genericBatchSummaryPrinter,
     $packshotTaskEngineStarter,

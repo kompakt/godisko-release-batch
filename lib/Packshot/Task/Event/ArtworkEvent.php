@@ -9,8 +9,8 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Event;
 
-use Kompakt\Mediameister\Generic\EventDispatcher\Event;
 use Kompakt\Mediameister\Packshot\PackshotInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 class ArtworkEvent extends Event
 {

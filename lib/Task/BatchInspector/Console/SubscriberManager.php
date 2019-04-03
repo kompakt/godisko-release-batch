@@ -13,13 +13,11 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Inspector as Pa
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
-use Kompakt\Mediameister\Generic\EventDispatcher\EventDispatcherInterface;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\GenericSummaryPrinter as GenericBatchSummaryPrinter;
 use Kompakt\Mediameister\Batch\Task\Subscriber\GenericSummaryMaker as GenericBatchSummaryMaker;
 
 class SubscriberManager
 {
-    protected $dispatcher = null;
     protected $batchSummaryMaker = null;
     protected $batchSummaryPrinter = null;
     protected $packshotTaskEngineStarter = null;
@@ -28,7 +26,6 @@ class SubscriberManager
     protected $packshotSummaryPrinter = null;
 
     public function __construct(
-        EventDispatcherInterface $dispatcher,
         GenericBatchSummaryMaker $batchSummaryMaker,
         GenericBatchSummaryPrinter $batchSummaryPrinter,
         PackshotTaskEngineStarter $packshotTaskEngineStarter,
@@ -37,7 +34,6 @@ class SubscriberManager
         GenericPackshotSummaryPrinter $packshotSummaryPrinter
     )
     {
-        $this->dispatcher = $dispatcher;
         $this->batchSummaryMaker = $batchSummaryMaker;
         $this->batchSummaryPrinter = $batchSummaryPrinter;
         $this->packshotTaskEngineStarter = $packshotTaskEngineStarter;
@@ -48,21 +44,21 @@ class SubscriberManager
 
     public function begin()
     {
-        $this->dispatcher->addSubscriber($this->batchSummaryMaker);
-        $this->dispatcher->addSubscriber($this->batchSummaryPrinter);
-        $this->dispatcher->addSubscriber($this->packshotInspector);
-        $this->dispatcher->addSubscriber($this->packshotTaskEngineStarter);
-        $this->dispatcher->addSubscriber($this->packshotSummaryMaker);
-        $this->dispatcher->addSubscriber($this->packshotSummaryPrinter);
+        $this->batchSummaryMaker->activate();
+        $this->batchSummaryPrinter->activate();
+        $this->packshotInspector->activate();
+        $this->packshotTaskEngineStarter->activate();
+        $this->packshotSummaryMaker->activate();
+        $this->packshotSummaryPrinter->activate();
     }
 
     public function end()
     {
-        $this->dispatcher->removeSubscriber($this->batchSummaryMaker);
-        $this->dispatcher->removeSubscriber($this->batchSummaryPrinter);
-        $this->dispatcher->removeSubscriber($this->packshotInspector);
-        $this->dispatcher->removeSubscriber($this->packshotTaskEngineStarter);
-        $this->dispatcher->removeSubscriber($this->packshotSummaryMaker);
-        $this->dispatcher->removeSubscriber($this->packshotSummaryPrinter);
+        $this->batchSummaryMaker->deactivate();
+        $this->batchSummaryPrinter->deactivate();
+        $this->packshotInspector->deactivate();
+        $this->packshotTaskEngineStarter->deactivate();
+        $this->packshotSummaryMaker->deactivate();
+        $this->packshotSummaryPrinter->deactivate();
     }
 }

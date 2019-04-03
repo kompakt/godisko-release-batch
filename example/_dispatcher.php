@@ -7,7 +7,6 @@
  *
  */
 
-use Kompakt\Mediameister\Adapter\EventDispatcher\Symfony\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
-$dispatcher = new EventDispatcher(new SymfonyEventDispatcher());
+$dispatcher = new EventDispatcher();
