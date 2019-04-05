@@ -12,10 +12,10 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber;
 use Kompakt\Mediameister\Batch\Task\EventNamesInterface;
 use Kompakt\Mediameister\Batch\Task\Event\TaskEndErrorEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TaskEndEvent;
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\Mediameister\Util\Counter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Share\Summary;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GenericSummaryPrinter

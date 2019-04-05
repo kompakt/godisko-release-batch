@@ -20,7 +20,7 @@ use Kompakt\Mediameister\Batch\Task\Event\PackshotErrorEvent;
 use Kompakt\Mediameister\Batch\Task\Event\PackshotEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TrackErrorEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TrackEvent;
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Inspector

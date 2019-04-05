@@ -9,7 +9,6 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber;
 
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkEvent;
@@ -17,6 +16,7 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\AudioEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataErrorEvent;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\MetadataEvent;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Debugger

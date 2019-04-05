@@ -12,7 +12,7 @@ namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console;
 use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\SubscriberManager;
 use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
-use Kompakt\Mediameister\Generic\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 class TaskRunner
 {

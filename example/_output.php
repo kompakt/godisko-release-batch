@@ -7,7 +7,6 @@
  *
  */
 
-use Kompakt\Mediameister\Adapter\Console\Symfony\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\ConsoleOutput as SymfonyConsoleOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
-$output = new ConsoleOutput(new SymfonyConsoleOutput());
+$output = new ConsoleOutput();
