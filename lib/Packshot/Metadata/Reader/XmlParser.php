@@ -109,7 +109,7 @@ class XmlParser
         $release = clone $this->releasePrototype;
 
         try {
-            $release->setDataVersion($fixField($this->getDomVal($t, 'data_version')));
+            $release->setDataVersion($fixField($this->getDomVal($dom, 'data_version')));
         }
         catch (\Exception $e) {
             // Ignore for BC with old XML
@@ -177,13 +177,6 @@ class XmlParser
 
     protected function getDomVal($dom, $name)
     {
-        $element = $dom->getElementsByTagName($name)->item(0);
-
-        if (!$element instanceof \DOMElement)
-        {
-            throw new DomainException(sprintf('Xml element missing: "%s"', $name));
-        }
-
-        return $element->nodeValue;
+        return $this->getDomElement($dom, $name)->nodeValue;
     }
 }
