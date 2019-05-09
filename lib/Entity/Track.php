@@ -21,6 +21,7 @@ class Track implements TrackInterface
     protected $songwriter = null;
     protected $publisher = null;
     protected $title = null;
+    protected $version = null;
     protected $genre = null;
     protected $media = null;
     protected $discNr = null;
@@ -113,6 +114,17 @@ class Track implements TrackInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function setVersion($version)
+    {
+        $this->version = $version;
+        return $this;
+    }
+
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     public function setGenre($genre)

@@ -92,13 +92,13 @@ class XmlParser
 
         $fixReleaseDate = function($releaseDate)
         {
-            if (preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches))
-            {
-                $date = sprintf('%d-%d-%d', $matches[1], $matches[2], $matches[3]);
-                return \DateTime::createFromFormat('Y-m-d', $date);
-            }
+            $date
+                = (preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches))
+                ? sprintf('%d-%d-%d', $matches[1], $matches[2], $matches[3])
+                : '0000-00-00'
+            ;
 
-            return '0000-00-00';
+            return \DateTime::createFromFormat('Y-m-d', $date);
         };
 
         $fixBundleRestriction = function($bundleRestriction)
@@ -107,6 +107,14 @@ class XmlParser
         };
 
         $release = clone $this->releasePrototype;
+
+        try {
+            $release->setDataVersion($fixField($this->getDomVal($t, 'data_version')));
+        }
+        catch (\Exception $e) {
+            // Ignore for BC with old XML
+        }
+
         $release->setLabel($fixField($this->getDomVal($dom, 'labelname')));
         $release->setName($fixField($this->getDomVal($dom, 'release_name')));
         $release->setEan($fixField($this->getDomVal($dom, 'release_ean')));
@@ -135,6 +143,14 @@ class XmlParser
             $track->setSongwriter($fixField($this->getDomVal($t, 'track_songwriter')));
             $track->setPublisher($fixField($this->getDomVal($t, 'track_publisher')));
             $track->setTitle($fixField($this->getDomVal($t, 'track_title')));
+            
+            try {
+                $track->setVersion($fixField($this->getDomVal($t, 'track_version')));
+            }
+            catch (\Exception $e) {
+                // Ignore for BC with old XML
+            }
+
             $track->setGenre($fixField($this->getDomVal($t, 'track_genre')));
             $track->setMedia($fixField($this->getDomVal($t, 'track_media')));
             $track->setDiscNr($fixField($this->getDomVal($t, 'track_num_disc_num')));
@@ -151,7 +167,7 @@ class XmlParser
     {
         $element = $dom->getElementsByTagName($name)->item(0);
 
-        if (!$element)
+        if (!$element instanceof \DOMElement)
         {
             throw new DomainException(sprintf('Xml element missing: "%s"', $name));
         }
@@ -163,7 +179,7 @@ class XmlParser
     {
         $element = $dom->getElementsByTagName($name)->item(0);
 
-        if (!$element)
+        if (!$element instanceof \DOMElement)
         {
             throw new DomainException(sprintf('Xml element missing: "%s"', $name));
         }

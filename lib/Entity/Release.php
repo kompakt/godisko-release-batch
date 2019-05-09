@@ -14,6 +14,7 @@ use Kompakt\Mediameister\Entity\ReleaseInterface;
 
 class Release implements ReleaseInterface
 {
+    protected $dataVersion = null;
     protected $label = null;
     protected $name = null;
     protected $ean = null;
@@ -29,6 +30,17 @@ class Release implements ReleaseInterface
     protected $saleTerritories = null;
     protected $bundleRestriction = null;
     protected $tracks = array();
+
+    public function setDataVersion($dataVersion)
+    {
+        $this->dataVersion = $dataVersion;
+        return $this;
+    }
+
+    public function getDataVersion()
+    {
+        return $this->dataVersion;
+    }
 
     public function setLabel($label)
     {
