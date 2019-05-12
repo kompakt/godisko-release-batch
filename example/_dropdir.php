@@ -16,6 +16,7 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderF
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\XmlBuilder;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
@@ -27,7 +28,7 @@ $dropDirPathname = sprintf('%s/_files/drop-dir', __DIR__);
 // compose
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
-    new XmlWriterFactory(),
+    new XmlWriterFactory(new XmlBuilder()),
     new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
     new ArtworkLocatorFactory(),
     new AudioLocatorFactory()
