@@ -23,8 +23,21 @@ class XmlBuilder
         $root->appendChild($dom->createElement('release_ean', htmlspecialchars($release->getEan())));
         $root->appendChild($dom->createElement('release_catno', htmlspecialchars($release->getCatalogNumber())));
         $root->appendChild($dom->createElement('release_uuid', htmlspecialchars($release->getUuid())));
-        $root->appendChild($dom->createElement('release_physical_releasedate', htmlspecialchars($release->getPhysicalReleaseDate()->format('Ymd'))));
-        $root->appendChild($dom->createElement('release_digital_releasedate', htmlspecialchars($release->getDigitalReleaseDate()->format('Ymd'))));
+
+        $date = $release->getPhysicalReleaseDate();
+
+        if ($date instanceof \DateTime)
+        {
+            $root->appendChild($dom->createElement('release_physical_releasedate', htmlspecialchars($date->format('Ymd'))));
+        }
+
+        $date = $release->getDigitalReleaseDate();
+
+        if ($date instanceof \DateTime)
+        {
+            $root->appendChild($dom->createElement('release_digital_releasedate', htmlspecialchars($date->format('Ymd'))));
+        }
+
         $root->appendChild($dom->createElement('release_originalformat', htmlspecialchars($release->getOriginalFormat())));
         $root->appendChild($dom->createElement('release_short_info_e', htmlspecialchars($release->getShortInfoEn())));
         $root->appendChild($dom->createElement('release_short_info_d', htmlspecialchars($release->getShortInfoDe())));

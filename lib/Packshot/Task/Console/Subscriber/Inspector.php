@@ -151,10 +151,18 @@ class Inspector
             )
         );
 
+        $date = $event->getPackshot()->getRelease()->getPhysicalReleaseDate();
+
+        $date
+            = ($date instanceof \DateTime)
+            ? $date->format('Y-m-d')
+            : '----'
+        ;
+
         $this->output->writeln(
             sprintf(
                 '  <info>Release date: %s</info>',
-                $event->getPackshot()->getRelease()->getPhysicalReleaseDate()->format('Y-m-d')
+                $date
             )
         );
     }

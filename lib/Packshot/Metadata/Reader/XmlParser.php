@@ -92,13 +92,11 @@ class XmlParser
 
         $fixReleaseDate = function($releaseDate)
         {
-            $date
-                = (preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches))
-                ? sprintf('%d%d%d', $matches[1], $matches[2], $matches[3])
-                : '19010101'
+            return
+                (preg_match('/^\d{8,8}$/', $releaseDate))
+                ? \DateTime::createFromFormat('Ymd', $releaseDate)
+                : null
             ;
-
-            return \DateTime::createFromFormat('Ymd', $date);
         };
 
         $fixBundleRestriction = function($bundleRestriction)
@@ -120,8 +118,21 @@ class XmlParser
         $release->setEan($fixField($this->getDomVal($dom, 'release_ean')));
         $release->setCatalogNumber($fixField($this->getDomVal($dom, 'release_catno')));
         $release->setUuid($fixField($this->getDomVal($dom, 'release_uuid')));
-        $release->setPhysicalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_physical_releasedate')));
-        $release->setDigitalReleaseDate($fixReleaseDate($this->getDomVal($dom, 'release_digital_releasedate')));
+
+        $date = $fixReleaseDate($this->getDomVal($dom, 'release_physical_releasedate'));
+
+        if ($date instanceof \DateTime)
+        {
+            $release->setPhysicalReleaseDate($date);
+        }
+
+        $date = $fixReleaseDate($this->getDomVal($dom, 'release_digital_releasedate'));
+
+        if ($date instanceof \DateTime)
+        {
+            $release->setDigitalReleaseDate($date);
+        }
+
         $release->setOriginalFormat($fixField($this->getDomVal($dom, 'release_originalformat')));
         $release->setShortInfoEn($fixField($this->getDomVal($dom, 'release_short_info_e')));
         $release->setShortInfoDe($fixField($this->getDomVal($dom, 'release_short_info_d')));
