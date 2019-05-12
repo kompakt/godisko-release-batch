@@ -94,11 +94,11 @@ class XmlParser
         {
             $date
                 = (preg_match('/(\d{4,4})(\d{2,2})(\d{2,2})/', $releaseDate, $matches))
-                ? sprintf('%d-%d-%d', $matches[1], $matches[2], $matches[3])
-                : '0000-00-00'
+                ? sprintf('%d%d%d', $matches[1], $matches[2], $matches[3])
+                : '19010101'
             ;
 
-            return \DateTime::createFromFormat('Y-m-d', $date);
+            return \DateTime::createFromFormat('Ymd', $date);
         };
 
         $fixBundleRestriction = function($bundleRestriction)
