@@ -13,12 +13,11 @@ require sprintf('%s/_output.php', dirname(__DIR__));
 require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Debugger as PackshotDebugger;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNames as PackshotEventNames;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\PackshotTaskEngineFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Share\Summary as PackshotSummary;
 use Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\TaskRunner;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
@@ -70,19 +69,12 @@ $packshotTaskEngineStarter = new PackshotTaskEngineStarter(
     $packshotTaskEngineFactory
 );
 
-$packshotSummary = new PackshotSummary(new Counter());
-
-$genericPackshotSummaryMaker = new GenericPackshotSummaryMaker(
-    $dispatcher,
-    $packshotEventNames,
-    $packshotSummary
-);
-
-$genericPackshotSummaryPrinter = new GenericPackshotSummaryPrinter(
+$packshotSummaryPrinter = new PackshotSummaryPrinter(
     $dispatcher,
     $batchEventNames,
-    $packshotSummary,
-    $output
+    $packshotEventNames,
+    $output,
+    new Counter()
 );
 
 $subscriberManager = new SubscriberManager(
@@ -90,8 +82,7 @@ $subscriberManager = new SubscriberManager(
     $batchSummaryPrinter,
     $packshotTaskEngineStarter,
     $packshotDebugger,
-    $genericPackshotSummaryMaker,
-    $genericPackshotSummaryPrinter
+    $packshotSummaryPrinter
 );
 
 $taskRunner = new TaskRunner(

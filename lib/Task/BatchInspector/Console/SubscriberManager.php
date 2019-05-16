@@ -10,8 +10,7 @@
 namespace Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Inspector as PackshotInspector;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\GenericSummaryPrinter as GenericPackshotSummaryPrinter;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 
@@ -20,21 +19,18 @@ class SubscriberManager
     protected $batchSummaryPrinter = null;
     protected $packshotTaskEngineStarter = null;
     protected $packshotInspector = null;
-    protected $packshotSummaryMaker = null;
     protected $packshotSummaryPrinter = null;
 
     public function __construct(
         BatchSummaryPrinter $batchSummaryPrinter,
         PackshotTaskEngineStarter $packshotTaskEngineStarter,
         PackshotInspector $packshotInspector,
-        GenericPackshotSummaryMaker $packshotSummaryMaker,
-        GenericPackshotSummaryPrinter $packshotSummaryPrinter
+        PackshotSummaryPrinter $packshotSummaryPrinter
     )
     {
         $this->batchSummaryPrinter = $batchSummaryPrinter;
         $this->packshotTaskEngineStarter = $packshotTaskEngineStarter;
         $this->packshotInspector = $packshotInspector;
-        $this->packshotSummaryMaker = $packshotSummaryMaker;
         $this->packshotSummaryPrinter = $packshotSummaryPrinter;
     }
 
@@ -43,7 +39,6 @@ class SubscriberManager
         $this->batchSummaryPrinter->activate();
         $this->packshotInspector->activate();
         $this->packshotTaskEngineStarter->activate();
-        $this->packshotSummaryMaker->activate();
         $this->packshotSummaryPrinter->activate();
     }
 
@@ -52,7 +47,6 @@ class SubscriberManager
         $this->batchSummaryPrinter->deactivate();
         $this->packshotInspector->deactivate();
         $this->packshotTaskEngineStarter->deactivate();
-        $this->packshotSummaryMaker->deactivate();
         $this->packshotSummaryPrinter->deactivate();
     }
 }
