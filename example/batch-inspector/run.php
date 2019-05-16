@@ -23,7 +23,7 @@ use Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console\TaskRunner;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 use Kompakt\Mediameister\Batch\Task\EventNames as BatchEventNames;
-use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
+use Kompakt\Mediameister\Batch\Task\Factory\TaskFactory as BatchTaskFactory;
 use Kompakt\Mediameister\Util\Counter;
 use Kompakt\Mediameister\Util\Timer\Timer;
 
@@ -38,7 +38,7 @@ $batchDebugger = new BatchDebugger(
 
 $batchDebugger->activate();
 
-$batchTaskEngineFactory = new BatchTaskEngineFactory(
+$batchTaskFactory = new BatchTaskFactory(
     $dispatcher,
     $batchEventNames,
     new Timer()
@@ -99,7 +99,7 @@ $taskRunner = new TaskRunner(
     $subscriberManager,
     $output,
     $dropDir,
-    $batchTaskEngineFactory
+    $batchTaskFactory
 );
 
 // run

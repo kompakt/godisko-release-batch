@@ -10,7 +10,7 @@
 namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console;
 
 use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\SubscriberManager;
-use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
+use Kompakt\Mediameister\Batch\Task\Factory\TaskFactory as BatchTaskFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
@@ -19,19 +19,19 @@ class TaskRunner
     protected $subscriberManager = null;
     protected $output = null;
     protected $dropDir = null;
-    protected $batchTaskEngineFactory = null;
+    protected $batchTaskFactory = null;
 
     public function __construct(
         SubscriberManager $subscriberManager,
         ConsoleOutputInterface $output,
         DropDir $dropDir,
-        BatchTaskEngineFactory $batchTaskEngineFactory
+        BatchTaskFactory $batchTaskFactory
     )
     {
         $this->subscriberManager = $subscriberManager;
         $this->output = $output;
         $this->dropDir = $dropDir;
-        $this->batchTaskEngineFactory = $batchTaskEngineFactory;
+        $this->batchTaskFactory = $batchTaskFactory;
     }
 
     public function skipMetadata($flag)
@@ -66,7 +66,7 @@ class TaskRunner
         }
 
         $this->subscriberManager->begin();
-        $this->batchTaskEngineFactory->getInstance($batch)->start();
+        $this->batchTaskFactory->getInstance($batch)->start();
         $this->subscriberManager->end();
     }
 }

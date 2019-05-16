@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "0445e05675658948d4fc0e6515dd381a81f19fe7"
+                "reference": "96098a4090078ae86869b95f753abb91389401fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/0445e05675658948d4fc0e6515dd381a81f19fe7",
-                "reference": "0445e05675658948d4fc0e6515dd381a81f19fe7",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/96098a4090078ae86869b95f753abb91389401fa",
+                "reference": "96098a4090078ae86869b95f753abb91389401fa",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2019-05-16T08:53:16+00:00"
+            "time": "2019-05-16T10:37:38+00:00"
         },
         {
             "name": "monolog/monolog",

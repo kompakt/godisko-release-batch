@@ -23,7 +23,7 @@ use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Subscriber\Zipper;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 use Kompakt\Mediameister\Batch\Task\EventNames as BatchEventNames;
-use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
+use Kompakt\Mediameister\Batch\Task\Factory\TaskFactory as BatchTaskFactory;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Counter;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
@@ -40,7 +40,7 @@ $batchDebugger = new BatchDebugger(
 
 #$batchDebugger->activate();
 
-$batchTaskEngineFactory = new BatchTaskEngineFactory(
+$batchTaskFactory = new BatchTaskFactory(
     $dispatcher,
     $batchEventNames,
     new Timer()
@@ -103,7 +103,7 @@ $taskRunner = new TaskRunner(
     $subscriberManager,
     $output,
     $dropDir,
-    $batchTaskEngineFactory
+    $batchTaskFactory
 );
 
 // run
