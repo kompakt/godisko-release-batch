@@ -23,11 +23,9 @@ use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\TaskRunner;
 use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Subscriber\Zipper;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
-use Kompakt\Mediameister\Batch\Task\Console\Subscriber\GenericSummaryPrinter as GenericBatchSummaryPrinter;
+use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 use Kompakt\Mediameister\Batch\Task\EventNames as BatchEventNames;
 use Kompakt\Mediameister\Batch\Task\Factory\BatchTaskEngineFactory;
-use Kompakt\Mediameister\Batch\Task\Subscriber\GenericSummaryMaker as GenericBatchSummaryMaker;
-use Kompakt\Mediameister\Batch\Task\Subscriber\Share\Summary as BatchSummary;
 use Kompakt\Mediameister\Util\Archive\Factory\FileAdderFactory;
 use Kompakt\Mediameister\Util\Counter;
 use Kompakt\Mediameister\Util\Filesystem\Factory\ChildFileNamerFactory;
@@ -50,19 +48,11 @@ $batchTaskEngineFactory = new BatchTaskEngineFactory(
     new Timer()
 );
 
-$batchSummary = new BatchSummary(new Counter());
-
-$genericBatchSummaryMaker = new GenericBatchSummaryMaker(
+$batchSummaryPrinter = new BatchSummaryPrinter(
     $dispatcher,
     $batchEventNames,
-    $batchSummary
-);
-
-$genericBatchSummaryPrinter = new GenericBatchSummaryPrinter(
-    $dispatcher,
-    $batchEventNames,
-    $batchSummary,
-    $output
+    $output,
+    new Counter()
 );
 
 // packshot event stuff
@@ -112,8 +102,7 @@ $zipper = new Zipper(
 );
 
 $subscriberManager = new SubscriberManager(
-    $genericBatchSummaryMaker,
-    $genericBatchSummaryPrinter,
+    $batchSummaryPrinter,
     $packshotTaskEngineStarter,
     $zipper,
     $genericPackshotSummaryMaker,

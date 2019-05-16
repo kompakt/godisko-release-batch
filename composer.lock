@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f0584f2eb97389294d300171ea65ae8",
+    "content-hash": "338f75ef81e2022c63771d1aefe8188e",
     "packages": [
         {
             "name": "kompakt/mediameister",
-            "version": "3.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kompakt/mediameister.git",
-                "reference": "4cedbce4690dc56791a81e92e764c9d82327b029"
+                "reference": "46924d5acab90170a5b6239aeef1626f6a715bf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/4cedbce4690dc56791a81e92e764c9d82327b029",
-                "reference": "4cedbce4690dc56791a81e92e764c9d82327b029",
+                "url": "https://api.github.com/repos/kompakt/mediameister/zipball/46924d5acab90170a5b6239aeef1626f6a715bf3",
+                "reference": "46924d5acab90170a5b6239aeef1626f6a715bf3",
                 "shasum": ""
             },
             "require": {
@@ -33,7 +33,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -57,7 +57,7 @@
                 "batch-processing",
                 "media"
             ],
-            "time": "2019-05-15T09:57:31+00:00"
+            "time": "2019-05-15T09:58:51+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1690,7 +1690,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kompakt/mediameister": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
