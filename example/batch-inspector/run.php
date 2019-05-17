@@ -16,8 +16,8 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Debugger as Pac
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Inspector as PackshotInspector;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNames as PackshotEventNames;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\PackshotTaskEngineFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\TaskFactory as PackshotTaskFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Starter as PackshotTaskStarter;
 use Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console\TaskRunner;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
@@ -28,7 +28,7 @@ use Kompakt\Mediameister\Util\Counter;
 use Kompakt\Mediameister\Util\Timer\Timer;
 
 // batch event stuff
-$batchEventNames = new BatchEventNames('batch_task');
+$batchEventNames = new BatchEventNames();
 
 $batchDebugger = new BatchDebugger(
     $dispatcher,
@@ -52,7 +52,7 @@ $batchSummaryPrinter = new BatchSummaryPrinter(
 );
 
 // packshot event stuff
-$packshotEventNames = new PackshotEventNames('packshot_task');
+$packshotEventNames = new PackshotEventNames();
 
 $packshotDebugger = new PackshotDebugger(
     $dispatcher,
@@ -62,15 +62,15 @@ $packshotDebugger = new PackshotDebugger(
 
 $packshotDebugger->activate();
 
-$packshotTaskEngineFactory = new PackshotTaskEngineFactory(
+$packshotTaskFactory = new PackshotTaskFactory(
     $dispatcher,
     $packshotEventNames
 );
 
-$packshotTaskEngineStarter = new PackshotTaskEngineStarter(
+$packshotTaskStarter = new PackshotTaskStarter(
     $dispatcher,
     $batchEventNames,
-    $packshotTaskEngineFactory
+    $packshotTaskFactory
 );
 
 $packshotSummaryPrinter = new PackshotSummaryPrinter(
@@ -90,7 +90,7 @@ $packshotInspector = new PackshotInspector(
 
 $subscriberManager = new SubscriberManager(
     $batchSummaryPrinter,
-    $packshotTaskEngineStarter,
+    $packshotTaskStarter,
     $packshotInspector,
     $packshotSummaryPrinter
 );

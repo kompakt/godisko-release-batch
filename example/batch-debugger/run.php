@@ -15,9 +15,9 @@ require sprintf('%s/_dispatcher.php', dirname(__DIR__));
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Debugger as PackshotDebugger;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNames as PackshotEventNames;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\PackshotTaskEngineFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\TaskFactory as PackshotTaskFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\GenericSummaryMaker as GenericPackshotSummaryMaker;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Starter as PackshotTaskStarter;
 use Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\SubscriberManager;
 use Kompakt\GodiskoReleaseBatch\Task\BatchDebugger\Console\TaskRunner;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\Debugger as BatchDebugger;
@@ -28,7 +28,7 @@ use Kompakt\Mediameister\Util\Counter;
 use Kompakt\Mediameister\Util\Timer\Timer;
 
 // batch event stuff
-$batchEventNames = new BatchEventNames('batch_task');
+$batchEventNames = new BatchEventNames();
 
 $batchDebugger = new BatchDebugger(
     $dispatcher,
@@ -50,7 +50,7 @@ $batchSummaryPrinter = new BatchSummaryPrinter(
 );
 
 // packshot event stuff
-$packshotEventNames = new PackshotEventNames('packshot_task');
+$packshotEventNames = new PackshotEventNames();
 
 $packshotDebugger = new PackshotDebugger(
     $dispatcher,
@@ -58,15 +58,15 @@ $packshotDebugger = new PackshotDebugger(
     $output
 );
 
-$packshotTaskEngineFactory = new PackshotTaskEngineFactory(
+$packshotTaskFactory = new PackshotTaskFactory(
     $dispatcher,
     $packshotEventNames
 );
 
-$packshotTaskEngineStarter = new PackshotTaskEngineStarter(
+$packshotTaskStarter = new PackshotTaskStarter(
     $dispatcher,
     $batchEventNames,
-    $packshotTaskEngineFactory
+    $packshotTaskFactory
 );
 
 $packshotSummaryPrinter = new PackshotSummaryPrinter(
@@ -80,7 +80,7 @@ $packshotSummaryPrinter = new PackshotSummaryPrinter(
 $subscriberManager = new SubscriberManager(
     $batchDebugger,
     $batchSummaryPrinter,
-    $packshotTaskEngineStarter,
+    $packshotTaskStarter,
     $packshotDebugger,
     $packshotSummaryPrinter
 );

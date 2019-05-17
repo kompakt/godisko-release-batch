@@ -15,7 +15,7 @@ class EventNames implements EventNamesInterface
 {
     protected $namespace = null;
 
-    public function __construct($namespace = 'packshot_task_engine')
+    public function __construct($namespace = 'packshot_task')
     {
         $this->namespace = $namespace;
     }

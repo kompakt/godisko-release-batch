@@ -7,7 +7,7 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Subscriber;
+namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Subscriber;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface as PackshotEventNamesInterface;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Event\ArtworkEvent;

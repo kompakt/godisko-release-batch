@@ -10,26 +10,26 @@
 namespace Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
-use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Console\Subscriber\Zipper;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Starter as PackshotTaskStarter;
+use Kompakt\GodiskoReleaseBatch\Task\BatchZipper\Subscriber\Zipper;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 
 class SubscriberManager
 {
     protected $batchSummaryPrinter = null;
-    protected $packshotTaskEngineStarter = null;
+    protected $packshotTaskStarter = null;
     protected $zipper = null;
     protected $packshotSummaryPrinter = null;
 
     public function __construct(
         BatchSummaryPrinter $batchSummaryPrinter,
-        PackshotTaskEngineStarter $packshotTaskEngineStarter,
+        PackshotTaskStarter $packshotTaskStarter,
         Zipper $zipper,
         PackshotSummaryPrinter $packshotSummaryPrinter
     )
     {
         $this->batchSummaryPrinter = $batchSummaryPrinter;
-        $this->packshotTaskEngineStarter = $packshotTaskEngineStarter;
+        $this->packshotTaskStarter = $packshotTaskStarter;
         $this->zipper = $zipper;
         $this->packshotSummaryPrinter = $packshotSummaryPrinter;
     }
@@ -43,7 +43,7 @@ class SubscriberManager
     {
         $this->batchSummaryPrinter->activate();
         $this->zipper->activate();
-        $this->packshotTaskEngineStarter->activate();
+        $this->packshotTaskStarter->activate();
         $this->packshotSummaryPrinter->activate();
     }
 
@@ -51,7 +51,7 @@ class SubscriberManager
     {
         $this->batchSummaryPrinter->deactivate();
         $this->zipper->deactivate();
-        $this->packshotTaskEngineStarter->deactivate();
+        $this->packshotTaskStarter->deactivate();
         $this->packshotSummaryPrinter->deactivate();
     }
 }

@@ -9,28 +9,28 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber;
 
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\PackshotTaskEngineFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory\TaskFactory as PackshotTaskFactory;
 use Kompakt\Mediameister\Batch\Task\EventNamesInterface;
 use Kompakt\Mediameister\Batch\Task\Event\PackshotEvent;
 use Kompakt\Mediameister\Batch\Task\Event\TrackEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PackshotTaskEngineStarter
+class Starter
 {
     protected $dispatcher = null;
     protected $eventNames = null;
-    protected $packshotTaskEngineFactory = null;
-    protected $packshotTaskEngine = null;
+    protected $packshotTaskFactory = null;
+    protected $packshotTask = null;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
         EventNamesInterface $eventNames,
-        PackshotTaskEngineFactory $packshotTaskEngineFactory
+        PackshotTaskFactory $packshotTaskFactory
     )
     {
         $this->dispatcher = $dispatcher;
         $this->eventNames = $eventNames;
-        $this->packshotTaskEngineFactory = $packshotTaskEngineFactory;
+        $this->packshotTaskFactory = $packshotTaskFactory;
     }
 
     public function activate()
@@ -65,17 +65,17 @@ class PackshotTaskEngineStarter
 
     public function onPackshotLoad(PackshotEvent $event)
     {
-        $this->packshotTaskEngine = $this->packshotTaskEngineFactory->getInstance($event->getPackshot());
-        $this->packshotTaskEngine->startArtwork();
+        $this->packshotTask = $this->packshotTaskFactory->getInstance($event->getPackshot());
+        $this->packshotTask->startArtwork();
     }
 
     public function onPackshotUnload(PackshotEvent $event)
     {
-        $this->packshotTaskEngine->startMetadata();
+        $this->packshotTask->startMetadata();
     }
 
     public function onTrack(TrackEvent $event)
     {
-        $this->packshotTaskEngine->startAudio($event->getTrack());
+        $this->packshotTask->startAudio($event->getTrack());
     }
 }

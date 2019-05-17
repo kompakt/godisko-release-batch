@@ -10,11 +10,11 @@
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\EventNamesInterface;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\PackshotTaskEngine;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Task;
 use Kompakt\Mediameister\Packshot\PackshotInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PackshotTaskEngineFactory
+class TaskFactory
 {
     protected $dispatcher = null;
     protected $eventNames = null;
@@ -30,7 +30,7 @@ class PackshotTaskEngineFactory
 
     public function getInstance(PackshotInterface $packshot)
     {
-        return new PackshotTaskEngine(
+        return new Task(
             $this->dispatcher,
             $this->eventNames,
             $packshot

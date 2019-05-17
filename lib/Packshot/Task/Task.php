@@ -21,7 +21,7 @@ use Kompakt\Mediameister\Entity\TrackInterface;
 use Kompakt\Mediameister\Packshot\PackshotInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PackshotTaskEngine
+class Task
 {
     protected $dispatcher = null;
     protected $eventNames = null;

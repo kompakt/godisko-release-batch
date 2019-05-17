@@ -11,25 +11,25 @@ namespace Kompakt\GodiskoReleaseBatch\Task\BatchInspector\Console;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\Inspector as PackshotInspector;
 use Kompakt\GodiskoReleaseBatch\Packshot\Task\Console\Subscriber\SummaryPrinter as PackshotSummaryPrinter;
-use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\PackshotTaskEngineStarter;
+use Kompakt\GodiskoReleaseBatch\Packshot\Task\Subscriber\Starter as PackshotTaskStarter;
 use Kompakt\Mediameister\Batch\Task\Console\Subscriber\SummaryPrinter as BatchSummaryPrinter;
 
 class SubscriberManager
 {
     protected $batchSummaryPrinter = null;
-    protected $packshotTaskEngineStarter = null;
+    protected $packshotTaskStarter = null;
     protected $packshotInspector = null;
     protected $packshotSummaryPrinter = null;
 
     public function __construct(
         BatchSummaryPrinter $batchSummaryPrinter,
-        PackshotTaskEngineStarter $packshotTaskEngineStarter,
+        PackshotTaskStarter $packshotTaskStarter,
         PackshotInspector $packshotInspector,
         PackshotSummaryPrinter $packshotSummaryPrinter
     )
     {
         $this->batchSummaryPrinter = $batchSummaryPrinter;
-        $this->packshotTaskEngineStarter = $packshotTaskEngineStarter;
+        $this->packshotTaskStarter = $packshotTaskStarter;
         $this->packshotInspector = $packshotInspector;
         $this->packshotSummaryPrinter = $packshotSummaryPrinter;
     }
@@ -38,7 +38,7 @@ class SubscriberManager
     {
         $this->batchSummaryPrinter->activate();
         $this->packshotInspector->activate();
-        $this->packshotTaskEngineStarter->activate();
+        $this->packshotTaskStarter->activate();
         $this->packshotSummaryPrinter->activate();
     }
 
@@ -46,7 +46,7 @@ class SubscriberManager
     {
         $this->batchSummaryPrinter->deactivate();
         $this->packshotInspector->deactivate();
-        $this->packshotTaskEngineStarter->deactivate();
+        $this->packshotTaskStarter->deactivate();
         $this->packshotSummaryPrinter->deactivate();
     }
 }
