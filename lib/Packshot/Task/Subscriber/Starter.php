@@ -19,18 +19,17 @@ class Starter
 {
     protected $dispatcher = null;
     protected $eventNames = null;
-    protected $packshotTaskFactory = null;
-    protected $packshotTask = null;
+    protected $taskFactory = null;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
         EventNamesInterface $eventNames,
-        PackshotTaskFactory $packshotTaskFactory
+        PackshotTaskFactory $taskFactory
     )
     {
         $this->dispatcher = $dispatcher;
         $this->eventNames = $eventNames;
-        $this->packshotTaskFactory = $packshotTaskFactory;
+        $this->taskFactory = $taskFactory;
     }
 
     public function activate()
@@ -65,17 +64,19 @@ class Starter
 
     public function onPackshotLoad(PackshotEvent $event)
     {
-        $this->packshotTask = $this->packshotTaskFactory->getInstance($event->getPackshot());
-        $this->packshotTask->startArtwork();
+        $task = $this->taskFactory->getInstance($event->getPackshot());
+        $task->handleFrontArtwork();
     }
 
     public function onPackshotUnload(PackshotEvent $event)
     {
-        $this->packshotTask->startMetadata();
+        $task = $this->taskFactory->getInstance($event->getPackshot());
+        $task->handleMetadata();
     }
 
     public function onTrack(TrackEvent $event)
     {
-        $this->packshotTask->startAudio($event->getTrack());
+        $task = $this->taskFactory->getInstance($event->getPackshot());
+        $task->handleAudio($event->getTrack());
     }
 }

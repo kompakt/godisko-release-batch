@@ -38,22 +38,7 @@ class Task
         $this->packshot = $packshot;
     }
 
-    public function startArtwork()
-    {
-        $this->handleFrontArtwork();
-    }
-
-    public function startAudio(TrackInterface $track)
-    {
-        $this->handleAudio($track);
-    }
-
-    public function startMetadata()
-    {
-        $this->handleMetadata();
-    }
-
-    protected function handleFrontArtwork()
+    public function handleFrontArtwork()
     {
         $pathname = $this->packshot->getArtworkLocator()->getFrontArtworkFile();
 
@@ -76,7 +61,7 @@ class Task
         }
     }
 
-    protected function handleAudio(TrackInterface $track)
+    public function handleAudio(TrackInterface $track)
     {
         $pathname = $this->packshot->getAudioLocator()->getAudioFile($track->getIsrc());
 
@@ -99,7 +84,7 @@ class Task
         }
     }
 
-    protected function handleMetadata()
+    public function handleMetadata()
     {
         $pathname = $this->packshot->getMetadataLoader()->getFile();
 
