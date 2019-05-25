@@ -48,7 +48,7 @@ class Starter
 
         $this->dispatcher->$method(
             $this->eventNames->packshotLoadOk(),
-            [$this, 'onPackshotLoad']
+            [$this, 'onPackshotLoadOk']
         );
 
         $this->dispatcher->$method(
@@ -62,7 +62,7 @@ class Starter
         );
     }
 
-    public function onPackshotLoad(PackshotEvent $event)
+    public function onPackshotLoadOk(PackshotEvent $event)
     {
         $task = $this->taskFactory->getInstance($event->getPackshot());
         $task->handleFrontArtwork();

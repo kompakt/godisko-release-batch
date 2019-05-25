@@ -60,7 +60,7 @@ class Inspector
         // batch events
         $this->dispatcher->$method(
             $this->batchEventNames->packshotLoadOk(),
-            [$this, 'onPackshotLoad']
+            [$this, 'onPackshotLoadOk']
         );
 
         $this->dispatcher->$method(
@@ -100,7 +100,7 @@ class Inspector
         );
     }
 
-    public function onPackshotLoad(PackshotEvent $event)
+    public function onPackshotLoadOk(PackshotEvent $event)
     {
         $this->output->writeln(
             sprintf(
