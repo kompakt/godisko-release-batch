@@ -59,7 +59,7 @@ class Inspector
 
         // batch events
         $this->dispatcher->$method(
-            $this->batchEventNames->packshotLoad(),
+            $this->batchEventNames->packshotLoadOk(),
             [$this, 'onPackshotLoad']
         );
 
