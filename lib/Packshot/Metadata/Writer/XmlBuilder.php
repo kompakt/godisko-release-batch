@@ -19,6 +19,7 @@ class XmlBuilder
         $root = $dom->createElement('release');
         $root->appendChild($dom->createElement('data_version', 2));
         $root->appendChild($dom->createElement('labelname', htmlspecialchars($release->getLabel())));
+        $root->appendChild($dom->createElement('release_artist', htmlspecialchars($release->getArtist())));
         $root->appendChild($dom->createElement('release_name', htmlspecialchars($release->getName())));
         $root->appendChild($dom->createElement('release_ean', htmlspecialchars($release->getEan())));
         $root->appendChild($dom->createElement('release_catno', htmlspecialchars($release->getCatalogNumber())));

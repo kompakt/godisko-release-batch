@@ -113,6 +113,13 @@ class XmlParser
             // Ignore for BC with old XML
         }
 
+        try {
+            $release->setArtist($fixField($this->getDomVal($dom, 'release_artist')));
+        }
+        catch (\Exception $e) {
+            // Ignore for BC with old XML
+        }
+
         $release->setLabel($fixField($this->getDomVal($dom, 'labelname')));
         $release->setName($fixField($this->getDomVal($dom, 'release_name')));
         $release->setEan($fixField($this->getDomVal($dom, 'release_ean')));
