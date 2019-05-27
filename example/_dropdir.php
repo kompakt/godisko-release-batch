@@ -17,6 +17,7 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactor
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\XmlBuilder;
+use Kompakt\GodiskoReleaseBatch\Packshot\Zip\Locator\Factory\ZipLocatorFactory;
 use Kompakt\Mediameister\Batch\Factory\BatchFactory;
 use Kompakt\Mediameister\DropDir\DropDir;
 use Kompakt\Mediameister\Packshot\Factory\PackshotFactory;
@@ -31,7 +32,8 @@ $packshotFactory = new PackshotFactory(
     new XmlWriterFactory(new XmlBuilder()),
     new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
     new ArtworkLocatorFactory(),
-    new AudioLocatorFactory()
+    new AudioLocatorFactory(),
+    new ZipLocatorFactory()
 );
 
 $directoryFactory = new DirectoryFactory();
