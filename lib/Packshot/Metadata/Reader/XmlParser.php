@@ -27,6 +27,12 @@ class XmlParser
 
     public function parse($xml)
     {
+        if (preg_match('/\<data_version\>2\<\/data_version\>/', $xml))
+        {
+            // Xml already merged, open directly, no fixing required
+            return $this->doParse($xml);
+        }
+
         return $this->doParse($this->fixRawXml($xml));
     }
 
