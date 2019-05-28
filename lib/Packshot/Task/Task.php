@@ -84,6 +84,29 @@ class Task
         }
     }
 
+    public function handlePreMetadata()
+    {
+        $pathname = $this->packshot->getMetadataLoader()->getFile();
+
+        try {
+            $this->dispatcher->dispatch(
+                $this->eventNames->preMetadata(),
+                new MetadataEvent($this->packshot, $pathname)
+            );
+
+            return true;
+        }
+        catch (\Exception $e)
+        {
+            $this->dispatcher->dispatch(
+                $this->eventNames->preMetadataError(),
+                new MetadataErrorEvent($e, $this->packshot, $pathname)
+            );
+
+            return false;
+        }
+    }
+
     public function handleMetadata()
     {
         $pathname = $this->packshot->getMetadataLoader()->getFile();

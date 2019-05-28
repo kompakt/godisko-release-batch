@@ -61,6 +61,11 @@ class ErrorLogger
             $this->eventNames->metadataError(),
             [$this, 'onMetadataError']
         );
+
+        $this->dispatcher->$method(
+            $this->eventNames->preMetadataError(),
+            [$this, 'onPreMetadataError']
+        );
     }
 
     public function onFrontArtworkError(ArtworkErrorEvent $event)
@@ -81,6 +86,17 @@ class ErrorLogger
                 '%s/%s: "%s"',
                 $event->getPackshot()->getName(),
                 $event->getTrack()->getIsrc(),
+                $event->getException()->getMessage()
+            )
+        );
+    }
+
+    public function onPreMetadataError(MetadataErrorEvent $event)
+    {
+        $this->logger->error(
+            sprintf(
+                '%s: "%s"',
+                $event->getPackshot()->getName(),
                 $event->getException()->getMessage()
             )
         );

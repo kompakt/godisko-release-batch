@@ -71,6 +71,7 @@ class Starter
     public function onPackshotUnload(PackshotEvent $event)
     {
         $task = $this->taskFactory->getInstance($event->getPackshot());
+        $task->handlePreMetadata();
         $task->handleMetadata();
     }
 

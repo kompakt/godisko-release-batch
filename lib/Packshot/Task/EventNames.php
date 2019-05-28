@@ -45,6 +45,16 @@ class EventNames implements EventNamesInterface
         return sprintf('%s.metadata', $this->namespace);
     }
 
+    public function preMetadataError()
+    {
+        return sprintf('%s.pre_metadata_error', $this->namespace);
+    }
+
+    public function preMetadata()
+    {
+        return sprintf('%s.pre_metadata', $this->namespace);
+    }
+
     public function metadataError()
     {
         return sprintf('%s.metadata_error', $this->namespace);

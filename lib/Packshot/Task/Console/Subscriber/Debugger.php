@@ -71,6 +71,16 @@ class Debugger
         );
 
         $this->dispatcher->$method(
+            $this->eventNames->preMetadata(),
+            [$this, 'onPreMetadata']
+        );
+
+        $this->dispatcher->$method(
+            $this->eventNames->preMetadataError(),
+            [$this, 'onPreMetadataError']
+        );
+
+        $this->dispatcher->$method(
             $this->eventNames->metadata(),
             [$this, 'onMetadata']
         );
@@ -114,6 +124,25 @@ class Debugger
         $this->output->writeln(
             sprintf(
                 '        <error>> DEBUG: Audio: %s</error>',
+                $event->getException()->getMessage()
+            )
+        );
+    }
+
+    public function onPreMetadata(MetadataEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '      <info>> DEBUG: PreMetadata</info>'
+            )
+        );
+    }
+
+    public function onPreMetadataError(MetadataErrorEvent $event)
+    {
+        $this->output->writeln(
+            sprintf(
+                '      <error>> DEBUG: PreMetadata: %s</error>',
                 $event->getException()->getMessage()
             )
         );

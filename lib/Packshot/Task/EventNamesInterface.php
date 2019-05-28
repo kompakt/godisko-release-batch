@@ -15,6 +15,8 @@ interface EventNamesInterface
     public function frontArtworkError();
     public function audio();
     public function audioError();
+    public function preMetadata();
+    public function preMetadataError();
     public function metadata();
     public function metadataError();
 }
