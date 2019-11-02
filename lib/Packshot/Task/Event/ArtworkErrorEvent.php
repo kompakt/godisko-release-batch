@@ -10,7 +10,7 @@
 namespace Kompakt\GodiskoReleaseBatch\Packshot\Task\Event;
 
 use Kompakt\Mediameister\Packshot\PackshotInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ArtworkErrorEvent extends Event
 {

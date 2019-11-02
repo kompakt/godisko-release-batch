@@ -44,8 +44,8 @@ class Task
 
         try {
             $this->dispatcher->dispatch(
-                $this->eventNames->frontArtwork(),
-                new ArtworkEvent($this->packshot, $pathname)
+                new ArtworkEvent($this->packshot, $pathname),
+                $this->eventNames->frontArtwork()
             );
 
             return true;
@@ -53,8 +53,8 @@ class Task
         catch (\Exception $e)
         {
             $this->dispatcher->dispatch(
-                $this->eventNames->frontArtworkError(),
-                new ArtworkErrorEvent($e, $this->packshot, $pathname)
+                new ArtworkErrorEvent($e, $this->packshot, $pathname),
+                $this->eventNames->frontArtworkError()
             );
 
             return false;
@@ -67,8 +67,8 @@ class Task
 
         try {
             $this->dispatcher->dispatch(
-                $this->eventNames->audio(),
-                new AudioEvent($this->packshot, $track, $pathname)
+                new AudioEvent($this->packshot, $track, $pathname),
+                $this->eventNames->audio()
             );
 
             return true;
@@ -76,8 +76,8 @@ class Task
         catch (\Exception $e)
         {
             $this->dispatcher->dispatch(
-                $this->eventNames->audioError(),
-                new AudioErrorEvent($e, $this->packshot, $track, $pathname)
+                new AudioErrorEvent($e, $this->packshot, $track, $pathname),
+                $this->eventNames->audioError()
             );
 
             return false;
@@ -90,8 +90,8 @@ class Task
 
         try {
             $this->dispatcher->dispatch(
-                $this->eventNames->preMetadata(),
-                new MetadataEvent($this->packshot, $pathname)
+                new MetadataEvent($this->packshot, $pathname),
+                $this->eventNames->preMetadata()
             );
 
             return true;
@@ -99,8 +99,8 @@ class Task
         catch (\Exception $e)
         {
             $this->dispatcher->dispatch(
-                $this->eventNames->preMetadataError(),
-                new MetadataErrorEvent($e, $this->packshot, $pathname)
+                new MetadataErrorEvent($e, $this->packshot, $pathname),
+                $this->eventNames->preMetadataError()
             );
 
             return false;
@@ -113,8 +113,8 @@ class Task
 
         try {
             $this->dispatcher->dispatch(
-                $this->eventNames->metadata(),
-                new MetadataEvent($this->packshot, $pathname)
+                new MetadataEvent($this->packshot, $pathname),
+                $this->eventNames->metadata()
             );
 
             return true;
@@ -122,8 +122,8 @@ class Task
         catch (\Exception $e)
         {
             $this->dispatcher->dispatch(
-                $this->eventNames->metadataError(),
-                new MetadataErrorEvent($e, $this->packshot, $pathname)
+                new MetadataErrorEvent($e, $this->packshot, $pathname),
+                $this->eventNames->metadataError()
             );
 
             return false;
