@@ -10,12 +10,15 @@
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Locator\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator\Factory\AudioLocatorFactory;
+use PHPUnit\Framework\TestCase;
 
-class AudioLocatorFactoryTest extends \PHPUnit_Framework_TestCase
+class AudioLocatorFactoryTest extends TestCase
 {
     public function testAll()
     {
         $factory = new AudioLocatorFactory($this->getLayout(), $this->getRelease());
+
+        $this->assertTrue(true);
     }
 
     protected function getLayout()

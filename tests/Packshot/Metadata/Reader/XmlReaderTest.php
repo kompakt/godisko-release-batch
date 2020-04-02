@@ -9,9 +9,11 @@
 
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Metadata\Reader;
 
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
+use PHPUnit\Framework\TestCase;
 
-class XmlReaderTest extends \PHPUnit_Framework_TestCase
+class XmlReaderTest extends TestCase
 {
     public function testValidFile()
     {
@@ -21,11 +23,10 @@ class XmlReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Kompakt\GodiskoReleaseBatch\Entity\Release', $release);
     }
 
-    /**
-     * @expectedException Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException
-     */
     public function testFileNotFound()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $file = 'asdfasdfasdfasdf.xml';
         $reader = $this->getXmlReaderFactory()->getInstance($file);
         $reader->read();

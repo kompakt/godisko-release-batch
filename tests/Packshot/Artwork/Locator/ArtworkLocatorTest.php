@@ -10,8 +10,9 @@
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Locator;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\ArtworkLocator;
+use PHPUnit\Framework\TestCase;
 
-class ArtworkLocatorTest extends \PHPUnit_Framework_TestCase
+class ArtworkLocatorTest extends TestCase
 {
     public function testGetFrontArtworkFile()
     {

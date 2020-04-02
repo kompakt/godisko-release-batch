@@ -10,12 +10,15 @@
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Artwork\Locator\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactory;
+use PHPUnit\Framework\TestCase;
 
-class ArtworkLocatorFactoryTest extends \PHPUnit_Framework_TestCase
+class ArtworkLocatorFactoryTest extends TestCase
 {
     public function testAll()
     {
         $factory = new ArtworkLocatorFactory($this->getLayout(), $this->getRelease());
+
+        $this->assertTrue(true);
     }
 
     protected function getLayout()

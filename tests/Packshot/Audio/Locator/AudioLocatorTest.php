@@ -10,8 +10,9 @@
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Audio\Locator;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator\AudioLocator;
+use PHPUnit\Framework\TestCase;
 
-class AudioLocatorTest extends \PHPUnit_Framework_TestCase
+class AudioLocatorTest extends TestCase
 {
     public function testGetAudioFile()
     {

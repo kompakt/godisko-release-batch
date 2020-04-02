@@ -10,8 +10,9 @@
 namespace Kompakt\GodiskoReleaseBatch\Tests\Packshot\Layout;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends \PHPUnit_Framework_TestCase
+class LayoutTest extends TestCase
 {
     public function testGetters()
     {
