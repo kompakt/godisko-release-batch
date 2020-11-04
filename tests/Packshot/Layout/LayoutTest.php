@@ -17,7 +17,7 @@ class LayoutTest extends TestCase
     public function testGetters()
     {
         $layout = new Layout(__DIR__);
-        $this->assertRegExp('/meta.xml/', $layout->getMetadataFile());
-        $this->assertRegExp('/cover.jpg/', $layout->getFrontArtworkFile());
+        $this->assertMatchesRegularExpression('/meta.xml/', $layout->getMetadataFile());
+        $this->assertMatchesRegularExpression('/cover.jpg/', $layout->getFrontArtworkFile());
     }
 }
