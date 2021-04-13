@@ -11,20 +11,20 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\InvalidArgumentException;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\XmlParser;
 use Kompakt\Mediameister\Packshot\Metadata\Loader\MetadataLoaderInterface;
 
-class MetadataLoader implements MetadataLoaderInterface
+class XmlLoader implements MetadataLoaderInterface
 {
-    protected $metadataReaderFactory = null;
+    protected $xmlParser = null;
     protected $layout = null;
 
     public function __construct(
-        XmlReaderFactory $metadataReaderFactory,
+        XmlParser $xmlParser,
         Layout $layout
     )
     {
-        $this->metadataReaderFactory = $metadataReaderFactory;
+        $this->xmlParser = $xmlParser;
         $this->layout = $layout;
     }
 
@@ -58,11 +58,22 @@ class MetadataLoader implements MetadataLoaderInterface
     {
         $pathname = $this->getFile();
 
-        if ($pathname)
+        $info = new \SplFileInfo($pathname);
+
+        if (!$info->isFile())
         {
-            return $this->metadataReaderFactory->getInstance($pathname)->read();
+            throw new InvalidArgumentException(sprintf('Godisko metadata Xml file not found'));
         }
 
-        throw new InvalidArgumentException('Metadata file not found');
+        if (!$info->isReadable())
+        {
+            throw new InvalidArgumentException(sprintf('Godisko metadata Xml file not readable'));
+        }
+
+        $handle = fopen($pathname, 'r');
+        $xml = fread($handle, filesize($pathname));
+        fclose($handle);
+
+        return $this->xmlParser->parse($xml);
     }
 }

@@ -12,9 +12,8 @@ use Kompakt\GodiskoReleaseBatch\Entity\Track;
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator\Factory\AudioLocatorFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Factory\LayoutFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\MetadataLoaderFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Factory\XmlReaderFactory;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\XmlParser;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Factory\XmlLoaderFactory;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\XmlParser;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\Factory\XmlWriterFactory;
 use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\XmlBuilder;
 use Kompakt\GodiskoReleaseBatch\Packshot\Zip\Locator\Factory\ZipLocatorFactory;
@@ -30,7 +29,7 @@ $dropDirPathname = sprintf('%s/_files/drop-dir', __DIR__);
 $packshotFactory = new PackshotFactory(
     new LayoutFactory(),
     new XmlWriterFactory(new XmlBuilder()),
-    new MetadataLoaderFactory(new XmlReaderFactory(new XmlParser(new Release(), new Track()))),
+    new XmlLoaderFactory(new XmlParser(new Release(), new Track())),
     new ArtworkLocatorFactory(),
     new AudioLocatorFactory(),
     new ZipLocatorFactory()

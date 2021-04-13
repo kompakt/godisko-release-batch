@@ -7,12 +7,12 @@
  *
  */
 
-namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader;
+namespace Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader;
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Entity\Track;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\DomainException;
-use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Reader\Exception\InvalidArgumentException;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\DomainException;
+use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Loader\Exception\InvalidArgumentException;
 
 class XmlParser
 {
