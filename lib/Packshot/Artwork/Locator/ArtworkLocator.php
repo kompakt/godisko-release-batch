@@ -11,9 +11,9 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator;
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
-use Kompakt\Mediameister\Packshot\Artwork\Locator\ArtworkLocatorInterface;
+#use Kompakt\Mediameister\Packshot\Artwork\Locator\ArtworkLocatorInterface;
 
-class ArtworkLocator implements ArtworkLocatorInterface
+class ArtworkLocator# implements ArtworkLocatorInterface
 {
     protected $layout = null;
 

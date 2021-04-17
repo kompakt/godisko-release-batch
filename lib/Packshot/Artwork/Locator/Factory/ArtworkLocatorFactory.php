@@ -11,10 +11,10 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\Factory;
 
 use Kompakt\GodiskoReleaseBatch\Packshot\Artwork\Locator\ArtworkLocator;
 use Kompakt\Mediameister\Entity\ReleaseInterface;
-use Kompakt\Mediameister\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactoryInterface;
+#use Kompakt\Mediameister\Packshot\Artwork\Locator\Factory\ArtworkLocatorFactoryInterface;
 use Kompakt\Mediameister\Packshot\Layout\LayoutInterface;
 
-class ArtworkLocatorFactory implements ArtworkLocatorFactoryInterface
+class ArtworkLocatorFactory# implements ArtworkLocatorFactoryInterface
 {
     public function getInstance(LayoutInterface $layout, ReleaseInterface $release)
     {
