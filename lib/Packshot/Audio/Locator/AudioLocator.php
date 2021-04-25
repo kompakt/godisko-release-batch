@@ -11,9 +11,8 @@ namespace Kompakt\GodiskoReleaseBatch\Packshot\Audio\Locator;
 
 use Kompakt\GodiskoReleaseBatch\Entity\Release;
 use Kompakt\GodiskoReleaseBatch\Packshot\Layout\Layout;
-#use Kompakt\Mediameister\Packshot\Audio\Locator\AudioLocatorInterface;
 
-class AudioLocator# implements AudioLocatorInterface
+class AudioLocator
 {
     protected $layout = null;
     protected $release = null;
