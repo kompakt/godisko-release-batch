@@ -17,6 +17,8 @@ use Kompakt\GodiskoReleaseBatch\Packshot\Metadata\Writer\XmlWriter;
 
 class XmlWriterFactory implements WriterFactoryInterface
 {
+    protected $xmlBuilder = null;
+
     public function __construct(XmlBuilder $xmlBuilder)
     {
         $this->xmlBuilder = $xmlBuilder;
